@@ -1,0 +1,83 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form {
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+  padding: 30px;
+  width: 300px;
+  justify-content: center;
+}
+
+.form-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+
+.secondary-label {
+  margin-top: 25px;
+}
+
+.form-control {
+  width: 80%;
+  height: 25px;
+  padding-left: 7px;
+  border-color: 1px solid #cbcbcb;
+  display: block;
+}
+
+.password-control {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control:focus {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.passwords-match,
+.name-invalid,
+.email-invalid,
+.password-invalid {
+  color: #b60000;
+}
+
+.create-button {
+  margin-top: 15px;
+  width: 80%;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #68a2dc 0%, #62aaf3 50%, #5a9cde 99%);
+}
+
+.create-button:hover {
+  background: #62aaf3;
+  cursor: pointer;
+}
+
+.account-question {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.sign-in {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #0e7ded;
+}
+
+.sign-in:hover {
+  color: #ed620e;
+}
