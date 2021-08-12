@@ -2,6 +2,7 @@ const initialState = {
   loading: false,
   error: null,
   data: {},
+  emailTaken: false,
 };
 
 const registerReducer = (state = initialState, action) => {
@@ -31,6 +32,7 @@ const registerReducer = (state = initialState, action) => {
         data: {
           Registered: false,
         },
+        emailTaken: action.payload,
       };
     default:
       return state;

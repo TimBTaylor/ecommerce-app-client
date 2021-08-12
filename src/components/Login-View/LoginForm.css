@@ -1,8 +1,3 @@
-.logo {
-  display: flex;
-  justify-content: center;
-}
-
 .timazon {
   color: #4da58b;
   position: absolute;
@@ -46,10 +41,6 @@
   padding-bottom: 5px;
 }
 
-.secondary-label {
-  margin-top: 25px;
-}
-
 .form-control {
   width: 95%;
   height: 25px;
@@ -58,29 +49,11 @@
   display: block;
 }
 
-.password-control {
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.text-muted {
-  color: #000 !important;
-}
-
 .form-control:focus {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.passwords-match,
-.name-invalid,
-.email-invalid,
-.email-taken,
-.password-invalid {
-  color: #b60000;
-}
-
-.create-button {
+.sign-in-button {
   margin-top: 15px;
   width: 99%;
   border: 1px solid black;
@@ -89,7 +62,7 @@
   background: linear-gradient(to right, #68a2dc 0%, #62aaf3 50%, #5a9cde 99%);
 }
 
-.create-button:hover {
+.sign-in-button:hover {
   background: #62aaf3;
   cursor: pointer;
 }
@@ -101,13 +74,13 @@
   margin-bottom: 5px;
 }
 
-.sign-in {
+.register {
   margin: 0;
   font-size: 0.8rem;
   font-weight: 400;
   color: #0e7ded;
 }
 
-.sign-in:hover {
+.register:hover {
   color: #ed620e;
 }

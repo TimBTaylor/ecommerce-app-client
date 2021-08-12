@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { register } from "../../actions/register";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import shoppingcart from "./shopping-cart.svg";
 
 import "./RegisterForm.css";
 
@@ -17,7 +18,13 @@ export const RegisterForm = () => {
   const [match, setMatch] = useState(true);
   const dispatch = useDispatch();
 
+  const emailTaken = useSelector((state) => state.registerReducer.emailTaken);
+
   const registerUser = () => {
+    setNameValid(true);
+    setEmailValid(true);
+    setPasswordValid(true);
+    setMatch(true);
     const userInfo = {
       name,
       email,
@@ -51,8 +58,12 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <Container>
+    <div>
+      <div className="logo">
+        <h1 className="timazon">Timazon</h1>
+        <img className="cart" src={shoppingcart} alt="shopping cart" />
+      </div>
+      <div className="form-container">
         <Form className="form">
           <Form.Group className="form-group">
             <Form.Label className="form-label">Your Name</Form.Label>
@@ -76,6 +87,13 @@ export const RegisterForm = () => {
               className="form-control"
               onChange={(e) => setEmail(e.target.value)}
             />
+            {emailTaken ? (
+              <Form.Text className="text-muted email-taken">
+                ! Email is already in use
+              </Form.Text>
+            ) : (
+              ""
+            )}
             {emailValid ? (
               ""
             ) : (
@@ -94,7 +112,7 @@ export const RegisterForm = () => {
               type="password"
             />
             {passwordValid ? (
-              <Form.Text className="text-muted">
+              <Form.Text className="text-muted password-text">
                 Passwords must be at least 6 characters.
               </Form.Text>
             ) : (
@@ -121,19 +139,16 @@ export const RegisterForm = () => {
               </Form.Text>
             )}
           </Form.Group>
-          <Button
-            className="create-button"
-            variant="primary"
-            onClick={() => registerUser()}
-          >
+          <button className="create-button" onClick={() => registerUser()}>
             Create Account
-          </Button>
+          </button>
           <h6 className="account-question">Already have an account?</h6>
           <Link to={"/login"}>
             <h6 className="sign-in">Sign in here</h6>
           </Link>
+          {/* continue as guest */}
         </Form>
-      </Container>
+      </div>
     </div>
   );
 };

@@ -16,14 +16,21 @@ export const register = (userInfo) => async (dispatch) => {
         password: userInfo.password,
       },
     }).then((response) => {
-      console.log(response);
+      if (response.data === "Email already in use") {
+        dispatch({
+          type: "REGISTER_FAILURE",
+          payload: true,
+        });
+      } else {
+        console.log("going wrong herer");
+        dispatch({
+          type: "REGISTER_SUCCESS",
+        });
+        window.open("/login", "_self");
+      }
     });
-
-    dispatch({
-      type: "REGISTER_SUCCESS",
-    });
-    window.open("/login", "_self");
   } catch (error) {
+    console.log(error + "here");
     dispatch({
       type: "REGISTER_FAILURE",
       error,
