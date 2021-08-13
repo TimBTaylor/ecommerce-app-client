@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { register } from "../../actions/register";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -65,8 +65,8 @@ export const RegisterForm = () => {
       </div>
       <div className="form-container">
         <Form className="form">
-          <Form.Group className="form-group">
-            <Form.Label className="form-label">Your Name</Form.Label>
+          <Form.Group>
+            <Form.Label>Your Name</Form.Label>
             <Form.Control
               className="form-control"
               onChange={(e) => setName(e.target.value)}
@@ -80,22 +80,21 @@ export const RegisterForm = () => {
             )}
           </Form.Group>
 
-          <Form.Group className="form-group">
-            <Form.Label className="form-label">Email</Form.Label>
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               className="form-control"
               onChange={(e) => setEmail(e.target.value)}
             />
-            {emailTaken ? (
-              <Form.Text className="text-muted email-taken">
-                ! Email is already in use
-              </Form.Text>
-            ) : (
-              ""
-            )}
             {emailValid ? (
-              ""
+              emailTaken ? (
+                <Form.Text className="text-muted email-taken">
+                  ! Email is already in use
+                </Form.Text>
+              ) : (
+                ""
+              )
             ) : (
               <Form.Text className="text-muted email-invalid">
                 ! Must enter a valid email
@@ -103,8 +102,8 @@ export const RegisterForm = () => {
             )}
           </Form.Group>
 
-          <Form.Group className="form-group">
-            <Form.Label className="form-label">Password</Form.Label>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               placeholder="At least 6 characters"
               className="password-control"
@@ -139,7 +138,11 @@ export const RegisterForm = () => {
               </Form.Text>
             )}
           </Form.Group>
-          <button className="create-button" onClick={() => registerUser()}>
+          <button
+            type="button"
+            className="create-button"
+            onClick={() => registerUser()}
+          >
             Create Account
           </button>
           <h6 className="account-question">Already have an account?</h6>

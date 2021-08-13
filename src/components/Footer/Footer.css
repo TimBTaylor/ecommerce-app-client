@@ -1,8 +1,47 @@
 .footer-container {
+  margin-top: 20px;
   color: black;
-  background-color: #62aaf3;
-  padding-top: 3em;
+  background-color: #4ca58a;
+  padding-top: 0.5em;
   position: relative;
   bottom: 0;
   width: 100%;
+}
+
+.media-container {
+  text-align: center;
+}
+
+.media {
+  display: inline-block;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+}
+
+.github,
+.linkedIn,
+.portfolio {
+  height: 40px;
+  width: 40px;
+}
+
+.portfolio {
+  padding-top: 5px;
+}
+
+.social-media {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  margin-top: 10px;
+}
+
+.social-media:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.legal {
+  text-align: center;
 }

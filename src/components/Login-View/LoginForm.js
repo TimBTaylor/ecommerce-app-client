@@ -32,12 +32,9 @@ export const LoginForm = () => {
       </div>
       <div className="form-container">
         <Form className="form">
-          <Form.Group className="form-group">
-            <Form.Label className="form-labl">Email</Form.Label>
-            <Form.Control
-              className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
-            />
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control onChange={(e) => setEmail(e.target.value)} />
             {emailValid ? (
               ""
             ) : (
@@ -45,10 +42,9 @@ export const LoginForm = () => {
             )}
           </Form.Group>
 
-          <Form.Group className="form-group">
-            <Form.Label className="form-labl">Password</Form.Label>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
             <Form.Control
-              className="form-control"
               onChange={(e) => setPassword(e.target.value)}
               type="password"
             />

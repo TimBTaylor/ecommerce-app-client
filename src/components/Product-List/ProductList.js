@@ -17,6 +17,7 @@ export const ProductList = () => {
         "http://ecommersappbytim.herokuapp.com/product/all-products"
       );
       setProducts(productList.data);
+      console.log(productList.data);
     } catch (error) {
       console.log(error);
     }

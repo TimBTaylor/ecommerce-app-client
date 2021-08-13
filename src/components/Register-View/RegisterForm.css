@@ -41,7 +41,6 @@
 
 .form-label {
   display: block;
-  font-size: 1rem;
   font-weight: 500;
   padding-bottom: 5px;
 }
@@ -56,6 +55,7 @@
   padding-left: 7px;
   border-color: 1px solid #cbcbcb;
   display: block;
+  font-size: 0.9rem;
 }
 
 .password-control {
@@ -77,7 +77,7 @@
 .email-invalid,
 .email-taken,
 .password-invalid {
-  color: #b60000;
+  color: #b60000 !important;
 }
 
 .create-button {

@@ -16,7 +16,6 @@ export const login = (userInfo) => async (dispatch) => {
         password: userInfo.password,
       },
     }).then((response) => {
-      console.log(response.data);
       if (response.data.message === "Login failed at email") {
         return dispatch({
           type: "LOGIN_EMAIL_FAILED",

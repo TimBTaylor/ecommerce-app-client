@@ -5,48 +5,8 @@
   padding-left: 18px;
   font-size: 1.6rem;
 }
-
-/* .timazon {
-  color: #4da58b;
-  position: absolute;
-  margin-top: 10px;
-  padding-left: 18px;
-  font-size: 1.8rem;
-} */
-
 .cart {
   position: relative;
-}
-
-.form-container {
-  display: flex;
-  justify-content: center;
-}
-
-.form-group {
-  margin-bottom: 25px;
-}
-
-.form {
-  border: 1px solid #d2d2d2;
-  border-radius: 5px;
-  padding: 30px;
-  width: 300px;
-}
-
-.form-label {
-  display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  padding-bottom: 5px;
-}
-
-.form-control {
-  width: 95%;
-  height: 25px;
-  padding-left: 7px;
-  border-color: 1px solid #cbcbcb;
-  display: block;
 }
 
 .form-control:focus {
