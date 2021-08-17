@@ -11,7 +11,8 @@ export const register = (userInfo) => async (dispatch) => {
       url: "https://ecommersappbytim.herokuapp.com/auth/register",
       header: { "Content-Type": "application/json" },
       data: {
-        name: userInfo.name,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
         email: userInfo.email,
         password: userInfo.password,
       },
@@ -22,15 +23,13 @@ export const register = (userInfo) => async (dispatch) => {
           payload: true,
         });
       } else {
-        console.log("going wrong herer");
         dispatch({
           type: "REGISTER_SUCCESS",
         });
-        window.open("/login", "_self");
       }
     });
   } catch (error) {
-    console.log(error + "here");
+    console.log(error);
     dispatch({
       type: "REGISTER_FAILURE",
       error,

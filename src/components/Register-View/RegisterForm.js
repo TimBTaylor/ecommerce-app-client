@@ -4,12 +4,15 @@ import { register } from "../../actions/register";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import shoppingcart from "./shopping-cart.svg";
+import { withRouter } from "react-router-dom";
 
 import "./RegisterForm.css";
 
-export const RegisterForm = () => {
-  const [name, setName] = useState("");
-  const [nameValid, setNameValid] = useState(true);
+const RegisterForm = (props) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstNameValid, setFirstNameValid] = useState(true);
+  const [lastNameValid, setLastNameValid] = useState(true);
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [firstPassword, setFirstPassword] = useState("");
@@ -21,39 +24,51 @@ export const RegisterForm = () => {
   const emailTaken = useSelector((state) => state.registerReducer.emailTaken);
 
   const registerUser = () => {
-    setNameValid(true);
+    setFirstNameValid(true);
+    setLastNameValid(true);
     setEmailValid(true);
     setPasswordValid(true);
     setMatch(true);
     const userInfo = {
-      name,
+      firstName,
+      lastName,
       email,
       password,
     };
     const emailRegex = /\S+@\S+\.\S+/;
     const emailValidation = emailRegex.test(email);
-    if (name.length >= 2) {
-      if (emailValidation) {
-        if (firstPassword.length >= 6) {
-          if (firstPassword === password) {
-            dispatch(register(userInfo));
+    if (firstName.length >= 2) {
+      if (lastName.length >= 2) {
+        if (emailValidation) {
+          if (firstPassword.length >= 6) {
+            if (firstPassword === password) {
+              dispatch(register(userInfo)).then(() => {
+                props.history.push("/login");
+              });
+            } else {
+              setMatch(false);
+              setFirstNameValid(true);
+              setLastNameValid(true);
+              setEmailValid(true);
+              setPasswordValid(true);
+            }
           } else {
-            setMatch(false);
-            setNameValid(true);
+            setPasswordValid(false);
             setEmailValid(true);
-            setPasswordValid(true);
+            setFirstNameValid(true);
+            setLastNameValid(true);
           }
         } else {
-          setPasswordValid(false);
-          setEmailValid(true);
-          setNameValid(true);
+          setFirstNameValid(true);
+          setLastNameValid(true);
+          setEmailValid(false);
         }
       } else {
-        setNameValid(true);
-        setEmailValid(false);
+        setFirstNameValid(true);
+        setLastNameValid(false);
       }
     } else {
-      setNameValid(false);
+      setFirstNameValid(false);
     }
   };
 
@@ -66,16 +81,31 @@ export const RegisterForm = () => {
       <div className="form-container">
         <Form className="form">
           <Form.Group>
-            <Form.Label>Your Name</Form.Label>
+            <Form.Label>First Name</Form.Label>
             <Form.Control
               className="form-control"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
             />
-            {nameValid ? (
+            {firstNameValid ? (
               ""
             ) : (
               <Form.Text className="text-muted name-invalid">
                 ! Must enter your name
+              </Form.Text>
+            )}
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              className="form-control"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            {lastNameValid ? (
+              ""
+            ) : (
+              <Form.Text className="text-muted name-invalid">
+                ! Must enter your last name
               </Form.Text>
             )}
           </Form.Group>
@@ -155,3 +185,5 @@ export const RegisterForm = () => {
     </div>
   );
 };
+
+export default withRouter(RegisterForm);

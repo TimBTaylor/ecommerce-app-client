@@ -1,37 +1,34 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { Col } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { ProductCard } from "../Product-Card/ProductCard";
+import { useSelector, useDispatch } from "react-redux";
+import { product } from "../../actions/products";
+
+import "./ProductList.css";
 
 export const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+  const productsList = useSelector((state) => state.productReducer.data);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getProducts();
-    console.log(products);
+    dispatch(product());
   }, []);
 
-  async function getProducts() {
-    try {
-      const productList = await axios.get(
-        "http://ecommersappbytim.herokuapp.com/product/all-products"
-      );
-      setProducts(productList.data);
-      console.log(productList.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
-    <div>
-      {products.map((product) => {
-        return (
-          <Col md={3} key={product._id}>
-            <ProductCard product={product} />
-          </Col>
-        );
-      })}
+    <div className="product-list-container">
+      <Container>
+        <Row xs={2} md={3} lg={4}>
+          {productsList.map((product) => {
+            return (
+              <Col key={product._id}>
+                <ProductCard product={product} />
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
     </div>
   );
 };

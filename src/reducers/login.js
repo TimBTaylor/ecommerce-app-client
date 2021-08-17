@@ -2,6 +2,7 @@ const initialState = {
   data: {
     emailValid: true,
     passwordValid: true,
+    name: null,
   },
   loading: false,
   error: null,
@@ -22,9 +23,7 @@ const loginReducer = (state = initialState, action) => {
         data: {
           emailValid: true,
           passwordValid: true,
-          name: action.payload.name,
-          email: action.payload.email,
-          password: action.payload.password,
+          name: action.payload,
         },
       };
     case "LOGIN_EMAIL_FAILED":

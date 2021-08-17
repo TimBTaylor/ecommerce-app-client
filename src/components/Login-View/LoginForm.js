@@ -4,10 +4,11 @@ import { Form } from "react-bootstrap";
 import { login } from "../../actions";
 import { Link } from "react-router-dom";
 import shoppingcart from "../Register-View/shopping-cart.svg";
+import { withRouter } from "react-router-dom";
 
 import "./LoginForm.css";
 
-export const LoginForm = () => {
+const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const emailValid = useSelector((state) => state.loginReducer.data.emailValid);
@@ -21,7 +22,9 @@ export const LoginForm = () => {
       email,
       password,
     };
-    dispatch(login(userInfo));
+    dispatch(login(userInfo)).then(() => {
+      props.history.push("/home");
+    });
   };
 
   return (
@@ -68,3 +71,5 @@ export const LoginForm = () => {
     </div>
   );
 };
+
+export default withRouter(LoginForm);

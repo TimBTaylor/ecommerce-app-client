@@ -4,7 +4,6 @@ export const login = (userInfo) => async (dispatch) => {
   dispatch({
     type: "LOGIN_REQUEST",
   });
-  console.log(userInfo);
 
   try {
     await axios({
@@ -30,9 +29,14 @@ export const login = (userInfo) => async (dispatch) => {
       } else {
         dispatch({
           type: "LOGIN_SUCCESS",
+        });
+        dispatch({
+          type: "SET_USER_INFO",
           payload: response.data.user,
         });
-        window.open("/home", "_self");
+        localStorage.setItem("firstName", response.data.user.firstName);
+        localStorage.setItem("lastName", response.data.user.lastName);
+        localStorage.setItem("email", response.data.user.email);
       }
     });
   } catch (error) {

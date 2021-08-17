@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginForm } from "../components/Login-View/LoginForm";
+import LoginForm from "../components/Login-View/LoginForm";
 import { useSelector } from "react-redux";
 
 export const Login = () => {

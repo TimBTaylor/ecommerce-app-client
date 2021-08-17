@@ -1,5 +1,31 @@
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 400;
-  margin-left: 15px;
+}
+
+.deliver-to {
+  font-size: 1rem;
+}
+
+.nav-links-container {
+  margin-right: 20px;
+}
+
+.input-container {
+  border: 1px solid #cfd4d9;
+  border-radius: 5px;
+  width: 50vh;
+}
+
+.search-input {
+  height: 30px;
+  border: none;
+}
+
+.search-button {
+  height: 30px;
+  background: #4da58b;
+  border: none;
+  border-radius: 2px;
+  width: 35px;
 }

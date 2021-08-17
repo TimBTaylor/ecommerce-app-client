@@ -1,0 +1,25 @@
+.nav-bar {
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.menu-bars {
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.sidebar-nav-menu {
+  display: flex;
+  justify-content: start;
+  float: left;
+  display: none;
+  transition: 650ms;
+}
+
+.sidebar-nav-menu.active {
+  display: flex;
+  left: 0;
+}
