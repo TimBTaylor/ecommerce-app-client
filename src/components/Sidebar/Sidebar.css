@@ -11,8 +11,11 @@
   background: none;
 }
 
+.bars {
+  color: #4da58b;
+}
+
 .sidebar-nav-menu {
-  display: flex;
   justify-content: start;
   float: left;
   display: none;

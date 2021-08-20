@@ -1,4 +1,19 @@
 .product-img {
   height: 150px;
   width: 150px;
+  margin: 10px;
+}
+
+.product-card {
+  border: none;
+  height: 450px;
+}
+
+.card-title {
+  display: block;
+  color: black;
+}
+
+.card-title:hover {
+  color: #ed620e;
 }

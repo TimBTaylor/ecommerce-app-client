@@ -6,7 +6,7 @@ import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
 
 export const Navigation = () => {
-  // const name = useSelector((state) => state.userInfoReducer.state.firstName);
+  const name = localStorage.getItem("firstName");
   const productsList = useSelector((state) => state.productReducer.data);
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
@@ -16,19 +16,22 @@ export const Navigation = () => {
       return product.title.toLowerCase().includes(input.toLowerCase());
     });
     dispatch({
-      type: "PRODUCTS_SUCCESS",
+      type: "PRODUCTS_FILTERED",
       payload: filteredProductsList,
     });
   };
   return (
     <>
+      <div className="free-shipping-container fixed-top">
+        <p className="free-shipping">FREE SHIPPING FOR ALL U.S ORDERS</p>
+      </div>
       <nav className="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <a className="navbar-brand" href="#home">
           Timazon <img src={shoppingcart} alt="shopping cart" />{" "}
         </a>
         <a className="navbar-brand deliver-to" href="#home">
           <img alt="map-marker" src={pin} />
-          {/* Deliver to {name} */}
+          Deliver to {name}
         </a>
         <button
           className="navbar-toggler"

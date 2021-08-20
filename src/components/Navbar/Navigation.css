@@ -1,3 +1,13 @@
+.free-shipping-container {
+  background-color: #4da58b;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.navbar {
+  margin-top: 30px;
+}
+
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 400;
@@ -28,4 +38,16 @@
   border: none;
   border-radius: 2px;
   width: 35px;
+}
+
+@media screen and (max-width: 400px) {
+  .deliver-to {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .input-group {
+    width: 300px;
+  }
 }

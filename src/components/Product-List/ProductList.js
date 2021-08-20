@@ -8,7 +8,9 @@ import "./ProductList.css";
 
 export const ProductList = () => {
   // const [products, setProducts] = useState([]);
-  const productsList = useSelector((state) => state.productReducer.data);
+  const filteredProductsList = useSelector(
+    (state) => state.productReducer.filteredData
+  );
 
   const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ export const ProductList = () => {
     <div className="product-list-container">
       <Container>
         <Row xs={2} md={3} lg={4}>
-          {productsList.map((product) => {
+          {filteredProductsList.map((product) => {
             return (
               <Col key={product._id}>
                 <ProductCard product={product} />

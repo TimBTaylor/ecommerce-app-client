@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ImStarFull } from "react-icons/im";
@@ -10,6 +10,7 @@ import "./Sidebar.css";
 export const Sidebar = () => {
   const [categorys, setCategorys] = useState([]);
   const [sidebar, setSidebar] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ export const Sidebar = () => {
     (state) => state.productReducer.categorys
   );
 
-  const products = useSelector((state) => state.productReducer.data);
+  const allProducts = useSelector((state) => state.productReducer.data);
 
   // returns all categorys
   const getCategorys = (allCategorys) => {
@@ -36,21 +37,44 @@ export const Sidebar = () => {
     setSidebar(!sidebar);
   };
 
-  // const filteredByCategory = (category, products) => {
-  //   const filteredCategories = products.map((product) => {
-  //     return product.category !== category;
-  //   });
-  //   dispatch({
-  //     type: "PRODUCTS_SUCCESS",
-  //     payload: filteredCategories,
-  //   });
-  // };
+  const filteredByCategory = (event, category, products) => {
+    const element = document.getElementById(event.target.id);
+    if (element.checked) {
+      const productsToAdd = products.filter(
+        (product) => product.category === category
+      );
+      setFilteredProducts((currentFilteredProducts) => [
+        ...currentFilteredProducts,
+        ...productsToAdd,
+      ]);
+      dispatch({
+        type: "PRODUCTS_FILTERED",
+        payload: filteredProducts,
+      });
+    } else {
+      let removedCheckedProducts = filteredProducts.filter((product) => {
+        return product.category !== category;
+      });
+      setFilteredProducts(removedCheckedProducts);
+      if (removedCheckedProducts.length >= 1) {
+        dispatch({
+          type: "PRODUCTS_FILTERED",
+          payload: removedCheckedProducts,
+        });
+      } else {
+        dispatch({
+          type: "PRODUCTS_FILTERED",
+          payload: allProducts,
+        });
+      }
+    }
+  };
 
   return (
     <div>
       <div className="nav-bar">
         <Link to="#" className="menu-bars">
-          <FaBars onClick={showSideBar} />
+          <FaBars className="bars" onClick={showSideBar} />
         </Link>
       </div>
       <div className={sidebar ? "sidebar-nav-menu active" : "sidebar-nav-menu"}>
@@ -66,6 +90,9 @@ export const Sidebar = () => {
                       type="checkbox"
                       value=""
                       id={category}
+                      onClick={(e) =>
+                        filteredByCategory(e, category, allProducts)
+                      }
                     />
                     <label className="form-check-label" htmlFor={category}>
                       {category}
