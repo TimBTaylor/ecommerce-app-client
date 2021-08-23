@@ -15,13 +15,6 @@ export const product = () => async (dispatch) => {
         type: "PRODUCTS_SUCCESS",
         payload: response.data,
       });
-      const categorys = response.data.map((product) => {
-        return product.category;
-      });
-      dispatch({
-        type: "PRODUCT_CATEGORYS",
-        payload: categorys,
-      });
     });
   } catch (error) {
     console.error(error);

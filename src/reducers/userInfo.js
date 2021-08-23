@@ -9,6 +9,7 @@ const initialState = {
   password: "",
   savedForLater: [],
   _id: "",
+  currentView: "",
 };
 
 const userInfoReducer = (state = initialState, action) => {
@@ -26,6 +27,11 @@ const userInfoReducer = (state = initialState, action) => {
         password: action.payload.password,
         savedForLater: action.payload.savedForLater,
         _id: action.payload._id,
+      };
+    case "SET_CURRENT_VIEW":
+      return {
+        ...state,
+        currentView: action.payload,
       };
     default:
       return state;

@@ -8,9 +8,6 @@ import "./ProductList.css";
 
 export const ProductList = () => {
   // const [products, setProducts] = useState([]);
-  const filteredProductsList = useSelector(
-    (state) => state.productReducer.filteredData
-  );
 
   const dispatch = useDispatch();
 
@@ -18,6 +15,9 @@ export const ProductList = () => {
     dispatch(product());
   }, []);
 
+  const filteredProductsList = useSelector(
+    (state) => state.productReducer.filteredData
+  );
   return (
     <div className="product-list-container">
       <Container>

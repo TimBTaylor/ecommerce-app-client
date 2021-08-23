@@ -3,7 +3,7 @@ const initialState = {
   error: null,
   data: [],
   filteredData: [],
-  categorys: [],
+  type: [],
 };
 
 const productReducer = (state = initialState, action) => {
@@ -29,14 +29,15 @@ const productReducer = (state = initialState, action) => {
         error: action.error,
         data: [],
       };
-    case "PRODUCT_CATEGORYS":
+    case "PRODUCTS_FILTERED_REQUESTED":
       return {
         ...state,
-        categorys: action.payload,
+        loading: true,
       };
     case "PRODUCTS_FILTERED":
       return {
         ...state,
+        loading: false,
         filteredData: action.payload,
       };
     default:

@@ -121,28 +121,65 @@ export const ProductCard = (props) => {
       console.error(error);
     }
   };
+
+  const buttonStyle = {
+    boxShadow: "none",
+    border: "none",
+    background: "#4da58b",
+    color: "#000",
+    transition: "0.5s",
+    borderRadius: "20px",
+    width: "150px",
+  };
   return (
     <>
       <Card className="product-card">
-        <Link className="img-link" style={{ textDecoration: "none" }}>
+        <div className="image">
           <Card.Img
             className="product-img d-block mx-auto"
             variant="top"
             src={product.image}
           />
-        </Link>
+          <div className="image-overlay">
+            <Button
+              data-toggle="modal"
+              data-target="#productModal"
+              className="cart-button"
+              style={buttonStyle}
+            >
+              quick shop
+            </Button>
+          </div>
+        </div>
         <Card.Body className="text-center">
-          <Link className="title-link" style={{ textDecoration: "none" }}>
-            <Card.Title className="card-title">{title}</Card.Title>
-          </Link>
-          <Card.Text>{rating}</Card.Text>
-          <Card.Text>${product.price}</Card.Text>
-          {/* {inCart ? (
-            <Button onClick={() => removeProduct()}>Remove from cart</Button>
-          ) : (
-            <Button onClick={() => addProduct()}>add to cart</Button>
-          )} */}
+          <Link
+            to="/"
+            className="body-link"
+            style={{ textDecoration: "none" }}
+          ></Link>
+          <Card.Title className="card-title">{title}</Card.Title>
+          <Card.Text className="card-text-rating">{rating}</Card.Text>
+          <Card.Text className="card-text-price">${product.price}</Card.Text>
         </Card.Body>
+        <div className="modal fade" id="productModal">
+          <div className="modal-dialog modal-md modal-center">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title">{productTitle}</h1>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body"></div>
+              <div className="modal-footer"></div>
+            </div>
+          </div>
+        </div>
       </Card>
     </>
   );

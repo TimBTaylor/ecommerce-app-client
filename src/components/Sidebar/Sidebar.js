@@ -8,54 +8,59 @@ import { FaBars } from "react-icons/fa";
 import "./Sidebar.css";
 
 export const Sidebar = () => {
-  const [categorys, setCategorys] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [sidebar, setSidebar] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const dispatch = useDispatch();
 
-  const productCategories = useSelector(
-    (state) => state.productReducer.categorys
-  );
-
   const allProducts = useSelector((state) => state.productReducer.data);
 
+  const allFilteredProducts = useSelector(
+    (state) => state.productReducer.filteredData
+  );
+
   // returns all categorys
-  const getCategorys = (allCategorys) => {
-    const productCategories = [];
-    allCategorys.map((category) => {
-      if (productCategories.includes(category)) {
+  const getBrands = () => {
+    const listOfBrands = [];
+    allFilteredProducts.map((product) => {
+      return listOfBrands.push(product.brand);
+    });
+    const productBrands = [];
+    listOfBrands.map((brand) => {
+      if (productBrands.includes(brand)) {
       } else {
-        productCategories.push(category);
+        productBrands.push(brand);
       }
-      return setCategorys(productCategories);
+      return setBrands(productBrands);
     });
   };
 
   const showSideBar = () => {
-    getCategorys(productCategories);
+    getBrands();
     setSidebar(!sidebar);
   };
 
-  const filteredByCategory = (event, category, products) => {
+  const filteredByBrand = (event, brand, products) => {
     const element = document.getElementById(event.target.id);
+    // if element was checked
     if (element.checked) {
+      //filters products if categorys match
       const productsToAdd = products.filter(
-        (product) => product.category === category
+        (product) => product.brand === brand
       );
-      setFilteredProducts((currentFilteredProducts) => [
-        ...currentFilteredProducts,
-        ...productsToAdd,
-      ]);
+      // setting filtered products to local state and redux state
+      const updatedProducts = [...filteredProducts, ...productsToAdd];
       dispatch({
         type: "PRODUCTS_FILTERED",
-        payload: filteredProducts,
+        payload: updatedProducts,
       });
+      // if element was unchecked
     } else {
+      // removes products from list and updates local state and redux state
       let removedCheckedProducts = filteredProducts.filter((product) => {
-        return product.category !== category;
+        return product.brand !== brand;
       });
-      setFilteredProducts(removedCheckedProducts);
       if (removedCheckedProducts.length >= 1) {
         dispatch({
           type: "PRODUCTS_FILTERED",
@@ -64,11 +69,20 @@ export const Sidebar = () => {
       } else {
         dispatch({
           type: "PRODUCTS_FILTERED",
-          payload: allProducts,
+          payload: allFilteredProducts,
         });
       }
     }
   };
+
+  // const filteredByPrice = (event, priceLow, priceHigh) => {
+  //   let productsToFilter;
+  //   if (filteredProducts.length < 1) {
+  //     return productsToFilter = allProducts
+  //   } else {
+  //     return productsToFilter = filteredProducts
+  //   }
+  // };
 
   return (
     <div>
@@ -80,22 +94,22 @@ export const Sidebar = () => {
       <div className={sidebar ? "sidebar-nav-menu active" : "sidebar-nav-menu"}>
         <div className="form-check">
           <div className="category">
-            <p className="category-title">Category</p>
+            <p className="category-title">Brand</p>
             <ul className="category-list">
-              {categorys.map((category) => {
+              {brands.map((brand) => {
                 return (
-                  <li className="category-list-item" key={category}>
+                  <li className="category-list-item" key={brand}>
                     <input
                       className="form-check-input"
                       type="checkbox"
                       value=""
-                      id={category}
+                      id={brand}
                       onClick={(e) =>
-                        filteredByCategory(e, category, allProducts)
+                        filteredByBrand(e, brand, allFilteredProducts)
                       }
                     />
-                    <label className="form-check-label" htmlFor={category}>
-                      {category}
+                    <label className="form-check-label" htmlFor={brand}>
+                      {brand}
                     </label>
                   </li>
                 );
