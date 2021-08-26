@@ -22,3 +22,9 @@
   border-bottom: 1px solid #cfd4d9;
   font-size: 2rem;
 }
+
+@media (max-width: 500px) {
+  .navigation-container {
+    padding-bottom: 200px;
+  }
+}

@@ -1,48 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ImStarFull } from "react-icons/im";
 import { ImStarEmpty } from "react-icons/im";
-import { FaBars } from "react-icons/fa";
+import filter from "./filter.svg";
+import { AiOutlineMinus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 
 import "./Sidebar.css";
 
 export const Sidebar = () => {
-  const [brands, setBrands] = useState([]);
   const [sidebar, setSidebar] = useState(false);
+  const [productsFilteredByPrice, setProductsFilteredByPrice] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [lowPrice, setLowPrice] = useState();
+  const [highPrice, setHighPrice] = useState();
+  const [brandView, setBrandView] = useState(false);
+  const [priceView, setPriceView] = useState(false);
+  const [reviewView, setReviewView] = useState(false);
 
   const dispatch = useDispatch();
 
-  const allProducts = useSelector((state) => state.productReducer.data);
+  const untouchedFiltered = useSelector(
+    (state) => state.productReducer.untouchedFiltered
+  );
 
   const allFilteredProducts = useSelector(
     (state) => state.productReducer.filteredData
   );
 
-  // returns all categorys
-  const getBrands = () => {
-    const listOfBrands = [];
-    allFilteredProducts.map((product) => {
-      return listOfBrands.push(product.brand);
-    });
-    const productBrands = [];
-    listOfBrands.map((brand) => {
-      if (productBrands.includes(brand)) {
-      } else {
-        productBrands.push(brand);
-      }
-      return setBrands(productBrands);
-    });
-  };
+  const productsFilteredByBrand = useSelector(
+    (state) => state.productReducer.filteredByBrand
+  );
+
+  const allBrands = useSelector((state) => state.productReducer.brands);
 
   const showSideBar = () => {
-    getBrands();
     setSidebar(!sidebar);
   };
 
-  const filteredByBrand = (event, brand, products) => {
+  const showBrandView = () => {
+    setBrandView(!brandView);
+  };
+
+  const showPriceView = () => {
+    setPriceView(!priceView);
+  };
+
+  const showReviewView = () => {
+    setReviewView(!reviewView);
+  };
+
+  const filteredByBrand = (event, brand) => {
     const element = document.getElementById(event.target.id);
+
+    //sets local state to empty, because user might input a price before a brand
+    let products;
+    if (productsFilteredByPrice.length >= 1) {
+      products = productsFilteredByPrice;
+    } else {
+      products = untouchedFiltered;
+    }
+
     // if element was checked
     if (element.checked) {
       //filters products if categorys match
@@ -55,10 +74,22 @@ export const Sidebar = () => {
         type: "PRODUCTS_FILTERED",
         payload: updatedProducts,
       });
+      dispatch({
+        type: "PRODUCTS_FILTERED_BY_BRAND",
+        payload: updatedProducts,
+      });
+      setFilteredProducts(updatedProducts);
       // if element was unchecked
     } else {
       // removes products from list and updates local state and redux state
-      let removedCheckedProducts = filteredProducts.filter((product) => {
+      let products;
+      if (productsFilteredByPrice.length >= 1) {
+        products = productsFilteredByPrice;
+      } else {
+        products = filteredProducts;
+      }
+
+      let removedCheckedProducts = products.filter((product) => {
         return product.brand !== brand;
       });
       if (removedCheckedProducts.length >= 1) {
@@ -66,188 +97,503 @@ export const Sidebar = () => {
           type: "PRODUCTS_FILTERED",
           payload: removedCheckedProducts,
         });
+        dispatch({
+          type: "PRODUCTS_FILTERED_BY_BRAND",
+          payload: removedCheckedProducts,
+        });
+        setFilteredProducts(removedCheckedProducts);
       } else {
         dispatch({
-          type: "PRODUCTS_FILTERED",
-          payload: allFilteredProducts,
+          type: "PRODUCTS_FILTERED_BY_BRAND",
+          payload: [],
         });
+        if (productsFilteredByPrice.length >= 1) {
+          const filteredPrice = [];
+          untouchedFiltered.map((product) => {
+            if (product.price >= lowPrice && product.price <= highPrice) {
+              filteredPrice.push(product);
+            }
+            return product;
+          });
+          dispatch({
+            type: "PRODUCTS_FILTERED",
+            payload: filteredPrice,
+          });
+          setFilteredProducts([]);
+        } else {
+          dispatch({
+            type: "PRODUCTS_FILTERED",
+            payload: untouchedFiltered,
+          });
+          setFilteredProducts([]);
+        }
       }
     }
   };
 
-  // const filteredByPrice = (event, priceLow, priceHigh) => {
-  //   let productsToFilter;
-  //   if (filteredProducts.length < 1) {
-  //     return productsToFilter = allProducts
-  //   } else {
-  //     return productsToFilter = filteredProducts
-  //   }
-  // };
+  const filteredByPrice = (event, priceLow, priceHigh) => {
+    const element = document.getElementById(event.target.id);
+    setLowPrice(priceLow);
+    setHighPrice(priceHigh);
+
+    if (element.checked) {
+      let products;
+      if (productsFilteredByBrand.length >= 1) {
+        products = productsFilteredByBrand;
+      } else {
+        products = untouchedFiltered;
+      }
+      console.log(products);
+      const filteredPrice = [];
+      products.map((product) => {
+        if (product.price >= priceLow && product.price <= priceHigh) {
+          filteredPrice.push(product);
+        }
+        return product;
+      });
+      setProductsFilteredByPrice(filteredPrice);
+      dispatch({
+        type: "PRODUCTS_FILTERED",
+        payload: filteredPrice,
+      });
+    } else {
+      const productsByCurrentBrands = [];
+      const allProductsByCurrentBrands = [];
+      productsFilteredByBrand.map((product) => {
+        if (!productsByCurrentBrands.includes(product.brand)) {
+          productsByCurrentBrands.push(product.brand);
+        }
+        return productsByCurrentBrands;
+      });
+      untouchedFiltered.map((product) => {
+        if (productsByCurrentBrands.includes(product.brand)) {
+          allProductsByCurrentBrands.push(product);
+        }
+      });
+      console.log(productsByCurrentBrands);
+      console.log(allProductsByCurrentBrands);
+      if (productsFilteredByBrand.length >= 1) {
+        console.log("yes");
+        dispatch({
+          type: "PRODUCTS_FILTERED",
+          payload: allProductsByCurrentBrands,
+        });
+      } else {
+        console.log("ehre");
+        dispatch({
+          type: "PRODUCTS_FILTERED",
+          payload: untouchedFiltered,
+        });
+      }
+      setProductsFilteredByPrice([]);
+    }
+  };
 
   return (
-    <div>
-      <div className="nav-bar">
-        <Link to="#" className="menu-bars">
-          <FaBars className="bars" onClick={showSideBar} />
-        </Link>
-      </div>
-      <div className={sidebar ? "sidebar-nav-menu active" : "sidebar-nav-menu"}>
-        <div className="form-check">
-          <div className="category">
-            <p className="category-title">Brand</p>
-            <ul className="category-list">
-              {brands.map((brand) => {
-                return (
-                  <li className="category-list-item" key={brand}>
+    <>
+      <div>
+        <div className="nav-bar">
+          <Link to="#" className="menu-bars">
+            {/* <FaBars className="bars" onClick={showSideBar} /> */}
+            <img
+              className="filter-img"
+              onClick={showSideBar}
+              src={filter}
+              alt="filter"
+            />
+          </Link>
+        </div>
+        <div
+          className={sidebar ? "sidebar-nav-menu active" : "sidebar-nav-menu"}
+        >
+          <div className="form-check">
+            <div className="brand">
+              <p className="brand-title">Brand</p>
+              <ul className="brand-list">
+                {allBrands.map((brand) => {
+                  return (
+                    <li className="brand-list-item" key={brand}>
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id={brand}
+                        onClick={(e) =>
+                          filteredByBrand(e, brand, untouchedFiltered)
+                        }
+                      />
+                      <label className="form-check-label" htmlFor={brand}>
+                        {brand}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="price">
+                <p className="price-title">Price</p>
+                <ul className="price-list">
+                  <li className="price-list-item">
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      value=""
-                      id={brand}
-                      onClick={(e) =>
-                        filteredByBrand(e, brand, allFilteredProducts)
-                      }
+                      id="under25"
+                      onClick={(e) => filteredByPrice(e, 0, 24.99)}
                     />
-                    <label className="form-check-label" htmlFor={brand}>
-                      {brand}
+                    <label className="form-check-label" htmlFor="under25">
+                      Under $25
                     </label>
                   </li>
-                );
-              })}
-            </ul>
-            <div className="price">
-              <p className="price-title">Price</p>
-              <ul className="price-list">
-                <li className="price-list-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="under25"
-                  />
-                  <label className="form-check-label" htmlFor="under25">
-                    Under $25
-                  </label>
-                </li>
-                <li className="price-list-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="25to50"
-                  />
-                  <label className="form-check-label" htmlFor="25to50">
-                    $25 to $50
-                  </label>
-                </li>
-                <li className="price-list-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="50to100"
-                  />
-                  <label className="form-check-label" htmlFor="50to100">
-                    $50 to $100
-                  </label>
-                </li>
-                <li className="price-list-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="100to200"
-                  />
-                  <label className="form-check-label" htmlFor="100to200">
-                    $100 to $200
-                  </label>
-                </li>
-                <li className="price-list-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="200plus"
-                  />
-                  <label className="form-check-label" htmlFor="200plus">
-                    $200 and Above
-                  </label>
-                </li>
-              </ul>
-            </div>
-            <div className="reviews">
-              <p className="reviews-title">Reviews</p>
-              <ul className="reviews-list">
-                <li className="review-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="1star"
-                  />
-                  <label className="form-check-label" htmlFor="1star">
-                    {<ImStarFull />}
-                    {<ImStarEmpty />}
-                    {<ImStarEmpty />}
-                    {<ImStarEmpty />}
-                    {<ImStarEmpty />}
-                  </label>
-                </li>
-                <li className="review-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="2star"
-                  />
-                  <label className="form-check-label" htmlFor="2star">
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarEmpty />}
-                    {<ImStarEmpty />}
-                    {<ImStarEmpty />}
-                  </label>
-                </li>
-                <li className="review-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="3star"
-                  />
-                  <label className="form-check-label" htmlFor="3star">
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarEmpty />}
-                    {<ImStarEmpty />}
-                  </label>
-                </li>
-                <li className="review-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="4star"
-                  />
-                  <label className="form-check-label" htmlFor="4star">
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarEmpty />}
-                  </label>
-                </li>
-                <li className="review-item">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="5star"
-                  />
-                  <label className="form-check-label" htmlFor="5star">
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                    {<ImStarFull />}
-                  </label>
-                </li>
-              </ul>
+                  <li className="price-list-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="25to50"
+                      onClick={(e) => filteredByPrice(e, 25, 50)}
+                    />
+                    <label className="form-check-label" htmlFor="25to50">
+                      $25 to $50
+                    </label>
+                  </li>
+                  <li className="price-list-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="50to100"
+                      onClick={(e) => filteredByPrice(e, 50.01, 100)}
+                    />
+                    <label className="form-check-label" htmlFor="50to100">
+                      $50 to $100
+                    </label>
+                  </li>
+                  <li className="price-list-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="100to200"
+                      onClick={(e) => filteredByPrice(e, 100.01, 200)}
+                    />
+                    <label className="form-check-label" htmlFor="100to200">
+                      $100 to $200
+                    </label>
+                  </li>
+                  <li className="price-list-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="200plus"
+                      onClick={(e) => filteredByPrice(e, 200.01, 100000000)}
+                    />
+                    <label className="form-check-label" htmlFor="200plus">
+                      $200 and Above
+                    </label>
+                  </li>
+                </ul>
+              </div>
+              <div className="reviews">
+                <p className="reviews-title">Reviews</p>
+                <ul className="reviews-list">
+                  <li className="review-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="1star"
+                    />
+                    <label className="form-check-label" htmlFor="1star">
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                    </label>
+                  </li>
+                  <li className="review-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="2star"
+                    />
+                    <label className="form-check-label" htmlFor="2star">
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarEmpty className="star" />}
+                    </label>
+                  </li>
+                  <li className="review-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="3star"
+                    />
+                    <label className="form-check-label" htmlFor="3star">
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarEmpty className="star" />}
+                      {<ImStarEmpty className="star" />}
+                    </label>
+                  </li>
+                  <li className="review-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="4star"
+                    />
+                    <label className="form-check-label" htmlFor="4star">
+                      {<ImStarFull className="star" />}
+                      {<ImStarFull className="star" />}
+                      {<ImStarEmpty className="star" />}
+                      {<ImStarEmpty className="star" />}
+                      {<ImStarEmpty className="star" />}
+                    </label>
+                  </li>
+                  <li className="review-item">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="5star"
+                    />
+                    <label className="form-check-label" htmlFor="5star">
+                      {<ImStarFull className="star" />}
+                      {<ImStarEmpty className="star" />}
+                      {<ImStarEmpty className="star" />}
+                      {<ImStarEmpty className="star" />}
+                      {<ImStarEmpty className="star" />}
+                    </label>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="top-bar-filter sticky-top">
+        <button
+          className="filter-button"
+          data-toggle="modal"
+          data-target="#productModal"
+        >
+          Filter
+        </button>
+      </div>
+      <div>
+        <div className="modal fade" id="productModal">
+          <div className="modal-dialog modal-md">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title">Filter + Sort</h1>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="brand-title-container">
+                  <button
+                    className="btn btn-default mobile-brand-title"
+                    onClick={() => showBrandView()}
+                  >
+                    BRANDS
+                  </button>
+                  {brandView ? (
+                    <AiOutlineMinus className="view-symbol" />
+                  ) : (
+                    <AiOutlinePlus className="view-symbol" />
+                  )}
+                </div>
+                {brandView ? (
+                  <>
+                    <div className="mobile-brands">
+                      <ul className="mobile-brands-list">
+                        {allBrands.map((brand) => {
+                          return (
+                            <li className="mobile-brands-list-item" key={brand}>
+                              <input
+                                className="brand-list-item-input"
+                                type="checkbox"
+                                value=""
+                                id={brand}
+                                onClick={(e) =>
+                                  filteredByBrand(e, brand, untouchedFiltered)
+                                }
+                              />
+                              <label
+                                className="brand-list-item-label"
+                                htmlFor={brand}
+                              >
+                                {brand}
+                              </label>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+                <hr className="line-break" />
+                <div className="price-title-container">
+                  <button
+                    className="btn btn-default"
+                    type="button"
+                    onClick={() => showPriceView()}
+                  >
+                    PRICE
+                  </button>
+                  {priceView ? (
+                    <AiOutlineMinus className="view-symbol" />
+                  ) : (
+                    <AiOutlinePlus className="view-symbol" />
+                  )}
+                </div>
+                {priceView ? (
+                  <div className="mobile-price-container">
+                    <ul className="" role="menu" aria-labelledby="">
+                      <li className="">
+                        <input
+                          className=""
+                          type="checkbox"
+                          id="under25"
+                          onClick={(e) => filteredByPrice(e, 0, 24.99)}
+                        />
+                        <label className="" htmlFor="under25">
+                          Under $25
+                        </label>
+                      </li>
+                      <li className="">
+                        <input
+                          className=""
+                          type="checkbox"
+                          id="25to50"
+                          onClick={(e) => filteredByPrice(e, 25, 50)}
+                        />
+                        <label className="" htmlFor="25to50">
+                          $25 to $50
+                        </label>
+                      </li>
+                      <li className="">
+                        <input
+                          className=""
+                          type="checkbox"
+                          id="50to100"
+                          onClick={(e) => filteredByPrice(e, 50.01, 100)}
+                        />
+                        <label className="" htmlFor="50to100">
+                          $50 to $100
+                        </label>
+                      </li>
+                      <li className="">
+                        <input
+                          className=""
+                          type="checkbox"
+                          id="100to200"
+                          onClick={(e) => filteredByPrice(e, 100.01, 200)}
+                        />
+                        <label className="" htmlFor="100to200">
+                          $100 to $200
+                        </label>
+                      </li>
+                      <li className="">
+                        <input
+                          className=""
+                          type="checkbox"
+                          id="200plus"
+                          onClick={(e) => filteredByPrice(e, 200.01, 100000000)}
+                        />
+                        <label className="" htmlFor="200plus">
+                          $200 and Above
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <hr className="line-break" />
+                <div className="review-title-container">
+                  <button
+                    className="btn btn-default "
+                    type="button"
+                    onClick={() => showReviewView()}
+                  >
+                    REVIEWS
+                  </button>
+                  {reviewView ? (
+                    <AiOutlineMinus className="view-symbol" />
+                  ) : (
+                    <AiOutlinePlus className="view-symbol" />
+                  )}
+                </div>
+                {reviewView ? (
+                  <div className="mobile-price-container">
+                    <ul className="">
+                      <li className="">
+                        <input className="" type="checkbox" id="1star" />
+                        <label className="" htmlFor="1star">
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                        </label>
+                      </li>
+                      <li className="">
+                        <input className="" type="checkbox" id="2star" />
+                        <label className="" htmlFor="2star">
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarEmpty className="star" />}
+                        </label>
+                      </li>
+                      <li className="">
+                        <input className="" type="checkbox" id="3star" />
+                        <label className="" htmlFor="3star">
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarEmpty className="star" />}
+                          {<ImStarEmpty className="star" />}
+                        </label>
+                      </li>
+                      <li className="">
+                        <input className="" type="checkbox" id="4star" />
+                        <label className="" htmlFor="4star">
+                          {<ImStarFull className="star" />}
+                          {<ImStarFull className="star" />}
+                          {<ImStarEmpty className="star" />}
+                          {<ImStarEmpty className="star" />}
+                          {<ImStarEmpty className="star" />}
+                        </label>
+                      </li>
+                      <li className="">
+                        <input className="" type="checkbox" id="5star" />
+                        <label className="" htmlFor="5star">
+                          {<ImStarFull className="star" />}
+                          {<ImStarEmpty className="star" />}
+                          {<ImStarEmpty className="star" />}
+                          {<ImStarEmpty className="star" />}
+                          {<ImStarEmpty className="star" />}
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

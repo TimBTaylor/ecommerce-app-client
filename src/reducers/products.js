@@ -4,6 +4,9 @@ const initialState = {
   data: [],
   filteredData: [],
   type: [],
+  untouchedFiltered: [],
+  brands: [],
+  filteredByBrand: [],
 };
 
 const productReducer = (state = initialState, action) => {
@@ -21,6 +24,7 @@ const productReducer = (state = initialState, action) => {
         loading: false,
         data: action.payload,
         filteredData: action.payload,
+        untouchedFiltered: action.payload,
       };
     case "PRODUCTS_FAILURE":
       return {
@@ -39,6 +43,22 @@ const productReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         filteredData: action.payload,
+      };
+    case "PRODUCTS_FILTERED_BY_BRAND":
+      return {
+        ...state,
+        loading: false,
+        filteredByBrand: action.payload,
+      };
+    case "PRODUCTS_FILTERED_UNTOUCHED":
+      return {
+        ...state,
+        untouchedFiltered: action.payload,
+      };
+    case "PRODUCTS_BRANDS":
+      return {
+        ...state,
+        brands: action.payload,
       };
     default:
       return state;

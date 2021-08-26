@@ -38,13 +38,6 @@
   opacity: 1;
 }
 
-.cart-button {
-  border: none;
-  background: #4da58b;
-  color: #000;
-  transition: 0.5s;
-}
-
 .card-title {
   display: block;
   color: black;

@@ -14,9 +14,28 @@ export const Navigation = () => {
   const name = localStorage.getItem("firstName");
   const productsList = useSelector((state) => state.productReducer.data);
   const [searchInput, setSearchInput] = useState("");
-  const [newArrivals, setNewArrivals] = useState(false);
 
   const dispatch = useDispatch();
+
+  //get all brands of the passed in product array and sets them redux state
+  const getBrands = (productsOfTheBrands) => {
+    const allBrands = [];
+    productsOfTheBrands.map((product) => {
+      return allBrands.push(product.brand);
+    });
+    const filteredBrands = [];
+    allBrands.map((brand) => {
+      if (filteredBrands.includes(brand)) {
+      } else {
+        filteredBrands.push(brand);
+      }
+      return filteredBrands;
+    });
+    dispatch({
+      type: "PRODUCTS_BRANDS",
+      payload: filteredBrands,
+    });
+  };
 
   const filterByInput = (gender, typeOfInput, view) => {
     dispatch({
@@ -45,6 +64,11 @@ export const Navigation = () => {
           type: "PRODUCTS_FILTERED",
           payload: byGenderProducts,
         });
+        dispatch({
+          type: "PRODUCTS_FILTERED_UNTOUCHED",
+          payload: byGenderProducts,
+        });
+        getBrands(byGenderProducts);
       } catch (error) {
         console.error(error);
       }
@@ -68,6 +92,11 @@ export const Navigation = () => {
           type: "PRODUCTS_FILTERED",
           payload: filteredProducts,
         });
+        dispatch({
+          type: "PRODUCTS_FILTERED_UNTOUCHED",
+          payload: filteredProducts,
+        });
+        getBrands(filteredProducts);
       } catch (error) {
         console.error(error);
       }
@@ -89,12 +118,18 @@ export const Navigation = () => {
           type: "PRODUCTS_FILTERED",
           payload: filteredProducts,
         });
+        dispatch({
+          type: "PRODUCTS_FILTERED_UNTOUCHED",
+          payload: filteredProducts,
+        });
+        getBrands(filteredProducts);
       } catch (error) {
         console.error(error);
       }
     }
   };
 
+  //for seach bar but currently not working
   const submitSearchInput = (input) => {
     const filteredProductsList = productsList.filter((product) => {
       return product.title.toLowerCase().includes(input.toLowerCase());
@@ -103,10 +138,15 @@ export const Navigation = () => {
       type: "PRODUCTS_FILTERED",
       payload: filteredProductsList,
     });
+    dispatch({
+      type: "PRODUCTS_FILTERED_UNTOUCHED",
+      payload: filteredProductsList,
+    });
+    getBrands(filteredProductsList);
   };
 
+  //male and female new arrivals
   const viewNewArrivals = () => {
-    setNewArrivals(true);
     const allNewArrivals = [];
     productsList.map((product) => {
       if (product.newArrival) {
@@ -124,17 +164,14 @@ export const Navigation = () => {
         type: "PRODUCTS_FILTERED",
         payload: allNewArrivals,
       });
+      dispatch({
+        type: "PRODUCTS_FILTERED_UNTOUCHED",
+        payload: allNewArrivals,
+      });
+      getBrands(allNewArrivals);
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const random = () => {
-    dispatch({
-      type: "SET_CURRENT_VIEW",
-      payload: "",
-    });
-    defaultProducts();
   };
 
   //for navbar brand link to reset home products
@@ -146,6 +183,10 @@ export const Navigation = () => {
     dispatch({
       type: "SET_CURRENT_VIEW",
       payload: "All",
+    });
+    dispatch({
+      type: "PRODUCTS_FILTERED_UNTOUCHED",
+      payload: productsList,
     });
   };
 
@@ -224,26 +265,19 @@ export const Navigation = () => {
         <ul className="intro-list">
           <li className="intro-list-item">
             <button
-              className="btn shadow-none"
+              className="catergory-item btn shadow-none"
               onClick={() => viewNewArrivals()}
             >
-              WHAT'S NEW
+              NEW ARRIVALS
             </button>
           </li>
           <li className="intro-list-item">
-            <button
-              className="btn shadow-none"
-              onClick={() => {
-                random();
-              }}
-            >
-              ON SALE
-            </button>
+            <button className="catergory-item btn shadow-none">ON SALE</button>
           </li>
           <li className="intro-list-item">
             <div className="dropdown men-dropdown">
               <p
-                className="btn men-button shadow-none"
+                className="btn catergory-item men-button shadow-none"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -257,18 +291,18 @@ export const Navigation = () => {
                 className="dropdown-menu men-dropdown-menu "
                 aria-labelledby="dropdownMenuLink"
               >
-                <ul className="dropdown-list">
-                  <li className="dropdown-item">
+                <ul className="dropdown-list nav-dropdown-list">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button shadow-none "
+                      className="nav-dropdown-button shadow-none "
                       onClick={() => filterByInput("male", "all", "Men's")}
                     >
                       All
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("male", "shirt", "Men's Shirts")
                       }
@@ -276,9 +310,9 @@ export const Navigation = () => {
                       Shirts
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("male", "sweater", "Men's Sweaters")
                       }
@@ -286,9 +320,9 @@ export const Navigation = () => {
                       Sweaters
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("male", "pants", "Men's Pants")
                       }
@@ -296,9 +330,9 @@ export const Navigation = () => {
                       Pants
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("male", "shoes", "Men's Shoes")
                       }
@@ -306,9 +340,9 @@ export const Navigation = () => {
                       Shoes
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button "
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput(
                           "male",
@@ -320,9 +354,9 @@ export const Navigation = () => {
                       Accessories
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput(
                           "male",
@@ -334,8 +368,8 @@ export const Navigation = () => {
                       New arrivals
                     </button>
                   </li>
-                  <li className="dropdown-item">
-                    <button className="dropdown-item-button">On sale</button>
+                  <li className="dropdown-item nav-dropdown-item">
+                    <button className="nav-dropdown-button">On sale</button>
                   </li>
                 </ul>
               </div>
@@ -344,7 +378,7 @@ export const Navigation = () => {
           <li className="intro-list-item">
             <div className="dropdown women-dropdown">
               <p
-                className="btn women-button shadow-none"
+                className="btn  catergory-item women-button shadow-none"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -358,18 +392,18 @@ export const Navigation = () => {
                 className="dropdown-menu women-dropdown-menu "
                 aria-labelledby="dropdownMenuLink"
               >
-                <ul className="dropdown-list">
-                  <li className="dropdown-item">
+                <ul className="dropdown-list nav-dropdown-list">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button shadow-none "
+                      className="nav-dropdown-button shadow-none "
                       onClick={() => filterByInput("female", "all", "Women's")}
                     >
                       All
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("female", "shirt", "Women's Shirts")
                       }
@@ -377,9 +411,9 @@ export const Navigation = () => {
                       Shirts
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("female", "sweater", "Women's Sweaters")
                       }
@@ -387,9 +421,9 @@ export const Navigation = () => {
                       Sweaters
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("female", "pants", "Women's Pants")
                       }
@@ -397,9 +431,9 @@ export const Navigation = () => {
                       Pants
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput("female", "shoes", "Women's Shoes")
                       }
@@ -407,9 +441,9 @@ export const Navigation = () => {
                       Shoes
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button "
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput(
                           "female",
@@ -421,9 +455,9 @@ export const Navigation = () => {
                       Accessories
                     </button>
                   </li>
-                  <li className="dropdown-item">
+                  <li className="dropdown-item nav-dropdown-item">
                     <button
-                      className="dropdown-item-button"
+                      className="nav-dropdown-button"
                       onClick={() =>
                         filterByInput(
                           "female",
@@ -435,8 +469,8 @@ export const Navigation = () => {
                       New arrivals
                     </button>
                   </li>
-                  <li className="dropdown-item">
-                    <button className="dropdown-item-button">On sale</button>
+                  <li className="dropdown-item nav-dropdown-item">
+                    <button className="nav-dropdown-button">On sale</button>
                   </li>
                 </ul>
               </div>

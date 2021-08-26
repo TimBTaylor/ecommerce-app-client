@@ -26,3 +26,100 @@
   display: flex;
   left: 0;
 }
+
+.brand-title,
+.price-title,
+.reviews-title {
+  font-size: 1.2rem;
+  text-decoration: underline;
+  padding-left: 9px;
+}
+
+.brand-list {
+  text-align: start;
+}
+
+.form-check-label {
+  font-size: 1rem;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.star {
+  color: #f3a842;
+  margin-bottom: 3px;
+}
+
+.top-bar-filter {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .sidebar-nav-menu,
+  .nav-bar {
+    display: none;
+  }
+
+  .top-bar-filter {
+    display: inline-block;
+    position: fixed;
+    margin-top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.modal-dialog {
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.modal-body {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.mobile-brand-title {
+  font-size: 1rem !important;
+}
+
+.mobile-brands {
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.solid {
+  border-top: 3px solid #bbb;
+}
+
+.line-break {
+  width: 100%;
+}
+
+.mobile-brands {
+  width: 100%;
+  text-align: center;
+}
+
+.mobile-brands-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
