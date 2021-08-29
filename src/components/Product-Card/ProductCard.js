@@ -11,11 +11,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { IoCartOutline } from "react-icons/io5";
 import { HiOutlineHeart } from "react-icons/hi";
+import { IoChevronBack } from "react-icons/io5";
 
 export const ProductCard = (props) => {
   const [rating, setRating] = useState();
   const [title, setTitle] = useState("");
   const [productQuantity, setProductQuantity] = useState(1);
+  const [productSize, setProductSize] = useState();
+  const [addedToCart, setAddedToCart] = useState();
   const product = props.product;
 
   const cart = useSelector((state) => state.userInfoReducer.cart);
@@ -109,6 +112,7 @@ export const ProductCard = (props) => {
         header: { "Content-Type": "application/json" },
         data: {
           productId,
+          quantity: productQuantity,
         },
       }).then((response) => {
         const newCart = {
@@ -135,6 +139,7 @@ export const ProductCard = (props) => {
         header: { "Content-Type": "application/json" },
         data: {
           productId,
+          quantity: productQuantity,
         },
       }).then((response) => {
         console.log(response);
@@ -208,7 +213,7 @@ export const ProductCard = (props) => {
           <Card.Text className="card-text-price">${product.price}</Card.Text>
         </Card.Body>
       </Card>
-      <div className="container demo">
+      <div className="container">
         <div
           className="modal left fade"
           id="productModal"
@@ -251,7 +256,14 @@ export const ProductCard = (props) => {
                     >
                       <option defaultValue>SIZE</option>
                       {sizes.map((size) => {
-                        return <option key={size}>{size}</option>;
+                        return (
+                          <option
+                            onClick={() => setProductSize(size)}
+                            key={size}
+                          >
+                            {size}
+                          </option>
+                        );
                       })}
                     </select>
                   </div>
@@ -274,14 +286,23 @@ export const ProductCard = (props) => {
                 <hr className="line-break quickshop-linebreak" />
                 <div
                   className="quickshop-add-product"
-                  onClick={() => addProductToCart()}
+                  onClick={() => {
+                    addProductToCart();
+                    setAddedToCart(true);
+                  }}
+                  data-dismiss="modal"
+                  data-toggle="modal"
+                  data-target="#productAddedModal"
                 >
                   <p className="quickshop-add-to-cart">ADD TO CART</p>
                   <IoCartOutline className="quickshop-cart-icon" />
                 </div>
                 <div
                   className="quickshop-add-wishlist"
-                  onClick={() => addProductToWishList()}
+                  onClick={() => {
+                    addProductToWishList();
+                    setAddedToCart(false);
+                  }}
                 >
                   <p className="quickshop-add-to-wishlist">ADD TO WISH LIST</p>
                   <HiOutlineHeart className="quickshop-wishlist-icon" />
@@ -293,6 +314,60 @@ export const ProductCard = (props) => {
                 >
                   View All Details
                 </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div
+          className="modal left fade"
+          id="productAddedModal"
+          tabIndex=""
+          role="dialog"
+          aria-labelledby="ModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog product-modal-dialog" role="document">
+            <div className="modal-content product-modal-content">
+              <div className="modal-header quickshop-modal-header">
+                <button
+                  className="product-added-back-container"
+                  data-dismiss="modal"
+                  data-toggle="modal"
+                  data-target="#productModal"
+                >
+                  <IoChevronBack className="product-added-arrow" />
+                  <p className="product-added-back">Back</p>
+                </button>
+                <button
+                  type="button"
+                  className="close quickshop-close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body product-modal-body">
+                <p className="quickshop-product-title">
+                  {addedToCart ? "Added to cart:" : "Added to wishlist"}
+                </p>
+                <div className="product-added-product-information">
+                  <div className="product-added-product-image">
+                    {product.image}
+                  </div>
+                  <div className="product-added-product-details">
+                    <p className="product-added-product-title">{title}</p>
+                    <p className="product-added-product-price">
+                      ${product.price}
+                    </p>
+                    <p className="product-added-product-size">{productSize}</p>
+                    <p className="product-added-product-quantity">
+                      {productQuantity}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

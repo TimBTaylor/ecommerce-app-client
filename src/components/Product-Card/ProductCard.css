@@ -233,3 +233,22 @@
 .quickshop-view-all-details {
   margin-top: 30px;
 }
+
+.product-added-back-container {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.product-added-back {
+  margin: 0;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  color: #8e8e8e;
+}
+
+.quickshop-product-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
