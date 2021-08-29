@@ -169,6 +169,7 @@ export const Sidebar = () => {
         if (productsByCurrentBrands.includes(product.brand)) {
           allProductsByCurrentBrands.push(product);
         }
+        return allProductsByCurrentBrands;
       });
       console.log(productsByCurrentBrands);
       console.log(allProductsByCurrentBrands);
@@ -192,16 +193,11 @@ export const Sidebar = () => {
   return (
     <>
       <div>
-        <div className="nav-bar">
-          <Link to="#" className="menu-bars">
-            {/* <FaBars className="bars" onClick={showSideBar} /> */}
-            <img
-              className="filter-img"
-              onClick={showSideBar}
-              src={filter}
-              alt="filter"
-            />
-          </Link>
+        <div className="filter-bar">
+          <div className="menu-bars" onClick={showSideBar}>
+            <img className="filter-img" src={filter} alt="filter" />
+            <p className="desktop-filter">Filter</p>
+          </div>
         </div>
         <div
           className={sidebar ? "sidebar-nav-menu active" : "sidebar-nav-menu"}
@@ -368,18 +364,17 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="top-bar-filter sticky-top">
-        <button
-          className="filter-button"
-          data-toggle="modal"
-          data-target="#productModal"
-        >
-          Filter
-        </button>
+      <div
+        className="top-bar-filter sticky-top"
+        data-toggle="modal"
+        data-target="#filterModal"
+      >
+        <img src={filter} alt="filter" className="mobile-filter-icon" />
+        <button className="filter-button">Filter</button>
       </div>
       <div>
-        <div className="modal fade" id="productModal">
-          <div className="modal-dialog modal-md">
+        <div className="modal fade" id="filterModal">
+          <div className="modal-dialog mobile-modal-dialog modal-md">
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title">Filter + Sort</h1>
@@ -392,12 +387,12 @@ export const Sidebar = () => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
-                <div className="brand-title-container">
-                  <button
-                    className="btn btn-default mobile-brand-title"
-                    onClick={() => showBrandView()}
-                  >
+              <div className="modal-body mobile-modal-body">
+                <div
+                  className="brand-title-container d-flex justify-content-between"
+                  onClick={() => showBrandView()}
+                >
+                  <button className="btn btn-default mobile-brand-title">
                     BRANDS
                   </button>
                   {brandView ? (
@@ -414,7 +409,7 @@ export const Sidebar = () => {
                           return (
                             <li className="mobile-brands-list-item" key={brand}>
                               <input
-                                className="brand-list-item-input"
+                                className="mobile-brand-input"
                                 type="checkbox"
                                 value=""
                                 id={brand}
@@ -423,7 +418,7 @@ export const Sidebar = () => {
                                 }
                               />
                               <label
-                                className="brand-list-item-label"
+                                className="mobile-brand-label"
                                 htmlFor={brand}
                               >
                                 {brand}
@@ -438,11 +433,13 @@ export const Sidebar = () => {
                   ""
                 )}
                 <hr className="line-break" />
-                <div className="price-title-container">
+                <div
+                  className="price-title-container d-flex justify-content-between"
+                  onClick={() => showPriceView()}
+                >
                   <button
-                    className="btn btn-default"
+                    className="btn btn-default mobile-price-title"
                     type="button"
-                    onClick={() => showPriceView()}
                   >
                     PRICE
                   </button>
@@ -454,59 +451,66 @@ export const Sidebar = () => {
                 </div>
                 {priceView ? (
                   <div className="mobile-price-container">
-                    <ul className="" role="menu" aria-labelledby="">
-                      <li className="">
+                    <ul
+                      className="mobile-price-list"
+                      role="menu"
+                      aria-labelledby=""
+                    >
+                      <li className="mobile-price-list-item">
                         <input
-                          className=""
+                          className="mobile-price-input"
                           type="checkbox"
                           id="under25"
                           onClick={(e) => filteredByPrice(e, 0, 24.99)}
                         />
-                        <label className="" htmlFor="under25">
+                        <label className="mobile-price-label" htmlFor="under25">
                           Under $25
                         </label>
                       </li>
-                      <li className="">
+                      <li className="mobile-price-list-item">
                         <input
-                          className=""
+                          className="mobile-price-input"
                           type="checkbox"
                           id="25to50"
                           onClick={(e) => filteredByPrice(e, 25, 50)}
                         />
-                        <label className="" htmlFor="25to50">
+                        <label className="mobile-price-label" htmlFor="25to50">
                           $25 to $50
                         </label>
                       </li>
-                      <li className="">
+                      <li className="mobile-price-list-item">
                         <input
-                          className=""
+                          className="mobile-price-input"
                           type="checkbox"
                           id="50to100"
                           onClick={(e) => filteredByPrice(e, 50.01, 100)}
                         />
-                        <label className="" htmlFor="50to100">
+                        <label className="mobile-price-label" htmlFor="50to100">
                           $50 to $100
                         </label>
                       </li>
-                      <li className="">
+                      <li className="mobile-price-list-item">
                         <input
-                          className=""
+                          className="mobile-price-input"
                           type="checkbox"
                           id="100to200"
                           onClick={(e) => filteredByPrice(e, 100.01, 200)}
                         />
-                        <label className="" htmlFor="100to200">
+                        <label
+                          className="mobile-price-label"
+                          htmlFor="100to200"
+                        >
                           $100 to $200
                         </label>
                       </li>
-                      <li className="">
+                      <li className="mobile-price-list-item">
                         <input
-                          className=""
+                          className="mobile-price-input"
                           type="checkbox"
                           id="200plus"
                           onClick={(e) => filteredByPrice(e, 200.01, 100000000)}
                         />
-                        <label className="" htmlFor="200plus">
+                        <label className="mobile-price-label" htmlFor="200plus">
                           $200 and Above
                         </label>
                       </li>
@@ -516,11 +520,13 @@ export const Sidebar = () => {
                   ""
                 )}
                 <hr className="line-break" />
-                <div className="review-title-container">
+                <div
+                  className="review-title-container d-flex justify-content-between"
+                  onClick={() => showReviewView()}
+                >
                   <button
-                    className="btn btn-default "
+                    className="btn btn-default mobile-review-title"
                     type="button"
-                    onClick={() => showReviewView()}
                   >
                     REVIEWS
                   </button>
@@ -531,11 +537,15 @@ export const Sidebar = () => {
                   )}
                 </div>
                 {reviewView ? (
-                  <div className="mobile-price-container">
-                    <ul className="">
-                      <li className="">
-                        <input className="" type="checkbox" id="1star" />
-                        <label className="" htmlFor="1star">
+                  <div className="mobile-review-container">
+                    <ul className="mobile-review-list">
+                      <li className="mobile-review-list-item">
+                        <input
+                          className="mobile-review-input"
+                          type="checkbox"
+                          id="1star"
+                        />
+                        <label className="mobile-review-label" htmlFor="1star">
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
@@ -543,9 +553,13 @@ export const Sidebar = () => {
                           {<ImStarFull className="star" />}
                         </label>
                       </li>
-                      <li className="">
-                        <input className="" type="checkbox" id="2star" />
-                        <label className="" htmlFor="2star">
+                      <li className="mobile-review-list-item">
+                        <input
+                          className="mobile-review-input"
+                          type="checkbox"
+                          id="2star"
+                        />
+                        <label className="mobile-review-label" htmlFor="2star">
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
@@ -553,9 +567,13 @@ export const Sidebar = () => {
                           {<ImStarEmpty className="star" />}
                         </label>
                       </li>
-                      <li className="">
-                        <input className="" type="checkbox" id="3star" />
-                        <label className="" htmlFor="3star">
+                      <li className="mobile-review-list-item">
+                        <input
+                          className="mobile-review-input"
+                          type="checkbox"
+                          id="3star"
+                        />
+                        <label className="mobile-review-label" htmlFor="3star">
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
@@ -563,9 +581,13 @@ export const Sidebar = () => {
                           {<ImStarEmpty className="star" />}
                         </label>
                       </li>
-                      <li className="">
-                        <input className="" type="checkbox" id="4star" />
-                        <label className="" htmlFor="4star">
+                      <li className="mobile-review-list-item">
+                        <input
+                          className="mobile-review-input"
+                          type="checkbox"
+                          id="4star"
+                        />
+                        <label className="mobile-review-label" htmlFor="4star">
                           {<ImStarFull className="star" />}
                           {<ImStarFull className="star" />}
                           {<ImStarEmpty className="star" />}
@@ -573,9 +595,13 @@ export const Sidebar = () => {
                           {<ImStarEmpty className="star" />}
                         </label>
                       </li>
-                      <li className="">
-                        <input className="" type="checkbox" id="5star" />
-                        <label className="" htmlFor="5star">
+                      <li className="mobile-review-list-item">
+                        <input
+                          className="mobile-review-input"
+                          type="checkbox"
+                          id="5star"
+                        />
+                        <label className="mobile-review-label" htmlFor="5star">
                           {<ImStarFull className="star" />}
                           {<ImStarEmpty className="star" />}
                           {<ImStarEmpty className="star" />}
@@ -589,7 +615,9 @@ export const Sidebar = () => {
                   ""
                 )}
               </div>
-              <div className="modal-footer"></div>
+              <div className="modal-footer mobile-modal-footer">
+                <button className="clear-all-filters">CLEAR ALL FILTERS</button>
+              </div>
             </div>
           </div>
         </div>

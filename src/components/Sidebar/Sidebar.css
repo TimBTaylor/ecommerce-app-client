@@ -1,4 +1,4 @@
-.nav-bar {
+.filter-bar {
   height: 80px;
   display: flex;
   justify-content: start;
@@ -6,13 +6,30 @@
 }
 
 .menu-bars {
-  margin-left: 2rem;
-  font-size: 2rem;
-  background: none;
+  display: flex;
+  margin-top: 30px;
+  margin-left: 0.5rem;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  background-color: #4da58b;
 }
 
-.bars {
-  color: #4da58b;
+.menu-bars:hover {
+  cursor: pointer;
+}
+
+.filter-img {
+  margin: 0;
+  padding: 0;
+}
+
+.desktop-filter {
+  font-size: 1.3rem;
+  margin: 0;
+  margin-left: 7px;
+  padding: 0;
 }
 
 .sidebar-nav-menu {
@@ -36,6 +53,7 @@
 }
 
 .brand-list {
+  list-style: none;
   text-align: start;
 }
 
@@ -65,22 +83,50 @@
   display: none;
 }
 
+.mobile-filter-icon {
+  height: 20px;
+  width: 20px;
+  margin-top: 4px;
+  margin-right: 10px;
+}
+
+.filter-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+}
+
+.filter-button:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 500px) {
   .sidebar-nav-menu,
-  .nav-bar {
+  .filter-bar {
     display: none;
   }
 
   .top-bar-filter {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-content: center;
     position: fixed;
     margin-top: 170px;
     left: 50%;
     transform: translateX(-50%);
+    background-color: #4da58b;
+    padding: 8px;
+    width: 200px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+
+  .top-bar-filter:hover {
+    cursor: pointer;
   }
 }
 
-.modal-dialog {
+.mobile-modal-dialog {
   position: fixed;
   bottom: 0;
   padding: 0;
@@ -88,15 +134,20 @@
   width: 100%;
 }
 
-.modal-body {
+.mobile-modal-body {
   height: 400px;
-  display: flex;
-  flex-direction: column;
   overflow-y: scroll;
 }
 
-.mobile-brand-title {
+.mobile-brand-title,
+.mobile-price-title,
+.mobile-review-title {
   font-size: 1rem !important;
+}
+
+.view-symbol {
+  margin-right: 35px;
+  margin-top: 7px;
 }
 
 .mobile-brands {
@@ -117,9 +168,37 @@
   text-align: center;
 }
 
-.mobile-brands-list {
+.mobile-brands-list,
+.mobile-price-list,
+.mobile-review-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.mobile-brand-input,
+.mobile-price-input,
+.mobile-review-input {
+  margin-right: 10px;
+  transform: scale(1.6);
+}
+
+.clear-all-filters {
+  background: none;
+  border: none;
+  background-color: #4da58b;
+  width: 200px;
+  padding: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  font-size: 1rem !important;
+}
+
+.mobile-modal-footer {
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

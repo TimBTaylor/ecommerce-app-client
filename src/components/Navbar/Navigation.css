@@ -52,9 +52,8 @@
   }
 }
 
-.nav-item {
-  display: flex;
-  align-items: center;
+.navbar-nav {
+  text-align: center;
 }
 
 .profile-icon {
@@ -143,7 +142,7 @@
   .btn {
     border: none;
     background: none;
-    font-size: 0.8rem;
+    font-size: 12px;
   }
 
   .category-dropdown-icon {
@@ -161,8 +160,15 @@
 
 .men-dropdown-menu,
 .women-dropdown-menu {
+  position: absolute;
   width: 400px;
   left: -160px;
+}
+
+@media (max-width: 500px) {
+  .men-dropdown-menu,
+  .women-dropdown-menu {
+  }
 }
 
 .nav-dropdown-list {

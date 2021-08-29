@@ -6,12 +6,16 @@ import axios from "axios";
 import { ImStarFull } from "react-icons/im";
 import { ImStarEmpty } from "react-icons/im";
 import { ImStarHalf } from "react-icons/im";
+import { AiOutlineMinus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
+import { IoCartOutline } from "react-icons/io5";
+import { HiOutlineHeart } from "react-icons/hi";
 
 export const ProductCard = (props) => {
   const [rating, setRating] = useState();
   const [title, setTitle] = useState("");
-  const [inCart, setInCart] = useState();
+  const [productQuantity, setProductQuantity] = useState(1);
   const product = props.product;
 
   const cart = useSelector((state) => state.userInfoReducer.cart);
@@ -20,6 +24,7 @@ export const ProductCard = (props) => {
 
   const productTitle = product.title;
   const productReviews = product.reviews;
+  const sizes = product.sizes;
 
   const settingRating = (reviews) => {
     const listofRatings = reviews.map((rating) => {
@@ -55,16 +60,15 @@ export const ProductCard = (props) => {
   //   console.log(usersCart);
   // };
 
-  const isInCart = (cart) => {
-    cart.forEach((productId) => {
-      if (productId === product._id) {
-        setInCart(true);
-      }
-    });
-  };
+  // const isInCart = (cart) => {
+  //   cart.forEach((productId) => {
+  //     if (productId === product._id) {
+  //       setInCart(true);
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
-    isInCart(cart);
     settingTitle(productTitle);
     settingRating(productReviews);
   }, []);
@@ -88,14 +92,13 @@ export const ProductCard = (props) => {
           type: "SET_USER_INFO",
           payload: newCart,
         });
-        setInCart(false);
       });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const addProduct = async () => {
+  const addProductToCart = async () => {
     const productId = product._id;
     const userId = localStorage.getItem("userId");
 
@@ -115,7 +118,33 @@ export const ProductCard = (props) => {
           type: "SET_USER_INFO",
           payload: newCart,
         });
-        setInCart(true);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const addProductToWishList = async () => {
+    const productId = product._id;
+    const userId = localStorage.getItem("userId");
+
+    try {
+      await axios({
+        method: "put",
+        url: `https://ecommersappbytim.herokuapp.com/saved/${userId}/add-to-saved`,
+        header: { "Content-Type": "application/json" },
+        data: {
+          productId,
+        },
+      }).then((response) => {
+        console.log(response);
+        const newWishlist = {
+          wishlist: response.data,
+        };
+        dispatch({
+          type: "SET_USER_INFO",
+          payload: newWishlist,
+        });
       });
     } catch (error) {
       console.error(error);
@@ -131,6 +160,23 @@ export const ProductCard = (props) => {
     borderRadius: "20px",
     width: "150px",
   };
+
+  const viewDetailsStyle = {
+    color: "#3D3D3D",
+  };
+
+  const increaseProductQuantity = () => {
+    if (productQuantity < product.quantity) {
+      setProductQuantity(productQuantity + 1);
+    }
+  };
+
+  const decreaseProductQuantity = () => {
+    if (productQuantity > 1) {
+      setProductQuantity(productQuantity - 1);
+    }
+  };
+
   return (
     <>
       <Card className="product-card">
@@ -161,26 +207,97 @@ export const ProductCard = (props) => {
           <Card.Text className="card-text-rating">{rating}</Card.Text>
           <Card.Text className="card-text-price">${product.price}</Card.Text>
         </Card.Body>
-        <div className="modal fade" id="productModal">
-          <div className="modal-dialog modal-md modal-center">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title">{productTitle}</h1>
+      </Card>
+      <div className="container demo">
+        <div
+          className="modal left fade"
+          id="productModal"
+          tabIndex=""
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog product-modal-dialog" role="document">
+            <div className="modal-content product-modal-content">
+              <div className="modal-header quickshop-modal-header">
+                <p className="quickshop-title">Quick View</p>
                 <button
                   type="button"
-                  className="close"
+                  className="close quickshop-close"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body"></div>
-              <div className="modal-footer"></div>
+              <div className="modal-body product-modal-body">
+                <p className="quickshop-product-title">{title}</p>
+                <img
+                  src={product.image}
+                  alt="product-img"
+                  className="quickshop-product-image"
+                />
+                <hr className="line-break" />
+                <div className="quickshop-price-container">
+                  <p className="quickshop-price-title">Price:</p>
+                  <p className="quickshop-price-number">${product.price}</p>
+                </div>
+                <hr className="line-break quickshop-linebreak" />
+                <div className="quickshop-price-size-container">
+                  <div className="quickshop-size-container">
+                    <select
+                      className="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option defaultValue>SIZE</option>
+                      {sizes.map((size) => {
+                        return <option key={size}>{size}</option>;
+                      })}
+                    </select>
+                  </div>
+                  <div className="quickshop-quantity-container">
+                    <button
+                      className="quickshop-minus"
+                      onClick={() => decreaseProductQuantity()}
+                    >
+                      <AiOutlineMinus />
+                    </button>
+                    <p className="current-quantity">{productQuantity}</p>
+                    <button
+                      className="quickshop-plus"
+                      onClick={() => increaseProductQuantity()}
+                    >
+                      <AiOutlinePlus />
+                    </button>
+                  </div>
+                </div>
+                <hr className="line-break quickshop-linebreak" />
+                <div
+                  className="quickshop-add-product"
+                  onClick={() => addProductToCart()}
+                >
+                  <p className="quickshop-add-to-cart">ADD TO CART</p>
+                  <IoCartOutline className="quickshop-cart-icon" />
+                </div>
+                <div
+                  className="quickshop-add-wishlist"
+                  onClick={() => addProductToWishList()}
+                >
+                  <p className="quickshop-add-to-wishlist">ADD TO WISH LIST</p>
+                  <HiOutlineHeart className="quickshop-wishlist-icon" />
+                </div>
+                <Link
+                  style={viewDetailsStyle}
+                  to="/"
+                  className="quickshop-view-all-details"
+                >
+                  View All Details
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </>
   );
 };

@@ -7,7 +7,7 @@ const initialState = {
   lastName: "",
   orders: [],
   password: "",
-  savedForLater: [],
+  wishlist: [],
   _id: "",
   currentView: "",
 };
@@ -25,7 +25,7 @@ const userInfoReducer = (state = initialState, action) => {
         lastName: action.payload.lastName,
         orders: action.payload.orders,
         password: action.payload.password,
-        savedForLater: action.payload.savedForLater,
+        wishlist: action.payload.wishlist,
         _id: action.payload._id,
       };
     case "SET_CURRENT_VIEW":
