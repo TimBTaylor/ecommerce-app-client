@@ -163,6 +163,10 @@
   cursor: pointer;
 }
 
+.no-size-information {
+  color: red;
+}
+
 .quickshop-quantity-container {
   display: flex;
   align-items: center;
@@ -248,7 +252,114 @@
   color: #8e8e8e;
 }
 
+.product-added-modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
 .quickshop-product-title {
+  align-self: start;
+}
+
+.product-added-product-information {
+  display: flex;
+  align-content: center;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.product-added-product-image {
+  height: 170px;
+  width: 170px;
+  align-self: center;
+}
+
+.product-added-modal-title {
   font-size: 1.4rem;
   font-weight: bold;
+}
+
+.product-added-product-title {
+  margin: 0 0 10px 10px;
+}
+
+.product-added-product-price {
+  margin: 0 0 10px 10px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.product-added-product-size,
+.product-added-product-quantity {
+  margin: 0 0 0 10px;
+  font-size: 0.9rem;
+}
+
+.product-added-keep-shopping-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  background-color: #4da58b;
+  border-radius: 5px;
+}
+
+.product-added-keep-shopping-container:hover,
+.product-added-view-cart-container:hover {
+  cursor: pointer;
+  background-color: #55b498;
+}
+
+.product-added-keep-shopping {
+  margin: 0;
+}
+
+.product-added-view-cart-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 25px 0;
+  background-color: #4da58b;
+  border-radius: 5px;
+  transition: 0.3s background-color;
+}
+
+.product-added-view-cart {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.product-added-cart-icon {
+  font-size: 1.4rem;
+  margin: 0 0 2px 10px;
+}
+
+.product-added-wishlist-icon {
+  font-size: 1.1rem;
+  margin: 0 0 2px 5px;
+}
+
+.product-added-also-like-container {
+  margin-top: 20px;
+}
+
+.product-added-also-like-title {
+  font-weight: bold;
+}
+
+.product-added-also-like-products {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.product-added-also-like-product {
+  display: inline-block;
+}
+
+.product-added-also-like-image {
+  height: 120px;
+  width: 120px;
+  margin: 4px 4px 4px 4px;
 }

@@ -21,13 +21,29 @@ export const ProductCard = (props) => {
   const [addedToCart, setAddedToCart] = useState();
   const product = props.product;
 
-  const cart = useSelector((state) => state.userInfoReducer.cart);
+  // const cart = useSelector((state) => state.userInfoReducer.cart);
 
   const dispatch = useDispatch();
 
   const productTitle = product.title;
   const productReviews = product.reviews;
   const sizes = product.sizes;
+  const productType = product.type;
+
+  const allProducts = useSelector((state) => state.productReducer.data);
+
+  const mayAlsoLike = [];
+
+  allProducts.map((products) => {
+    if (
+      products.type === productType &&
+      products.title !== productTitle &&
+      mayAlsoLike.length < 4
+    ) {
+      mayAlsoLike.push(products);
+    }
+    return mayAlsoLike;
+  });
 
   const settingRating = (reviews) => {
     const listofRatings = reviews.map((rating) => {
@@ -113,6 +129,7 @@ export const ProductCard = (props) => {
         data: {
           productId,
           quantity: productQuantity,
+          size: productSize,
         },
       }).then((response) => {
         const newCart = {
@@ -140,9 +157,9 @@ export const ProductCard = (props) => {
         data: {
           productId,
           quantity: productQuantity,
+          size: productSize,
         },
       }).then((response) => {
-        console.log(response);
         const newWishlist = {
           wishlist: response.data,
         };
@@ -253,14 +270,14 @@ export const ProductCard = (props) => {
                     <select
                       className="form-select"
                       aria-label="Default select example"
+                      onChange={(e) => {
+                        setProductSize(e.target.value);
+                      }}
                     >
                       <option defaultValue>SIZE</option>
                       {sizes.map((size) => {
                         return (
-                          <option
-                            onClick={() => setProductSize(size)}
-                            key={size}
-                          >
+                          <option value={size} key={size}>
                             {size}
                           </option>
                         );
@@ -303,6 +320,9 @@ export const ProductCard = (props) => {
                     addProductToWishList();
                     setAddedToCart(false);
                   }}
+                  data-dismiss="modal"
+                  data-toggle="modal"
+                  data-target="#productAddedModal"
                 >
                   <p className="quickshop-add-to-wishlist">ADD TO WISH LIST</p>
                   <HiOutlineHeart className="quickshop-wishlist-icon" />
@@ -349,23 +369,66 @@ export const ProductCard = (props) => {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body product-modal-body">
-                <p className="quickshop-product-title">
-                  {addedToCart ? "Added to cart:" : "Added to wishlist"}
+              <div className="modal-body product-added-modal-body">
+                <p className="product-added-modal-title">
+                  {addedToCart ? "Added to cart:" : "Added to wishlist:"}
                 </p>
                 <div className="product-added-product-information">
-                  <div className="product-added-product-image">
-                    {product.image}
-                  </div>
+                  <img
+                    className="product-added-product-image"
+                    src={product.image}
+                    alt="product"
+                  />
                   <div className="product-added-product-details">
                     <p className="product-added-product-title">{title}</p>
                     <p className="product-added-product-price">
                       ${product.price}
                     </p>
-                    <p className="product-added-product-size">{productSize}</p>
-                    <p className="product-added-product-quantity">
-                      {productQuantity}
+                    <p className="product-added-product-size">
+                      Size: {productSize}
                     </p>
+                    <p className="product-added-product-quantity">
+                      Qty: {productQuantity}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="product-added-keep-shopping-container"
+                  data-dismiss="modal"
+                >
+                  <p className="product-added-keep-shopping">KEEP SHOPPING</p>
+                </div>
+                <div className="product-added-view-cart-container">
+                  <p className="product-added-view-cart">
+                    {addedToCart ? "VIEW CART" : "VIEW WISHLIST"}{" "}
+                  </p>
+                  {addedToCart ? (
+                    <IoCartOutline className="product-added-cart-icon" />
+                  ) : (
+                    <HiOutlineHeart className="product-added-wishlist-icon" />
+                  )}
+                </div>
+                <hr className="line-break quickshop-linebreak" />
+                <div className="product-added-also-like-container">
+                  <p className="product-added-also-like-title">
+                    You may also like:
+                  </p>
+                  <div className="product-added-also-like-products">
+                    {mayAlsoLike.map((product) => {
+                      const key = Math.floor(Math.random() * 99999999999999);
+                      return (
+                        <div
+                          className="product-added-also-like-product"
+                          key={key}
+                        >
+                          <img
+                            className="product-added-also-like-image"
+                            src={product.image}
+                            alt="product"
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

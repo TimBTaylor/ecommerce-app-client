@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ImStarFull } from "react-icons/im";
 import { ImStarEmpty } from "react-icons/im";
@@ -23,10 +22,6 @@ export const Sidebar = () => {
 
   const untouchedFiltered = useSelector(
     (state) => state.productReducer.untouchedFiltered
-  );
-
-  const allFilteredProducts = useSelector(
-    (state) => state.productReducer.filteredData
   );
 
   const productsFilteredByBrand = useSelector(

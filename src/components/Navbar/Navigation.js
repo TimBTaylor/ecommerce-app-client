@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import shoppingcart from "./shopping-cart.svg";
 import pin from "./pin.svg";
-import searchIcon from "./search.svg";
 import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
 import { IoCartOutline } from "react-icons/io5";
-import { HiOutlineHeart } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 import { BsChevronDown } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
 
 export const Navigation = () => {
   const name = localStorage.getItem("firstName");
   const productsList = useSelector((state) => state.productReducer.data);
+  const [searchActive, setSearchActive] = useState();
   const [searchInput, setSearchInput] = useState("");
 
   const dispatch = useDispatch();
@@ -192,6 +193,39 @@ export const Navigation = () => {
 
   return (
     <>
+      <div
+        className={
+          searchActive
+            ? "search-container active fixed-top"
+            : "search-container"
+        }
+      >
+        <div className="search-input-close-container">
+          <AiOutlineClose
+            className="search-input-close"
+            onClick={() => setSearchActive(!searchActive)}
+          />
+        </div>
+        <div className="search-input-container">
+          <form className="search-input-form">
+            <div className="search-input-form-container">
+              <BsSearch
+                className="search-input-icon"
+                onClick={() => {
+                  submitSearchInput(searchInput);
+                  setSearchActive(!searchActive);
+                }}
+              />
+              <input
+                type="search"
+                className="form-control search-input"
+                placeholder="What are you looking for?"
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+            </div>
+          </form>
+        </div>
+      </div>
       <div className="free-shipping-container fixed-top">
         <p className="free-shipping">FREE SHIPPING FOR ALL U.S ORDERS</p>
       </div>
@@ -207,77 +241,46 @@ export const Navigation = () => {
           <img alt="map-marker" src={pin} />
           Deliver to {name}
         </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <form className="mx-2 mx-auto d-inline">
-            <div className="input-group input-container">
-              <input
-                type="search"
-                className="form-control search-input"
-                onChange={(e) => setSearchInput(e.target.value)}
-              />
-              <button
-                type="button"
-                className="search-button"
-                onClick={() => submitSearchInput(searchInput)}
-              >
-                <img
-                  src={searchIcon}
-                  alt="search icon"
+        <div className="navbar-items-container ml-auto">
+          <ul className="navbar-nav-list">
+            <li className="nav-list-item">
+              <a className="nav-item-link" href="#home">
+                <BsSearch
                   className="search-icon"
+                  onClick={() => setSearchActive(!searchActive)}
                 />
-              </button>
-            </div>
-          </form>
-
-          <div className="navbar-items">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link" href="#home">
-                  <CgProfile className="profile-icon" />
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#home">
-                  <HiOutlineHeart className="heart-icon" />
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#home">
-                  <IoCartOutline className="cart-icon" />
-                </a>
-              </li>
-            </ul>
-          </div>
+              </a>
+            </li>
+            <li className="nav-list-item">
+              <a className="nav-item-link" href="#home">
+                <CgProfile className="profile-icon" />
+              </a>
+            </li>
+            <li className="nav-list-item">
+              <a className="nav-item-link" href="#home">
+                <IoCartOutline className="cart-icon" />
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
       <div className="category-bar">
         <ul className="intro-list">
           <li className="intro-list-item">
             <button
-              className="catergory-item btn shadow-none"
+              className="category-item btn shadow-none"
               onClick={() => viewNewArrivals()}
             >
               NEW ARRIVALS
             </button>
           </li>
           <li className="intro-list-item">
-            <button className="catergory-item btn shadow-none">ON SALE</button>
+            <button className="category-item btn shadow-none">ON SALE</button>
           </li>
           <li className="intro-list-item">
             <div className="dropdown men-dropdown">
               <p
-                className="btn catergory-item men-button shadow-none"
+                className="btn category-item men-button shadow-none"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
                 data-hover="dropdown"
@@ -378,7 +381,7 @@ export const Navigation = () => {
           <li className="intro-list-item">
             <div className="dropdown women-dropdown">
               <p
-                className="btn  catergory-item women-button shadow-none"
+                className="btn  category-item women-button shadow-none"
                 id="dropdownMenuLink"
                 data-toggle="dropdown"
                 data-hover="dropdown"
