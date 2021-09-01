@@ -1,3 +1,9 @@
+@media (max-width: 450px) {
+  .cart-button {
+    display: none;
+  }
+}
+
 .product-card {
   border: none;
   height: 450px;
@@ -45,6 +51,7 @@
 
 .card-title:hover {
   color: #ed620e;
+  cursor: pointer;
 }
 
 .body-link:hover {

@@ -3,6 +3,7 @@ import { ProductList } from "../Product-List/ProductList";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Navigation } from "../Navbar/Navigation";
 import { useSelector } from "react-redux";
+import { LandingPage } from "../Landing-Page/LandingPage";
 
 import "./HomeView.css";
 
@@ -16,8 +17,9 @@ export const HomeView = () => {
       </div>
       {currentView ? <h1 className="current-view-title">{currentView}</h1> : ""}
       <div className="component-container">
-        <Sidebar />
-        <ProductList />
+        {/* <Sidebar />
+        <ProductList /> */}
+        <LandingPage />
       </div>
     </>
   );
