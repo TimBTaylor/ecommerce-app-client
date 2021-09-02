@@ -6,7 +6,7 @@
   display: flex;
   align-content: center;
   justify-content: space-between;
-  margin: 0 0 20px 0;
+  margin: 0 20px 20px 20px;
 }
 
 .intro-text {
@@ -52,67 +52,9 @@
   background-color: #4da58b;
 }
 
-.image-container {
-  display: flex;
-  justify-content: space-around;
-  color: #212529;
-}
-
-.male-sweater-img,
-.women-sweater-img {
-  height: 375px;
-  width: 250px;
-}
-
-.small-image-text-container {
-  display: none;
-}
-
-.image-text-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 15px 0 15px;
-}
-
-.fall-image-container {
-}
-
-.fall-image {
-  transform: rotate(180deg);
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 460px) {
-  .male-sweater-img,
-  .women-sweater-img {
-    height: 280px;
-    width: 180px;
-  }
-}
-
 @media (max-width: 500px) and (min-width: 300px) {
   .landing-page-container {
     margin: 0 20px 0 20px;
-  }
-}
-
-@media (max-width: 540px) and (min-width: 461px) {
-  .male-sweater-img,
-  .women-sweater-img {
-    height: 325px;
-    width: 220px;
-  }
-}
-
-@media (max-width: 767px) and (min-width: 541px) {
-  .male-sweater-img,
-  .women-sweater-img {
-    height: 375;
-    width: 250;
-    z-index: 1;
   }
 }
 
@@ -131,44 +73,6 @@
   .promotion-details {
     font-size: 1.8rem;
   }
-
-  .image-text-container {
-    display: none;
-  }
-
-  .image-container {
-    justify-content: center;
-  }
-
-  .small-image-text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    z-index: 2;
-    color: #fff;
-    margin: 5px 0 0 0;
-  }
-}
-
-@media (max-width: 865px) and (min-width: 768px) {
-  .male-sweater-img,
-  .women-sweater-img {
-    height: 325px;
-    width: 220px;
-  }
-
-  .just-dropped {
-    font-size: 1.2rem;
-  }
-
-  .sweater-weather {
-    font-size: 1.7rem;
-  }
-
-  .shop-new-sweaters {
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 992px) and (min-width: 768px) {
@@ -178,13 +82,5 @@
 
   .promotion-details {
     font-size: 2rem;
-  }
-}
-
-@media (max-width: 1000px) and (min-width: 866px) {
-  .male-sweater-img,
-  .women-sweater-img {
-    height: 350px;
-    width: 235px;
   }
 }

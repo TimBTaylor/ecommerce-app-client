@@ -5,6 +5,7 @@ import { login } from "../../actions";
 import { Link } from "react-router-dom";
 import shoppingcart from "../Register-View/shopping-cart.svg";
 import { withRouter } from "react-router-dom";
+import { product } from "../../actions/products";
 
 import "./LoginForm.css";
 
@@ -23,7 +24,9 @@ const LoginForm = (props) => {
       password,
     };
     dispatch(login(userInfo)).then(() => {
-      props.history.push("/home");
+      dispatch(product()).then(() => {
+        props.history.push("/home");
+      });
     });
   };
 

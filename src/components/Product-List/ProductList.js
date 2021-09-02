@@ -1,20 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ProductCard } from "../Product-Card/ProductCard";
-import { useSelector, useDispatch } from "react-redux";
-import { product } from "../../actions/products";
+import { useSelector } from "react-redux";
 
 import "./ProductList.css";
 
 export const ProductList = () => {
-  // const [products, setProducts] = useState([]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(product());
-  }, []);
-
   const filteredProductsList = useSelector(
     (state) => state.productReducer.filteredData
   );
