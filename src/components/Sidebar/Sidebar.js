@@ -10,22 +10,22 @@ import "./Sidebar.css";
 
 export const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
-  const [productsFilteredByPrice, setProductsFilteredByPrice] = useState([]);
+  // const [productsFilteredByPrice, setProductsFilteredByPrice] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [lowPrice, setLowPrice] = useState();
   const [highPrice, setHighPrice] = useState();
   const [brandView, setBrandView] = useState(false);
   const [priceView, setPriceView] = useState(false);
   const [reviewView, setReviewView] = useState(false);
+  const [priceChecked, setPriceChecked] = useState(false);
+
+  //new local states
+  const [currentBrandsDisplayed, setCurrentBrandsDisplay] = useState([]);
 
   const dispatch = useDispatch();
 
   const untouchedFiltered = useSelector(
     (state) => state.productReducer.untouchedFiltered
-  );
-
-  const productsFilteredByBrand = useSelector(
-    (state) => state.productReducer.filteredByBrand
   );
 
   const allBrands = useSelector((state) => state.productReducer.brands);
@@ -49,139 +49,195 @@ export const Sidebar = () => {
   const filteredByBrand = (event, brand) => {
     const element = document.getElementById(event.target.id);
 
-    //sets local state to empty, because user might input a price before a brand
-    let products;
-    if (productsFilteredByPrice.length >= 1) {
-      products = productsFilteredByPrice;
-    } else {
-      products = untouchedFiltered;
-    }
-
-    // if element was checked
     if (element.checked) {
-      //filters products if categorys match
-      const productsToAdd = products.filter(
-        (product) => product.brand === brand
-      );
-      // setting filtered products to local state and redux state
-      const updatedProducts = [...filteredProducts, ...productsToAdd];
-      dispatch({
-        type: "PRODUCTS_FILTERED",
-        payload: updatedProducts,
+      const updatedCurrentBrandsDisplay = [...currentBrandsDisplayed, brand];
+      setCurrentBrandsDisplay(updatedCurrentBrandsDisplay);
+      const productsByBrand = untouchedFiltered.filter((product) => {
+        return product.brand === brand;
       });
-      dispatch({
-        type: "PRODUCTS_FILTERED_BY_BRAND",
-        payload: updatedProducts,
-      });
-      setFilteredProducts(updatedProducts);
-      // if element was unchecked
-    } else {
-      // removes products from list and updates local state and redux state
-      let products;
-      if (productsFilteredByPrice.length >= 1) {
-        products = productsFilteredByPrice;
-      } else {
-        products = filteredProducts;
-      }
-
-      let removedCheckedProducts = products.filter((product) => {
-        return product.brand !== brand;
-      });
-      if (removedCheckedProducts.length >= 1) {
+      if (priceChecked) {
+        const brandProductsFilteredByPrice = [];
+        productsByBrand.filter((product) => {
+          if (product.price >= lowPrice && product.price <= highPrice) {
+            brandProductsFilteredByPrice.push(product);
+          }
+          return brandProductsFilteredByPrice;
+        });
+        const updatedProducts = [
+          ...filteredProducts,
+          ...brandProductsFilteredByPrice,
+        ];
         dispatch({
           type: "PRODUCTS_FILTERED",
-          payload: removedCheckedProducts,
+          payload: updatedProducts,
         });
-        dispatch({
-          type: "PRODUCTS_FILTERED_BY_BRAND",
-          payload: removedCheckedProducts,
-        });
-        setFilteredProducts(removedCheckedProducts);
+        setFilteredProducts(updatedProducts);
       } else {
+        const updatedProducts = [...filteredProducts, ...productsByBrand];
         dispatch({
-          type: "PRODUCTS_FILTERED_BY_BRAND",
-          payload: [],
+          type: "PRODUCTS_FILTERED",
+          payload: updatedProducts,
         });
-        if (productsFilteredByPrice.length >= 1) {
-          const filteredPrice = [];
-          untouchedFiltered.map((product) => {
-            if (product.price >= lowPrice && product.price <= highPrice) {
-              filteredPrice.push(product);
-            }
-            return product;
+        setFilteredProducts(updatedProducts);
+      }
+    } else {
+      if (currentBrandsDisplayed.length > 1) {
+        if (priceChecked) {
+          const leftOverProductsByBrand = [];
+          currentBrandsDisplayed.forEach((brandInList) => {
+            untouchedFiltered.map((product) => {
+              if (
+                product.price >= lowPrice &&
+                product.price <= highPrice &&
+                product.brand === brandInList
+              ) {
+                leftOverProductsByBrand.push(product);
+              }
+              return leftOverProductsByBrand;
+            });
           });
+          try {
+            dispatch({
+              type: "PRODUCTS_FILTERED",
+              payload: leftOverProductsByBrand,
+            });
+          } catch (error) {
+            console.error(error);
+          }
+          setFilteredProducts(leftOverProductsByBrand);
+        } else {
+          const newFilteredData = filteredProducts.filter((product) => {
+            return product.brand !== brand;
+          });
+
           dispatch({
             type: "PRODUCTS_FILTERED",
-            payload: filteredPrice,
+            payload: newFilteredData,
           });
+          setFilteredProducts(newFilteredData);
+        }
+      } else {
+        if (priceChecked) {
+          const productsFilteredByPrice = [];
+          untouchedFiltered.filter((product) => {
+            if (product.price >= lowPrice && product.price <= highPrice) {
+              productsFilteredByPrice.push(product);
+            }
+            return productsFilteredByPrice;
+          });
+          try {
+            dispatch({
+              type: "PRODUCTS_FILTERED",
+              payload: productsFilteredByPrice,
+            });
+          } catch (error) {
+            console.error(error);
+          }
           setFilteredProducts([]);
         } else {
-          dispatch({
-            type: "PRODUCTS_FILTERED",
-            payload: untouchedFiltered,
-          });
+          try {
+            dispatch({
+              type: "PRODUCTS_FILTERED",
+              payload: untouchedFiltered,
+            });
+          } catch (error) {
+            console.error(error);
+          }
           setFilteredProducts([]);
         }
       }
+      const removalOfCurrentBrand = currentBrandsDisplayed.filter(
+        (brandInList) => {
+          return brand !== brandInList;
+        }
+      );
+      setCurrentBrandsDisplay(removalOfCurrentBrand);
     }
   };
 
   const filteredByPrice = (event, priceLow, priceHigh) => {
-    const element = document.getElementById(event.target.id);
+    setPriceChecked(true);
     setLowPrice(priceLow);
     setHighPrice(priceHigh);
+    const element = document.getElementById(event.target.id);
 
     if (element.checked) {
-      let products;
-      if (productsFilteredByBrand.length >= 1) {
-        products = productsFilteredByBrand;
-      } else {
-        products = untouchedFiltered;
-      }
-      console.log(products);
-      const filteredPrice = [];
-      products.map((product) => {
-        if (product.price >= priceLow && product.price <= priceHigh) {
-          filteredPrice.push(product);
+      if (currentBrandsDisplayed.length > 0) {
+        const currentProductsByBrands = [];
+        currentBrandsDisplayed.forEach((brand) => {
+          untouchedFiltered.map((product) => {
+            if (product.brand === brand) {
+              currentProductsByBrands.push(product);
+            }
+            return currentProductsByBrands;
+          });
+        });
+        const currentProductsByBrandFilteredByPrice = [];
+        currentProductsByBrands.map((product) => {
+          if (product.price >= priceLow && product.price <= priceHigh) {
+            currentProductsByBrandFilteredByPrice.push(product);
+          }
+          return currentProductsByBrandFilteredByPrice;
+        });
+        try {
+          dispatch({
+            type: "PRODUCTS_FILTERED",
+            payload: currentProductsByBrandFilteredByPrice,
+          });
+        } catch (error) {
+          console.error(error);
         }
-        return product;
-      });
-      setProductsFilteredByPrice(filteredPrice);
-      dispatch({
-        type: "PRODUCTS_FILTERED",
-        payload: filteredPrice,
-      });
+      } else {
+        const allCurrentProductsByPrice = [];
+        untouchedFiltered.map((product) => {
+          if (product.price >= priceLow && product.price <= priceHigh) {
+            allCurrentProductsByPrice.push(product);
+          }
+          return allCurrentProductsByPrice;
+        });
+        try {
+          dispatch({
+            type: "PRODUCTS_FILTERED",
+            payload: allCurrentProductsByPrice,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
     } else {
-      const productsByCurrentBrands = [];
-      const allProductsByCurrentBrands = [];
-      productsFilteredByBrand.map((product) => {
-        if (!productsByCurrentBrands.includes(product.brand)) {
-          productsByCurrentBrands.push(product.brand);
-        }
-        return productsByCurrentBrands;
-      });
-      untouchedFiltered.map((product) => {
-        if (productsByCurrentBrands.includes(product.brand)) {
-          allProductsByCurrentBrands.push(product);
-        }
-        return allProductsByCurrentBrands;
-      });
-      console.log(productsByCurrentBrands);
-      console.log(allProductsByCurrentBrands);
-      if (productsFilteredByBrand.length >= 1) {
-        console.log("yes");
-        dispatch({
-          type: "PRODUCTS_FILTERED",
-          payload: allProductsByCurrentBrands,
+      setPriceChecked(false);
+      setLowPrice("");
+      setHighPrice("");
+      if (currentBrandsDisplayed.length > 0) {
+        const allProductsByBrand = [];
+        currentBrandsDisplayed.forEach((brand) => {
+          untouchedFiltered.map((product) => {
+            if (product.brand === brand) {
+              allProductsByBrand.push(product);
+            }
+            return allProductsByBrand;
+          });
         });
+        try {
+          dispatch({
+            type: "PRODUCTS_FILTERED",
+            payload: allProductsByBrand,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        setFilteredProducts(allProductsByBrand);
       } else {
-        console.log("ehre");
-        dispatch({
-          type: "PRODUCTS_FILTERED",
-          payload: untouchedFiltered,
-        });
+        try {
+          dispatch({
+            type: "PRODUCTS_FILTERED",
+            payload: untouchedFiltered,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+        setFilteredProducts([]);
       }
-      setProductsFilteredByPrice([]);
     }
   };
 

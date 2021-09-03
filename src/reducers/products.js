@@ -44,12 +44,6 @@ const productReducer = (state = initialState, action) => {
         loading: false,
         filteredData: action.payload,
       };
-    case "PRODUCTS_FILTERED_BY_BRAND":
-      return {
-        ...state,
-        loading: false,
-        filteredByBrand: action.payload,
-      };
     case "PRODUCTS_FILTERED_UNTOUCHED":
       return {
         ...state,

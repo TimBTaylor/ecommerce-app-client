@@ -10,7 +10,7 @@ import { BsChevronDown } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 
-export const Navigation = (props) => {
+export const Navigation = () => {
   const name = localStorage.getItem("firstName");
   const productsList = useSelector((state) => state.productReducer.data);
   const [searchActive, setSearchActive] = useState();
