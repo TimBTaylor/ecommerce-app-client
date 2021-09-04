@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Rampart+One&display=swap");
 .landing-page-container {
-  margin: 50px 20px 0 20px;
+  margin: 50px 0px 0 0px;
 }
 
 .limited-time-container {
@@ -13,6 +15,7 @@
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  font-family: "Anton", sans-serif;
 }
 
 .limited-time {
@@ -52,9 +55,118 @@
   background-color: #4da58b;
 }
 
+.wild-sale-container {
+  margin: 0 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.wild-sale-img {
+  height: auto;
+  width: 100%;
+  max-height: 500px;
+}
+
+.wild-sale-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #4da58b;
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  line-height: 1;
+  font-family: "Anton", sans-serif;
+}
+
+.wild {
+  font-size: 8vw;
+  margin: 0;
+}
+
+.sale {
+  font-size: 8vw;
+  margin: 0;
+}
+
+.sale-percent {
+  text-transform: uppercase;
+  font-size: 3vw;
+  margin: 30px 0 0 0;
+}
+
+.fall-collection-container {
+  width: 100%;
+  height: auto;
+  font-size: 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.fall-collection-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 60px 0 40px 0;
+}
+
+.fall-collection-text {
+  font-family: "Anton", sans-serif;
+  font-size: 3vw;
+  margin: 0;
+}
+
+.fall-collection-buttons {
+  position: absolute;
+  align-self: flex-end;
+  z-index: 2;
+}
+
+.fall-collection-shop-mens,
+.fall-collection-shop-womens {
+  width: 150px;
+  font-size: 1rem;
+  height: 40px;
+  background: none;
+  background-color: #4da58b;
+  border: 1px #000 solid;
+  margin: 0 5px 10px 5px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.fall-collection-shop-mens:hover,
+.fall-collection-shop-womens:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.man-image-container-one,
+.women-image-container-one,
+.man-image-container-two,
+.women-image-container-two {
+  display: flex;
+  width: 25%;
+  height: auto;
+  margin: 0 0px 0 0px;
+}
+
+.manImageOne,
+.womenImageOne,
+.manImageTwo,
+.womenImageTwo {
+  height: auto;
+  width: 100%;
+}
+
 @media (max-width: 500px) and (min-width: 300px) {
-  .landing-page-container {
-    margin: 0 20px 0 20px;
+  .limited-time-container {
+    margin: 0 20px 20px 20px;
   }
 }
 
@@ -72,6 +184,16 @@
 
   .promotion-details {
     font-size: 1.8rem;
+  }
+
+  .man-image-container-two,
+  .women-image-container-two {
+    display: none;
+  }
+
+  .man-image-container-one,
+  .women-image-container-one {
+    width: 50%;
   }
 }
 
