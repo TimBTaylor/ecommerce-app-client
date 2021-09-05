@@ -1,0 +1,104 @@
+.profile-view-container {
+  margin: 50px 0 0 0;
+}
+
+.profile-view-title {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-title-text {
+  text-transform: uppercase;
+  word-spacing: 5px;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.my-account {
+  font-weight: 600;
+}
+
+.profile-list {
+  list-style: none;
+}
+
+.profile-list-row {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-list-item {
+  border-bottom: 1px solid #c8c9ca;
+  margin: 20px 10px 20px 10px;
+  padding-bottom: 20px;
+}
+
+.profile-list-item-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-view-icons {
+  height: 4rem;
+  width: 4rem;
+}
+
+.profile-list-item-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 0 0 15px;
+}
+
+.list-item-title {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+@media (max-width: 500px) {
+  .profile-view-container {
+    margin: 0;
+  }
+}
+
+@media (max-width: 566px) {
+  .profile-view-title {
+    text-align: center;
+  }
+
+  .profile-title-text {
+    font-size: 1.6rem;
+  }
+
+  .my-account {
+    display: block;
+  }
+
+  .divider {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-list-item {
+    margin: 10px 50px 10px 10px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 567px) {
+  .profile-view-title {
+    text-align: center;
+  }
+
+  .profile-title-text {
+    font-size: 1.8rem;
+  }
+
+  .my-account {
+    display: block;
+  }
+
+  .divider {
+    display: none;
+  }
+}

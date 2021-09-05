@@ -232,9 +232,9 @@ export const Navigation = () => {
               </a>
             </li>
             <li className="nav-list-item">
-              <a className="nav-item-link" href="#home">
+              <Link to="/profile" className="nav-item-link">
                 <CgProfile className="profile-icon" />
-              </a>
+              </Link>
             </li>
             <li className="nav-list-item">
               <a className="nav-item-link" href="#home">
@@ -247,17 +247,18 @@ export const Navigation = () => {
       <div className="category-bar">
         <ul className="intro-list">
           <li className="intro-list-item">
-            <Link
-              to="/products"
-              className="category-item btn shadow-none"
-              onClick={() => viewNewArrivals()}
-            >
-              NEW ARRIVALS
+            <Link to="/products">
+              <button
+                className="category-item btn shadow-none"
+                onClick={() => viewNewArrivals()}
+              >
+                NEW ARRIVALS
+              </button>
             </Link>
           </li>
           <li className="intro-list-item">
-            <Link to="/products" className="category-item btn shadow-none">
-              ON SALE
+            <Link to="/products">
+              <button className="category-item btn shadow-none">ON SALE</button>
             </Link>
           </li>
           <li className="intro-list-item">
@@ -279,93 +280,93 @@ export const Navigation = () => {
               >
                 <ul className="dropdown-list nav-dropdown-list">
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button shadow-none "
-                      onClick={() => filterByInput("male", "all", "Men's")}
-                    >
-                      All
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button shadow-none "
+                        onClick={() => filterByInput("male", "all", "Men's")}
+                      >
+                        All
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("male", "shirt", "Men's Shirts")
-                      }
-                    >
-                      Shirts
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("male", "shirt", "Men's Shirts")
+                        }
+                      >
+                        Shirts
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("male", "sweater", "Men's Sweaters")
-                      }
-                    >
-                      Sweaters
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("male", "sweater", "Men's Sweaters")
+                        }
+                      >
+                        Sweaters
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("male", "pants", "Men's Pants")
-                      }
-                    >
-                      Pants
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("male", "pants", "Men's Pants")
+                        }
+                      >
+                        Pants
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("male", "shoes", "Men's Shoes")
-                      }
-                    >
-                      Shoes
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("male", "shoes", "Men's Shoes")
+                        }
+                      >
+                        Shoes
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput(
-                          "male",
-                          "accessories",
-                          "Men's Accessories"
-                        )
-                      }
-                    >
-                      Accessories
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput(
+                            "male",
+                            "accessories",
+                            "Men's Accessories"
+                          )
+                        }
+                      >
+                        Accessories
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput(
-                          "male",
-                          "newArrival",
-                          "Men's New Arrivals"
-                        )
-                      }
-                    >
-                      New arrivals
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput(
+                            "male",
+                            "newArrival",
+                            "Men's New Arrivals"
+                          )
+                        }
+                      >
+                        New arrivals
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
@@ -394,102 +395,100 @@ export const Navigation = () => {
               >
                 <ul className="dropdown-list nav-dropdown-list">
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button shadow-none "
-                      onClick={() => filterByInput("female", "all", "Women's")}
-                    >
-                      All
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button shadow-none "
+                        onClick={() =>
+                          filterByInput("female", "all", "Women's")
+                        }
+                      >
+                        All
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("female", "shirt", "Women's Shirts")
-                      }
-                    >
-                      Shirts
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("female", "shirt", "Women's Shirts")
+                        }
+                      >
+                        Shirts
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("female", "sweater", "Women's Sweaters")
-                      }
-                    >
-                      Sweaters
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("female", "sweater", "Women's Sweaters")
+                        }
+                      >
+                        Sweaters
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("female", "pants", "Women's Pants")
-                      }
-                    >
-                      Pants
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("female", "pants", "Women's Pants")
+                        }
+                      >
+                        Pants
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput("female", "shoes", "Women's Shoes")
-                      }
-                    >
-                      Shoes
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("female", "shoes", "Women's Shoes")
+                        }
+                      >
+                        Shoes
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput(
-                          "female",
-                          "accessories",
-                          "Women's Accessories"
-                        )
-                      }
-                    >
-                      Accessories
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput(
+                            "female",
+                            "accessories",
+                            "Women's Accessories"
+                          )
+                        }
+                      >
+                        Accessories
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                      onClick={() =>
-                        filterByInput(
-                          "female",
-                          "newArrival",
-                          "Women's New Arrivals"
-                        )
-                      }
-                    >
-                      New arrivals
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput(
+                            "female",
+                            "newArrival",
+                            "Women's New Arrivals"
+                          )
+                        }
+                      >
+                        New arrivals
+                      </button>
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <NavLink
-                      style={{ all: "unset" }}
-                      to="/products"
-                      className="nav-dropdown-button"
-                    >
-                      On sale
+                    <NavLink to="/products">
+                      <button className="nav-dropdown-button">On sale</button>
                     </NavLink>
                   </li>
                 </ul>

@@ -89,7 +89,7 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-right: 20px;
 }
 
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 550px) {
   .deliver-to {
     display: none;
   }
@@ -236,15 +236,15 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .nav-dropdown-button {
-  background: none !important;
-  border: none !important;
-  font-weight: 300 !important;
+  background: none;
+  border: none;
+  font-weight: 300;
 }
 
 .nav-dropdown-button:hover {
-  text-decoration: none !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
+  text-decoration: underline;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .nav-dropdown-item:hover {

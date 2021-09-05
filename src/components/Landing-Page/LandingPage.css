@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Rampart+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Monoton&display=swap");
+
 .landing-page-container {
   margin: 50px 0px 0 0px;
 }
@@ -55,7 +57,7 @@
   background-color: #4da58b;
 }
 
-.wild-sale-container {
+/* .wild-sale-container {
   margin: 0 0 0 0;
   display: flex;
   justify-content: center;
@@ -96,7 +98,7 @@
   text-transform: uppercase;
   font-size: 3vw;
   margin: 30px 0 0 0;
-}
+} */
 
 .fall-collection-container {
   width: 100%;
@@ -117,7 +119,7 @@
 
 .fall-collection-text {
   font-family: "Anton", sans-serif;
-  font-size: 3vw;
+  font-size: 5vw;
   margin: 0;
 }
 
@@ -164,9 +166,58 @@
   width: 100%;
 }
 
+.past-trends-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0 0 0;
+}
+
+.past-trends-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 2;
+  font-family: "Anton", sans-serif;
+  line-height: 6vw;
+}
+
+.past-trends-alert {
+  font-size: 4vw;
+  text-transform: uppercase;
+  word-spacing: 1vw;
+  margin: 0;
+}
+
+.past-is-back {
+  font-size: 6vw;
+  word-spacing: 1vw;
+  margin: 0;
+}
+
+.past-trends-text {
+  word-spacing: 1vw;
+  font-size: 3vw;
+  margin: 0;
+}
+
+.past-trends-img {
+  height: auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
 @media (max-width: 500px) and (min-width: 300px) {
   .limited-time-container {
     margin: 0 20px 20px 20px;
+  }
+
+  .landing-page-container {
+    margin: 0;
   }
 }
 
