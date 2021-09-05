@@ -4,6 +4,7 @@ import { FiMapPin } from "react-icons/fi";
 import { BsCreditCard } from "react-icons/bs";
 import { IoMdClipboard } from "react-icons/io";
 import { BiHeart } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 
 import "./ProfileView.css";
 
@@ -26,15 +27,17 @@ export const ProfileView = () => {
             <ul className="profile-list">
               <div className="row profile-list-row">
                 <li className="profile-list-item col-md">
-                  <div className="profile-list-item-container">
-                    <IoPersonOutline className="profile-view-icons" />
-                    <div className="profile-list-item-text">
-                      <p className="list-item-title">personal data</p>
-                      <p className="list-item-description">
-                        Show or update update your personal information
-                      </p>
+                  <NavLink to="/profile-update" style={{ all: "unset" }}>
+                    <div className="profile-list-item-container">
+                      <IoPersonOutline className="profile-view-icons" />
+                      <div className="profile-list-item-text">
+                        <p className="list-item-title">personal data</p>
+                        <p className="list-item-description">
+                          Show or update update your personal information
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </NavLink>
                 </li>
                 <li className="profile-list-item col-md">
                   <div className="profile-list-item-container">

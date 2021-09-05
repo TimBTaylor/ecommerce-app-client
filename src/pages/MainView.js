@@ -4,6 +4,7 @@ import { Register } from "./Register";
 import { Home } from "./Home";
 import { ProductsView } from "./ProductsView";
 import { Profile } from "./Profile";
+import { PersonalInfoUpdate } from "./PersonalInfoUpdate";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 export const MainView = () => {
@@ -15,6 +16,7 @@ export const MainView = () => {
         <Route exact path="/home" component={Home} />
         <Route exact path="/products" component={ProductsView} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/profile-update" component={PersonalInfoUpdate} />
       </Router>
     </div>
   );
