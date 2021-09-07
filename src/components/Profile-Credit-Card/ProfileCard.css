@@ -1,0 +1,236 @@
+.profile-card-container {
+  margin: 50px 0 125px 0;
+}
+
+/* .profile-card-title-container {
+    text-align: center;
+  }
+  
+  .profile-card-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 2rem;
+  } */
+
+.form-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.profile-card-form-title-container {
+  width: 100%;
+  text-align: center;
+}
+
+.profile-card-form-title {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.profile-card-form {
+  width: 50vw;
+}
+
+.profile-card-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 20px 0 0 0;
+}
+
+.profile-card-label-1 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.profile-card-input {
+  margin-left: 6vw;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  height: 5vh;
+}
+
+.profile-card-input:focus {
+  box-shadow: none;
+  border-bottom: 1px solid black;
+}
+
+#cardNumberMute,
+#expiresExample {
+  margin-left: 6vw;
+}
+
+.profile-card-form-create {
+  background: none;
+  width: 50vw;
+  height: 6vh;
+  margin-left: 55px;
+  transition: 0.3s background-color;
+}
+
+.profile-card-form-create:hover {
+  background-color: #4da58b;
+}
+
+.card-content-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.card-content-title-container {
+  text-align: center;
+}
+
+.card-content-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-button-edit,
+.card-button-delete {
+  background: none;
+  margin: 0 10px;
+  width: 10vw;
+  height: 5vh;
+  transition: 0.3s background-color;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.card-button-delete:hover,
+.card-button-edit:hover {
+  background-color: #4da58b;
+}
+
+.edit-card-content-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.edit-card-title-container {
+  text-align: center;
+}
+
+.edit-card-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.card-edit-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.card-edit-label-1 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.card-edit-input {
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  height: 3vh;
+  width: 30vw;
+}
+
+.card-edit-input:focus {
+  box-shadow: none;
+  border-bottom: 1px solid black;
+}
+
+.card-edit-buttons-container {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-edit-update {
+  background: none;
+  width: 15vw;
+  height: 5vh;
+  transition: 0.3s background-color;
+}
+
+.card-edit-update:hover {
+  background-color: #4da58b;
+}
+
+.card-edit-cancel {
+  background: none;
+  border: none;
+  margin-top: 20px;
+}
+
+.card-edit-cancel:hover {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.card-content-button-container {
+  text-align: center;
+}
+
+.card-content-add-card-button {
+  background: none;
+  margin-top: 20px;
+  width: 50vw;
+  height: 7vh;
+  color: #fff;
+  background-color: #212529;
+  transition: 0.3s background-color;
+}
+
+.card-content-add-card-button:hover {
+  background-color: #353a40;
+}
+
+@media (max-width: 500px) {
+  .profile-card-container {
+    margin: 0 0 125px 0;
+  }
+
+  .profile-card-form-create {
+    margin-left: 10px;
+    width: 75vw;
+  }
+
+  .profile-card-form {
+    width: 75vw;
+  }
+
+  .card-button-edit,
+  .card-button-delete {
+    width: 20vw;
+  }
+
+  .card-content-add-card-button {
+    width: 75vw;
+  }
+
+  .card-edit-input {
+    width: 70vw;
+  }
+
+  .card-edit-update {
+    width: 30vw;
+  }
+}

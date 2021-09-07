@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const login = (userInfo) => async (dispatch) => {
+export const login = (userInfo, props) => async (dispatch) => {
   dispatch({
     type: "LOGIN_REQUEST",
   });
@@ -39,6 +39,7 @@ export const login = (userInfo) => async (dispatch) => {
         dispatch({
           type: "LOGIN_SUCCESS",
         });
+        props.history.push("/home");
       }
     });
   } catch (error) {

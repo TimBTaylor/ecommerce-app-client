@@ -464,9 +464,9 @@ export const Sidebar = () => {
                                 type="checkbox"
                                 value=""
                                 id={brand}
-                                onClick={(e) =>
-                                  filteredByBrand(e, brand, untouchedFiltered)
-                                }
+                                onClick={(e) => {
+                                  filteredByBrand(e, brand);
+                                }}
                               />
                               <label
                                 className="mobile-brand-label"

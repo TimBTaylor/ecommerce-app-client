@@ -1,11 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import "./ProfileUpdate.css";
 
 export const ProfileUpdate = () => {
-  const fName = localStorage.getItem("firstName");
-  const lName = localStorage.getItem("lastName");
-  const email = localStorage.getItem("email");
+  const fName = useSelector((state) => state.userInfoReducer.firstName);
+  const lName = useSelector((state) => state.userInfoReducer.lastName);
+  const email = useSelector((state) => state.userInfoReducer.email);
 
   return (
     <>

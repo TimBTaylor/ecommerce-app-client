@@ -25,6 +25,7 @@ const loginReducer = (state = initialState, action) => {
           passwordValid: true,
           name: action.payload,
         },
+        error: null,
       };
     case "LOGIN_EMAIL_FAILED":
       return {
@@ -34,6 +35,7 @@ const loginReducer = (state = initialState, action) => {
           emailValid: action.payload,
           passwordValid: true,
         },
+        error: true,
       };
     case "LOGIN_PASSWORD_FAILED":
       return {
@@ -43,6 +45,7 @@ const loginReducer = (state = initialState, action) => {
           emailValid: true,
           passwordValid: action.payload,
         },
+        error: true,
       };
     case "LOGIN_FAILURE":
       return {

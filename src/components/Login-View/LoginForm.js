@@ -23,10 +23,9 @@ const LoginForm = (props) => {
       email,
       password,
     };
-    dispatch(login(userInfo)).then(() => {
-      dispatch(product()).then(() => {
-        props.history.push("/home");
-      });
+
+    dispatch(login(userInfo, props)).then(() => {
+      dispatch(product());
     });
   };
 

@@ -5,7 +5,9 @@ import { Home } from "./Home";
 import { ProductsView } from "./ProductsView";
 import { Profile } from "./Profile";
 import { PersonalInfoUpdate } from "./PersonalInfoUpdate";
+import { AddressView } from "./AddressView";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { CreditCardView } from "./CreditCardView";
 
 export const MainView = () => {
   return (
@@ -17,6 +19,8 @@ export const MainView = () => {
         <Route exact path="/products" component={ProductsView} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/profile-update" component={PersonalInfoUpdate} />
+        <Route exact path="/profile-address" component={AddressView} />
+        <Route exact path="/profile-card" component={CreditCardView} />
       </Router>
     </div>
   );

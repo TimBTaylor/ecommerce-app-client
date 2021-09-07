@@ -40,26 +40,30 @@ export const ProfileView = () => {
                   </NavLink>
                 </li>
                 <li className="profile-list-item col-md">
-                  <div className="profile-list-item-container">
-                    <FiMapPin className="profile-view-icons" />
-                    <div className="profile-list-item-text">
-                      <p className="list-item-title">addresses</p>
-                      <p className="list-item-description">
-                        Manage your billing and shipping addresses
-                      </p>
+                  <NavLink to="/profile-address" style={{ all: "unset" }}>
+                    <div className="profile-list-item-container">
+                      <FiMapPin className="profile-view-icons" />
+                      <div className="profile-list-item-text">
+                        <p className="list-item-title">addresses</p>
+                        <p className="list-item-description">
+                          Manage your billing and shipping addresses
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </NavLink>
                 </li>
               </div>
               <div className="row profile-list-row">
                 <li className="profile-list-item col-md">
-                  <div className="profile-list-item-container">
-                    <BsCreditCard className="profile-view-icons" />
-                    <div className="profile-list-item-text">
-                      <p className="list-item-title">payment settings</p>
-                      <p className="list-item-description">Manage cards</p>
+                  <NavLink to="profile-card" style={{ all: "unset" }}>
+                    <div className="profile-list-item-container">
+                      <BsCreditCard className="profile-view-icons" />
+                      <div className="profile-list-item-text">
+                        <p className="list-item-title">payment settings</p>
+                        <p className="list-item-description">Manage cards</p>
+                      </div>
                     </div>
-                  </div>
+                  </NavLink>
                 </li>
                 <li className="profile-list-item col-md">
                   <div className="profile-list-item-container">
@@ -74,7 +78,7 @@ export const ProfileView = () => {
                 </li>
               </div>
               <div className="row profile-list-row">
-                <li className="profile-list-item wishlist col-md-6">
+                <li className="profile-list-item wishlist col-md">
                   <div className="profile-list-item-container">
                     <BiHeart className="profile-view-icons" />
                     <div className="profile-list-item-text">
@@ -85,6 +89,7 @@ export const ProfileView = () => {
                     </div>
                   </div>
                 </li>
+                <li className="col-md"></li>
               </div>
             </ul>
           </div>
