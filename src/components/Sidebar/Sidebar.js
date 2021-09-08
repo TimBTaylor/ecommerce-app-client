@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ImStarFull } from "react-icons/im";
-import { ImStarEmpty } from "react-icons/im";
 import filter from "./filter.svg";
 import { AiOutlineMinus } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -16,7 +14,6 @@ export const Sidebar = () => {
   const [highPrice, setHighPrice] = useState();
   const [brandView, setBrandView] = useState(false);
   const [priceView, setPriceView] = useState(false);
-  const [reviewView, setReviewView] = useState(false);
   const [priceChecked, setPriceChecked] = useState(false);
 
   //new local states
@@ -40,10 +37,6 @@ export const Sidebar = () => {
 
   const showPriceView = () => {
     setPriceView(!priceView);
-  };
-
-  const showReviewView = () => {
-    setReviewView(!reviewView);
   };
 
   const filteredByBrand = (event, brand) => {
@@ -253,7 +246,7 @@ export const Sidebar = () => {
         <div
           className={sidebar ? "sidebar-nav-menu active" : "sidebar-nav-menu"}
         >
-          <div className="form-check">
+          <div className="form-check side-bar-container">
             <div className="brand">
               <p className="brand-title">Brand</p>
               <ul className="brand-list">
@@ -265,9 +258,7 @@ export const Sidebar = () => {
                         type="checkbox"
                         value=""
                         id={brand}
-                        onClick={(e) =>
-                          filteredByBrand(e, brand, untouchedFiltered)
-                        }
+                        onClick={(e) => filteredByBrand(e, brand)}
                       />
                       <label className="form-check-label" htmlFor={brand}>
                         {brand}
@@ -336,81 +327,6 @@ export const Sidebar = () => {
                   </li>
                 </ul>
               </div>
-              <div className="reviews">
-                <p className="reviews-title">Reviews</p>
-                <ul className="reviews-list">
-                  <li className="review-item">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="1star"
-                    />
-                    <label className="form-check-label" htmlFor="1star">
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                    </label>
-                  </li>
-                  <li className="review-item">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="2star"
-                    />
-                    <label className="form-check-label" htmlFor="2star">
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarEmpty className="star" />}
-                    </label>
-                  </li>
-                  <li className="review-item">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="3star"
-                    />
-                    <label className="form-check-label" htmlFor="3star">
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarEmpty className="star" />}
-                      {<ImStarEmpty className="star" />}
-                    </label>
-                  </li>
-                  <li className="review-item">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="4star"
-                    />
-                    <label className="form-check-label" htmlFor="4star">
-                      {<ImStarFull className="star" />}
-                      {<ImStarFull className="star" />}
-                      {<ImStarEmpty className="star" />}
-                      {<ImStarEmpty className="star" />}
-                      {<ImStarEmpty className="star" />}
-                    </label>
-                  </li>
-                  <li className="review-item">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="5star"
-                    />
-                    <label className="form-check-label" htmlFor="5star">
-                      {<ImStarFull className="star" />}
-                      {<ImStarEmpty className="star" />}
-                      {<ImStarEmpty className="star" />}
-                      {<ImStarEmpty className="star" />}
-                      {<ImStarEmpty className="star" />}
-                    </label>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
@@ -457,13 +373,15 @@ export const Sidebar = () => {
                     <div className="mobile-brands">
                       <ul className="mobile-brands-list">
                         {allBrands.map((brand) => {
+                          let i = Math.floor(Math.random() * 999999999);
+                          const randomNumber = JSON.stringify(i);
                           return (
                             <li className="mobile-brands-list-item" key={brand}>
                               <input
-                                className="mobile-brand-input"
+                                className="mobile-brand-input random-class"
                                 type="checkbox"
                                 value=""
-                                id={brand}
+                                id={randomNumber}
                                 onClick={(e) => {
                                   filteredByBrand(e, brand);
                                 }}
@@ -511,7 +429,7 @@ export const Sidebar = () => {
                         <input
                           className="mobile-price-input"
                           type="checkbox"
-                          id="under25"
+                          id="under25Mobile"
                           onClick={(e) => filteredByPrice(e, 0, 24.99)}
                         />
                         <label className="mobile-price-label" htmlFor="under25">
@@ -522,7 +440,7 @@ export const Sidebar = () => {
                         <input
                           className="mobile-price-input"
                           type="checkbox"
-                          id="25to50"
+                          id="25to50Mobile"
                           onClick={(e) => filteredByPrice(e, 25, 50)}
                         />
                         <label className="mobile-price-label" htmlFor="25to50">
@@ -533,7 +451,7 @@ export const Sidebar = () => {
                         <input
                           className="mobile-price-input"
                           type="checkbox"
-                          id="50to100"
+                          id="50to100Mobile"
                           onClick={(e) => filteredByPrice(e, 50.01, 100)}
                         />
                         <label className="mobile-price-label" htmlFor="50to100">
@@ -544,7 +462,7 @@ export const Sidebar = () => {
                         <input
                           className="mobile-price-input"
                           type="checkbox"
-                          id="100to200"
+                          id="100to200Mobile"
                           onClick={(e) => filteredByPrice(e, 100.01, 200)}
                         />
                         <label
@@ -558,7 +476,7 @@ export const Sidebar = () => {
                         <input
                           className="mobile-price-input"
                           type="checkbox"
-                          id="200plus"
+                          id="200plusMobile"
                           onClick={(e) => filteredByPrice(e, 200.01, 100000000)}
                         />
                         <label className="mobile-price-label" htmlFor="200plus">
@@ -571,100 +489,6 @@ export const Sidebar = () => {
                   ""
                 )}
                 <hr className="line-break" />
-                <div
-                  className="review-title-container d-flex justify-content-between"
-                  onClick={() => showReviewView()}
-                >
-                  <button
-                    className="btn btn-default mobile-review-title"
-                    type="button"
-                  >
-                    REVIEWS
-                  </button>
-                  {reviewView ? (
-                    <AiOutlineMinus className="view-symbol" />
-                  ) : (
-                    <AiOutlinePlus className="view-symbol" />
-                  )}
-                </div>
-                {reviewView ? (
-                  <div className="mobile-review-container">
-                    <ul className="mobile-review-list">
-                      <li className="mobile-review-list-item">
-                        <input
-                          className="mobile-review-input"
-                          type="checkbox"
-                          id="1star"
-                        />
-                        <label className="mobile-review-label" htmlFor="1star">
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                        </label>
-                      </li>
-                      <li className="mobile-review-list-item">
-                        <input
-                          className="mobile-review-input"
-                          type="checkbox"
-                          id="2star"
-                        />
-                        <label className="mobile-review-label" htmlFor="2star">
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarEmpty className="star" />}
-                        </label>
-                      </li>
-                      <li className="mobile-review-list-item">
-                        <input
-                          className="mobile-review-input"
-                          type="checkbox"
-                          id="3star"
-                        />
-                        <label className="mobile-review-label" htmlFor="3star">
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarEmpty className="star" />}
-                          {<ImStarEmpty className="star" />}
-                        </label>
-                      </li>
-                      <li className="mobile-review-list-item">
-                        <input
-                          className="mobile-review-input"
-                          type="checkbox"
-                          id="4star"
-                        />
-                        <label className="mobile-review-label" htmlFor="4star">
-                          {<ImStarFull className="star" />}
-                          {<ImStarFull className="star" />}
-                          {<ImStarEmpty className="star" />}
-                          {<ImStarEmpty className="star" />}
-                          {<ImStarEmpty className="star" />}
-                        </label>
-                      </li>
-                      <li className="mobile-review-list-item">
-                        <input
-                          className="mobile-review-input"
-                          type="checkbox"
-                          id="5star"
-                        />
-                        <label className="mobile-review-label" htmlFor="5star">
-                          {<ImStarFull className="star" />}
-                          {<ImStarEmpty className="star" />}
-                          {<ImStarEmpty className="star" />}
-                          {<ImStarEmpty className="star" />}
-                          {<ImStarEmpty className="star" />}
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
-                ) : (
-                  ""
-                )}
               </div>
               <div className="modal-footer mobile-modal-footer">
                 <button className="clear-all-filters">CLEAR ALL FILTERS</button>

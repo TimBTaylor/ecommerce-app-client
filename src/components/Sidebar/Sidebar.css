@@ -102,8 +102,10 @@
 }
 
 @media (max-width: 500px) {
+  .sidebar-nav-menu.active,
   .sidebar-nav-menu,
-  .filter-bar {
+  .filter-bar,
+  .side-bar-container {
     display: none;
   }
 
@@ -141,8 +143,7 @@
 }
 
 .mobile-brand-title,
-.mobile-price-title,
-.mobile-review-title {
+.mobile-price-title {
   font-size: 1rem !important;
 }
 
@@ -170,8 +171,7 @@
 }
 
 .mobile-brands-list,
-.mobile-price-list,
-.mobile-review-list {
+.mobile-price-list {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -179,8 +179,7 @@
 }
 
 .mobile-brand-input,
-.mobile-price-input,
-.mobile-review-input {
+.mobile-price-input {
   margin-right: 10px;
   transform: scale(1.6);
 }

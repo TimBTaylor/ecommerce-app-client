@@ -38,6 +38,11 @@ const productReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+    case "PRODUCTS_FILTERED_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+      };
     case "PRODUCTS_FILTERED":
       return {
         ...state,

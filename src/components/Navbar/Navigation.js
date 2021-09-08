@@ -32,6 +32,7 @@ export const Navigation = () => {
       }
       return filteredBrands;
     });
+
     dispatch({
       type: "PRODUCTS_BRANDS",
       payload: filteredBrands,
@@ -42,6 +43,7 @@ export const Navigation = () => {
     dispatch({
       type: "PRODUCTS_FILTERED_REQUESTED",
     });
+    console.log("here");
     const filteredProducts = [];
     const byGenderProducts = [];
 
@@ -68,6 +70,9 @@ export const Navigation = () => {
         dispatch({
           type: "PRODUCTS_FILTERED_UNTOUCHED",
           payload: byGenderProducts,
+        });
+        dispatch({
+          type: "PRODUCTS_FILTERED_SUCCESS",
         });
         getBrands(byGenderProducts);
       } catch (error) {
@@ -97,6 +102,9 @@ export const Navigation = () => {
           type: "PRODUCTS_FILTERED_UNTOUCHED",
           payload: filteredProducts,
         });
+        dispatch({
+          type: "PRODUCTS_FILTERED_SUCCESS",
+        });
         getBrands(filteredProducts);
       } catch (error) {
         console.error(error);
@@ -123,6 +131,9 @@ export const Navigation = () => {
           type: "PRODUCTS_FILTERED_UNTOUCHED",
           payload: filteredProducts,
         });
+        dispatch({
+          type: "PRODUCTS_FILTERED_SUCCESS",
+        });
         getBrands(filteredProducts);
       } catch (error) {
         console.error(error);
@@ -132,22 +143,35 @@ export const Navigation = () => {
 
   //for seach bar but currently not working
   const submitSearchInput = (input) => {
+    dispatch({
+      type: "PRODUCTS_FILTERED_REQUESTED",
+    });
     const filteredProductsList = productsList.filter((product) => {
       return product.title.toLowerCase().includes(input.toLowerCase());
     });
-    dispatch({
-      type: "PRODUCTS_FILTERED",
-      payload: filteredProductsList,
-    });
-    dispatch({
-      type: "PRODUCTS_FILTERED_UNTOUCHED",
-      payload: filteredProductsList,
-    });
-    getBrands(filteredProductsList);
+    try {
+      dispatch({
+        type: "PRODUCTS_FILTERED",
+        payload: filteredProductsList,
+      });
+      dispatch({
+        type: "PRODUCTS_FILTERED_UNTOUCHED",
+        payload: filteredProductsList,
+      });
+      dispatch({
+        type: "PRODUCTS_FILTERED_SUCCESS",
+      });
+      getBrands(filteredProductsList);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   //male and female new arrivals
   const viewNewArrivals = () => {
+    dispatch({
+      type: "PRODUCTS_FILTERED_REQUESTED",
+    });
     const allNewArrivals = [];
     productsList.map((product) => {
       if (product.newArrival) {
@@ -168,6 +192,9 @@ export const Navigation = () => {
       dispatch({
         type: "PRODUCTS_FILTERED_UNTOUCHED",
         payload: allNewArrivals,
+      });
+      dispatch({
+        type: "PRODUCTS_FILTERED_SUCCESS",
       });
       getBrands(allNewArrivals);
     } catch (error) {

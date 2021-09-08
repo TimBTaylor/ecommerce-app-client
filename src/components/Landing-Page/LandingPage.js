@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import clothesOnRack from "./long-photo.jpeg";
 import manImageOne from "./man-image-one.jpg";
 import manImageTwo from "./man-image-two.jpg";
 import womenImageOne from "./women-image-one.jpg";
