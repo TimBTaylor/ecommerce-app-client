@@ -43,7 +43,6 @@ export const Navigation = () => {
     dispatch({
       type: "PRODUCTS_FILTERED_REQUESTED",
     });
-    console.log("here");
     const filteredProducts = [];
     const byGenderProducts = [];
 

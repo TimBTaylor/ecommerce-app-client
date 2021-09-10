@@ -25,7 +25,7 @@ const userInfoReducer = (state = initialState, action) => {
         lastName: action.payload.lastName,
         orders: action.payload.orders,
         password: action.payload.password,
-        wishlist: action.payload.wishlist,
+        wishlist: action.payload.savedForLater,
         _id: action.payload._id,
       };
     case "SET_CURRENT_VIEW":

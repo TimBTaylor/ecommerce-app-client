@@ -55,7 +55,7 @@ export const ProfileView = () => {
               </div>
               <div className="row profile-list-row">
                 <li className="profile-list-item col-md">
-                  <NavLink to="profile-card" style={{ all: "unset" }}>
+                  <NavLink to="/profile-card" style={{ all: "unset" }}>
                     <div className="profile-list-item-container">
                       <BsCreditCard className="profile-view-icons" />
                       <div className="profile-list-item-text">
@@ -79,15 +79,17 @@ export const ProfileView = () => {
               </div>
               <div className="row profile-list-row">
                 <li className="profile-list-item wishlist col-md">
-                  <div className="profile-list-item-container">
-                    <BiHeart className="profile-view-icons" />
-                    <div className="profile-list-item-text">
-                      <p className="list-item-title">wishlist</p>
-                      <p className="list-item-description">
-                        View and modify items
-                      </p>
+                  <NavLink to="/wishlist" style={{ all: "unset" }}>
+                    <div className="profile-list-item-container">
+                      <BiHeart className="profile-view-icons" />
+                      <div className="profile-list-item-text">
+                        <p className="list-item-title">wishlist</p>
+                        <p className="list-item-description">
+                          View and modify items
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </NavLink>
                 </li>
                 <li className="col-md"></li>
               </div>

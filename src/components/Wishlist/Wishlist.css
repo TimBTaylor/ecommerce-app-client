@@ -1,0 +1,13 @@
+.wishlist-content-container {
+  margin: 50px 0 125px 0;
+}
+
+.wishlist-title-container {
+  text-align: center;
+}
+
+.wishlist-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2rem;
+}

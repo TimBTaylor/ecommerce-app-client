@@ -116,7 +116,7 @@
 
 .edit-card-content-container {
   margin-top: 20px;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-content: center;
   justify-content: center;

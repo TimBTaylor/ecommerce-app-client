@@ -5,7 +5,6 @@ import "./ProfileAddressView.css";
 
 export const ProfileAddressView = () => {
   const [createAddress, setCreateAddress] = useState(true);
-  const [editAddress, setEditAddress] = useState(false);
   const usersAddress = useSelector((state) => state.userInfoReducer.address);
 
   useEffect(() => {
@@ -13,10 +12,6 @@ export const ProfileAddressView = () => {
       setCreateAddress(false);
     }
   }, [usersAddress.length]);
-
-  const showEditAddress = () => {
-    setEditAddress(!editAddress);
-  };
 
   return (
     <>
@@ -147,6 +142,18 @@ export const ProfileAddressView = () => {
                 <hr className="linebreak" />
               </div>
               {usersAddress.map((address) => {
+                const randomId = Math.floor(Math.random() * 99999);
+                let editAddressPre = false;
+                const showEditAddress = () => {
+                  if (editAddressPre) {
+                    document.getElementById(randomId).style.display = "none";
+                    editAddressPre = false;
+                  } else {
+                    document.getElementById(randomId).style.display = "flex";
+                    editAddressPre = true;
+                  }
+                };
+
                 return (
                   <div
                     className="address-content"
@@ -169,121 +176,118 @@ export const ProfileAddressView = () => {
                       </button>
                       <button className="address-button-delete">Delete</button>
                     </div>
-                    {editAddress ? (
-                      <div className="edit-address-content-container">
-                        <div className="edit-address-title-container">
-                          <h1 className="edit-address-title">edit address</h1>
-                        </div>
-                        <form className="edit-address-form">
-                          <div className="form-group">
-                            <label
-                              htmlFor="addressName"
-                              className="address-edit-label-1"
-                            >
-                              Address
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressName"
-                              aria-describedby="addressMuted"
-                              defaultValue={address.Address}
-                            />
-                            <small
-                              id="addressEditMute"
-                              className="form-text text-muted"
-                            >
-                              Street Address, P.O. Box
-                            </small>
-                            <label
-                              htmlFor="addressFName"
-                              className="address-edit-label"
-                            >
-                              First Name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressFName"
-                              defaultValue={address.fName}
-                            />
-                            <label
-                              htmlFor="addressLName"
-                              className="address-edit-label"
-                            >
-                              Last Name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressLName"
-                              defaultValue={address.lName}
-                            />
-                            <label
-                              htmlFor="addressCity"
-                              className="address-edit-label"
-                            >
-                              City
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressCity"
-                              defaultValue={address.City}
-                            />
-                            <label
-                              htmlFor="addressCountry"
-                              className="address-edit-label"
-                            >
-                              Country
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressCountry"
-                              defaultValue={address.Country}
-                            />
-                            <label
-                              htmlFor="addressState"
-                              className="address-edit-label"
-                            >
-                              State
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressState"
-                              defaultValue={address.State}
-                            />
-                            <label
-                              htmlFor="addressZipcode"
-                              className="address-edit-label"
-                            >
-                              ZIP Code
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control address-edit-input"
-                              id="addressZipcode"
-                              defaultValue={address.ZIP}
-                            />
-                          </div>
-                        </form>
-                        <div className="address-edit-buttons-container">
-                          <button className="address-edit-update">
-                            Update
-                          </button>
-                          <button
-                            className="address-edit-cancel"
-                            onClick={() => showEditAddress()}
-                          >
-                            Cancel
-                          </button>
-                        </div>
+                    <div
+                      className="edit-address-content-container"
+                      id={randomId}
+                    >
+                      <div className="edit-address-title-container">
+                        <h1 className="edit-address-title">edit address</h1>
                       </div>
-                    ) : (
-                      ""
-                    )}
+                      <form className="edit-address-form">
+                        <div className="form-group">
+                          <label
+                            htmlFor="addressName"
+                            className="address-edit-label-1"
+                          >
+                            Address
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressName"
+                            aria-describedby="addressMuted"
+                            defaultValue={address.Address}
+                          />
+                          <small
+                            id="addressEditMute"
+                            className="form-text text-muted"
+                          >
+                            Street Address, P.O. Box
+                          </small>
+                          <label
+                            htmlFor="addressFName"
+                            className="address-edit-label"
+                          >
+                            First Name
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressFName"
+                            defaultValue={address.fName}
+                          />
+                          <label
+                            htmlFor="addressLName"
+                            className="address-edit-label"
+                          >
+                            Last Name
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressLName"
+                            defaultValue={address.lName}
+                          />
+                          <label
+                            htmlFor="addressCity"
+                            className="address-edit-label"
+                          >
+                            City
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressCity"
+                            defaultValue={address.City}
+                          />
+                          <label
+                            htmlFor="addressCountry"
+                            className="address-edit-label"
+                          >
+                            Country
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressCountry"
+                            defaultValue={address.Country}
+                          />
+                          <label
+                            htmlFor="addressState"
+                            className="address-edit-label"
+                          >
+                            State
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressState"
+                            defaultValue={address.State}
+                          />
+                          <label
+                            htmlFor="addressZipcode"
+                            className="address-edit-label"
+                          >
+                            ZIP Code
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control address-edit-input"
+                            id="addressZipcode"
+                            defaultValue={address.ZIP}
+                          />
+                        </div>
+                      </form>
+                      <div className="address-edit-buttons-container">
+                        <button className="address-edit-update">Update</button>
+                        <button
+                          className="address-edit-cancel"
+                          onClick={() => showEditAddress()}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
                     <hr className="line-break" />
                   </div>
                 );
