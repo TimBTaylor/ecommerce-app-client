@@ -46,56 +46,66 @@ export const Wishlist = () => {
           <div className="wishlist-content">
             {productsToDisplay.map((product) => {
               return (
-                <div className="wishlist-product" key={product._id}>
-                  <div className="wishlist-product-img-container">
+                <>
+                  <div className="wishlist-product" key={product._id}>
                     <img
                       className="wishlist-product-img"
                       src={product.productImg}
                       alt="product"
                     />
-                  </div>
-                  <div className="wishlist-product-info">
-                    <h1 className="wishlist-product-title">{product.title}</h1>
-                    {/* <hr className="line-break wishlist-linebreak" /> */}
-                    <h2 className="wishlist-product-size">
-                      <span className="wishlist-product-size-title">
-                        Size:{" "}
-                      </span>
-                      {product.size}
-                    </h2>
-                    {/* <hr className="line-break wishlist-linebreak" /> */}
-                    <h2 className="wishlist-product-availability">
-                      <span className="wishlist-product-availability-title">
-                        Availability:{" "}
-                      </span>
-                      In Stock
-                    </h2>
-                    {/* <hr className="line-break wishlist-linebreak" /> */}
-                    <h2 className="wishlist-product-price">${product.price}</h2>
-                    {/* <hr className="line-break wishlist-linebreak" /> */}
-                    <div className="wishlist-product-edit-and-remove">
-                      <button className="wishlist-product-edit">
-                        Edit Details
-                      </button>
-                      <span className="wishlist-button-seperation">|</span>
-                      <button className="wishlist-product-remove">
-                        Remove
-                      </button>
+                    <div className="wishlist-product-info">
+                      <h1 className="wishlist-product-title">
+                        {product.title}
+                      </h1>
+                      {/* <hr className="line-break wishlist-linebreak" /> */}
+                      <h2 className="wishlist-product-size">
+                        <span className="wishlist-product-size-title">
+                          Size:{" "}
+                        </span>
+                        {product.size}
+                      </h2>
+                      {/* <hr className="line-break wishlist-linebreak" /> */}
+                      <h2 className="wishlist-product-availability">
+                        <span className="wishlist-product-availability-title">
+                          Availability:{" "}
+                        </span>
+                        In Stock
+                      </h2>
+                      {/* <hr className="line-break wishlist-linebreak" /> */}
+                      <h2 className="wishlist-product-price">
+                        ${product.price}
+                      </h2>
+                      {/* <hr className="line-break wishlist-linebreak" /> */}
+                      <div className="wishlist-buttons-container">
+                        <div className="wishlist-product-edit-and-remove">
+                          <button className="wishlist-product-edit">
+                            Edit Details
+                          </button>
+                          <span className="wishlist-button-seperation">|</span>
+                          <button className="wishlist-product-remove">
+                            Remove
+                          </button>
+                        </div>
+                        <div className="wishlist-quantity-add-container">
+                          <div className="wishlist-quantity-container">
+                            <button className="wishlist-quantity-minus">
+                              <AiOutlineMinus />
+                            </button>
+                            <p className="current-quantity">
+                              {product.quantity}
+                            </p>
+                            <button className="wishlist-quantity-plus">
+                              <AiOutlinePlus />
+                            </button>
+                          </div>
+                          <button className="wishlist-product-add">
+                            Add To Bag
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="wishlist-quantity-add-container">
-                    <div className="wishlist-quantity-container">
-                      <button className="wishlist-quantity-minus">
-                        <AiOutlineMinus />
-                      </button>
-                      <p className="current-quantity">{product.quantity}</p>
-                      <button className="wishlist-quantity-plus">
-                        <AiOutlinePlus />
-                      </button>
-                    </div>
-                    <button className="wishlist-product-add">Add To Bag</button>
-                  </div>
-                </div>
+                </>
               );
             })}
           </div>

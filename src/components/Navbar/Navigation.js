@@ -243,10 +243,8 @@ export const Navigation = () => {
         <Link className="navbar-brand" to="/home">
           Timazon <img src={shoppingcart} alt="shopping cart" />{" "}
         </Link>
-        <a className="navbar-brand deliver-to" href="#home">
-          <img alt="map-marker" src={pin} />
-          Deliver to {name}
-        </a>
+        <img alt="map-marker" src={pin} />
+        Deliver to {name}
         <div className="navbar-items-container ml-auto">
           <ul className="navbar-nav-list">
             <li className="nav-list-item">
@@ -263,9 +261,9 @@ export const Navigation = () => {
               </Link>
             </li>
             <li className="nav-list-item">
-              <a className="nav-item-link" href="#home">
+              <Link className="nav-item-link" to="/cart">
                 <IoCartOutline className="cart-icon" />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -287,7 +285,7 @@ export const Navigation = () => {
               <button className="category-item btn shadow-none">ON SALE</button>
             </Link>
           </li>
-          <li className="intro-list-item">
+          <li className="intro-list-item" onClick={(e) => e.preventDefault}>
             <div className="dropdown men-dropdown">
               <p
                 className="btn category-item men-button shadow-none"
