@@ -104,21 +104,82 @@ export const Cart = () => {
           <div className="order-summary-title-container">
             <h1 className="order-summary-title">order summary</h1>
           </div>
-          <div className="order-summary-list-title-container">
-            <ul className="order-summary-list-title">
-              <li className="order-summary-list-title-item">Subtotal</li>
-              <li className="order-summary-list-title-item">Shipping</li>
-              <li className="order-summary-list-title-item">Sales Tax</li>
-              <li className="order-summary-list-title-item">Estimated Total</li>
-            </ul>
+          <div className="order-summary-list-content-container">
+            <div className="order-summary-list-title-container">
+              <ul className="order-summary-list-title">
+                <li className="order-summary-list-title-item">Subtotal</li>
+                <li className="order-summary-list-title-item">Shipping</li>
+                <li className="order-summary-list-title-item">Sales Tax</li>
+                <li className="order-summary-list-title-item estimated-total">
+                  Estimated Total
+                </li>
+              </ul>
+            </div>
+            <div className="order-summary-list-total-container">
+              <ul className="order-summary-list-total">
+                <li className="order-summary-list-total-item">$455.66</li>
+                <li className="order-summary-list-total-item">$455.66</li>
+                <li className="order-summary-list-total-item">$455.66</li>
+                <li className="order-summary-list-total-item estimated-total">
+                  $455.66
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="order-summary-list-total-container">
-            <ul className="order-summary-list-total">
-              <li className="order-summary-list-total-item">subtotal here</li>
-              <li className="order-summary-list-total-item">shippin here</li>
-              <li className="order-summary-list-total-item">tax here</li>
-              <li className="order-summary-list-total-item">total here</li>
-            </ul>
+          <div className="order-summary-checkout-container">
+            <button className="order-summary-checkout">checkout</button>
+          </div>
+          <div className="order-summary-shipping">
+            <h1 className="order-summary-shipping-title">
+              Estimated Shipping Cost
+            </h1>
+            <div className="order-summary-shipping-form-container">
+              <div className="form-check order-summary-form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="economyGround"
+                  checked
+                />
+                <label className="form-check-label" for="economyGround">
+                  Economy Ground (3-7 Business Days): $5.00
+                </label>
+              </div>
+              <div className="form-check order-summary-form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="standardGround"
+                />
+                <label className="form-check-label" for="standardGround">
+                  Standard Ground (3-5 Business Days): $8.00
+                </label>
+              </div>
+              <div className="form-check order-summary-form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="2buisnessdays"
+                />
+                <label className="form-check-label" for="2buisnessdays">
+                  2 Business Days (Order By 1:30PM EST): $13.00
+                </label>
+              </div>
+              <div className="form-check order-summary-form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="overnight"
+                />
+                <label className="form-check-label" for="overnight">
+                  Overnight (Order By 1:30PM EST): $25.00
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
