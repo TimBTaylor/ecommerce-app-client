@@ -1,6 +1,21 @@
 const initialState = {
-  address: [],
-  cardInfo: [],
+  address: [
+    {
+      fName: "Tim",
+      lName: "Taylor",
+      Address: "176 3 35th st",
+      City: "holland",
+      State: "michigan",
+      ZIP: "49423",
+    },
+  ],
+  cardInfo: [
+    {
+      name: "tim taylor",
+      cardNumber: "0000000000001234",
+      expires: "09/24",
+    },
+  ],
   cart: [],
   email: "",
   firstName: "",

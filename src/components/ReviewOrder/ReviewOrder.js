@@ -100,7 +100,6 @@ export const ReviewOrder = () => {
               <div className="shipping-method-container">
                 <div className="shipping-method-title-container">
                   <h1 className="shipping-method-title">shipping method</h1>
-                  <button className="shipping-method-edit">Edit</button>
                 </div>
                 <div className="order-review-form-container">
                   <div className="form-check order-review-form-check">
@@ -176,7 +175,9 @@ export const ReviewOrder = () => {
             <div className="review-order-products">
               <div className="review-order-products-title-container">
                 <h1 className="review-order-products-title">Items</h1>
-                <button className="review-order-products-edit">Edit</button>
+                <NavLink to="/cart">
+                  <button className="review-order-products-edit">Edit</button>
+                </NavLink>
               </div>
               {productsToDisplay.map((product) => {
                 return (

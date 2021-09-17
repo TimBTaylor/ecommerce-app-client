@@ -29,6 +29,10 @@
   margin-right: 150px;
 }
 
+.shipping-method-container {
+  margin-right: 20px;
+}
+
 .shipping-address-title-container,
 .shipping-method-title-container,
 .payment-title-container {
@@ -47,7 +51,6 @@
 }
 
 .shipping-address-edit,
-.shipping-method-edit,
 .payment-edit {
   background: none;
   border: none;
@@ -60,6 +63,10 @@
 .shipping-city-state-zip,
 .shipping-country {
   font-size: 1.1rem;
+}
+
+.order-review-form-check {
+  margin-bottom: 15px;
 }
 
 .payment-container {
@@ -101,7 +108,7 @@
 
 .review-order-product-container {
   display: flex;
-  margin-bottom: 35px;
+  margin: 35px 0 35px 0;
 }
 
 .review-order-product-information {
@@ -150,6 +157,7 @@
   width: 40%;
   background-color: #f7f7f7;
   border-radius: 5px;
+  height: 100%;
 }
 
 .review-order-summary-title-container {
@@ -219,4 +227,24 @@
 
 .review-order-summary-checkout:hover {
   background-color: #55b498;
+}
+
+@media (max-width: 767px) {
+  .review-order-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .shipping-container {
+    flex-direction: column;
+    margin-bottom: 50px;
+  }
+
+  .shipping-method-container {
+    margin-top: 50px;
+  }
+
+  .review-order-summary {
+    width: 100%;
+  }
 }
