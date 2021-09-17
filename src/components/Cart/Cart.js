@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import { AiOutlineMinus } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -7,11 +8,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import "./Cart.css";
 
 export const Cart = () => {
+  const [shippingCost, setShippingCost] = useState(5);
   const allProducts = useSelector((state) => state.productReducer.data);
 
   const usersCart = useSelector((state) => state.userInfoReducer.cart);
 
   const productsToDisplay = [];
+
+  let productsTotalPrice = 0;
 
   usersCart.map((entry) => {
     allProducts.map((product) => {
@@ -29,11 +33,16 @@ export const Cart = () => {
           currentProduct.title = product.title;
         }
         productsToDisplay.push(currentProduct);
+        productsTotalPrice += product.price;
       }
       return currentProduct;
     });
     return productsToDisplay;
   });
+
+  let salesTax = productsTotalPrice * 0.06 + productsTotalPrice;
+
+  let estimatedTotal = salesTax + productsTotalPrice + shippingCost;
 
   return (
     <>
@@ -46,8 +55,8 @@ export const Cart = () => {
           <div className="cart-content">
             {productsToDisplay.map((product) => {
               return (
-                <>
-                  <div className="cart-product" key={product._id}>
+                <div key={product._id}>
+                  <div className="cart-product">
                     <img
                       className="cart-product-img"
                       src={product.productImg}
@@ -95,7 +104,7 @@ export const Cart = () => {
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
           </div>
@@ -117,18 +126,26 @@ export const Cart = () => {
             </div>
             <div className="order-summary-list-total-container">
               <ul className="order-summary-list-total">
-                <li className="order-summary-list-total-item">$455.66</li>
-                <li className="order-summary-list-total-item">$455.66</li>
-                <li className="order-summary-list-total-item">$455.66</li>
+                <li className="order-summary-list-total-item">
+                  ${productsTotalPrice}
+                </li>
+                <li className="order-summary-list-total-item">
+                  ${shippingCost}.00
+                </li>
+                <li className="order-summary-list-total-item">
+                  ${salesTax.toFixed(2)}
+                </li>
                 <li className="order-summary-list-total-item estimated-total">
-                  $455.66
+                  ${estimatedTotal.toFixed(2)}
                 </li>
               </ul>
             </div>
           </div>
-          <div className="order-summary-checkout-container">
-            <button className="order-summary-checkout">checkout</button>
-          </div>
+          <NavLink to="/review-order" style={{ all: "unset" }}>
+            <div className="order-summary-checkout-container">
+              <button className="order-summary-checkout">checkout</button>
+            </div>
+          </NavLink>
           <div className="order-summary-shipping">
             <h1 className="order-summary-shipping-title">
               Estimated Shipping Cost
@@ -140,9 +157,10 @@ export const Cart = () => {
                   type="radio"
                   name="flexRadioDefault"
                   id="economyGround"
-                  checked
+                  checked={shippingCost === 5}
+                  onChange={() => setShippingCost(5)}
                 />
-                <label className="form-check-label" for="economyGround">
+                <label className="form-check-label" htmlFor="economyGround">
                   Economy Ground (3-7 Business Days): $5.00
                 </label>
               </div>
@@ -152,8 +170,10 @@ export const Cart = () => {
                   type="radio"
                   name="flexRadioDefault"
                   id="standardGround"
+                  checked={shippingCost === 8}
+                  onChange={() => setShippingCost(8)}
                 />
-                <label className="form-check-label" for="standardGround">
+                <label className="form-check-label" htmlFor="standardGround">
                   Standard Ground (3-5 Business Days): $8.00
                 </label>
               </div>
@@ -163,8 +183,10 @@ export const Cart = () => {
                   type="radio"
                   name="flexRadioDefault"
                   id="2buisnessdays"
+                  checked={shippingCost === 13}
+                  onChange={() => setShippingCost(13)}
                 />
-                <label className="form-check-label" for="2buisnessdays">
+                <label className="form-check-label" htmlFor="2buisnessdays">
                   2 Business Days (Order By 1:30PM EST): $13.00
                 </label>
               </div>
@@ -174,8 +196,10 @@ export const Cart = () => {
                   type="radio"
                   name="flexRadioDefault"
                   id="overnight"
+                  checked={shippingCost === 25}
+                  onChange={() => setShippingCost(25)}
                 />
-                <label className="form-check-label" for="overnight">
+                <label className="form-check-label" htmlFor="overnight">
                   Overnight (Order By 1:30PM EST): $25.00
                 </label>
               </div>
