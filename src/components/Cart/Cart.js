@@ -55,7 +55,7 @@ export const Cart = () => {
           <div className="cart-content">
             {productsToDisplay.map((product) => {
               return (
-                <div key={product._id}>
+                <div key={product.id}>
                   <div className="cart-product">
                     <img
                       className="cart-product-img"

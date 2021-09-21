@@ -229,6 +229,147 @@
   background-color: #55b498;
 }
 
+.users-address-modal-body,
+.users-card-modal-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.address-modal-content,
+.card-modal-content {
+  display: flex;
+}
+
+.users-address-modal-title-container,
+.users-card-modal-title-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 15px 0 15px;
+}
+
+.users-address-modal-title-buttons,
+.users-card-title-buttons {
+  display: flex;
+}
+
+.users-address-modal-title-button-close,
+.users-card-modal-title-button-close {
+  font-size: 0.9rem;
+  padding-right: 5px;
+  background: none;
+  border: none;
+}
+
+.users-address-modal-title-button-close:hover,
+.users-card-modal-title-button-close:hover {
+  text-decoration: underline;
+}
+
+.users-address-modal-title-button-x,
+.users-card-modal-title-button-x {
+  background: none;
+  border: none;
+}
+
+.users-address-modal-title-button-x:hover,
+.users-card-modal-title-button-x:hover {
+  color: #c7c7c7;
+}
+
+.users-address-modal-x,
+.users-card-modal-x {
+  font-size: 1.2rem;
+}
+
+.users-address-modal-title,
+.users-card-modal-title {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.users-address,
+.users-card {
+  margin: 0 15px;
+  font-size: 0.9rem;
+}
+
+.users-address-modal-name,
+.users-card-modal-name {
+  font-weight: 600;
+}
+
+.users-address-modal-name,
+.users-address-modal-address,
+.users-address-modal-city-state-zip,
+.users-address-modal-country,
+.users-card-modal-name,
+.users-card-modal-number,
+.users-card-modal-expires {
+  margin: 3px 0;
+  padding: 0;
+}
+
+.users-address-modal-current-address,
+.users-card-modal-current-card {
+  background: none;
+  border: 1px solid #c7c7c7;
+  background-color: #f3f4f6;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+  height: 35px;
+}
+
+.users-address-modal-check,
+.users-card-modal-check {
+  color: #4da58b;
+  margin-bottom: 3px;
+}
+
+.users-address-modal-new-address,
+.users-card-modal-new-card {
+  background: none;
+  border: none;
+  background-color: #4da58b;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 10px;
+  border: 1px solid #c7c7c7;
+  height: 35px;
+}
+
+.users-address-modal-sidebar,
+.users-card-modal-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.users-address-modal-side-navlink,
+.users-card-modal-side-navlink {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 500px) {
+  .address-modal-content,
+  .card-modal-content {
+    flex-direction: column;
+  }
+
+  .users-address,
+  .users-card {
+    margin-bottom: 15px;
+  }
+
+  .users-address-modal-title,
+  .users-card-modal-title {
+    font-size: 1.1rem;
+  }
+}
+
 @media (max-width: 767px) {
   .review-order-content {
     flex-direction: column;
@@ -246,5 +387,18 @@
 
   .review-order-summary {
     width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .users-address-modal-body,
+  .users-card-modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .address-modal-content,
+  .card-modal-content {
+    margin-bottom: 20px;
   }
 }

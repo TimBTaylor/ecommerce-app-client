@@ -243,8 +243,10 @@ export const Navigation = () => {
         <Link className="navbar-brand" to="/home">
           Timazon <img src={shoppingcart} alt="shopping cart" />{" "}
         </Link>
-        <img alt="map-marker" src={pin} />
-        Deliver to {name}
+        <span className="deliver-to">
+          <img alt="map-marker" src={pin} />
+          Deliver to {name}
+        </span>
         <div className="navbar-items-container ml-auto">
           <ul className="navbar-nav-list">
             <li className="nav-list-item">

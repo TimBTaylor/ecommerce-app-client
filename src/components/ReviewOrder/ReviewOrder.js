@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import shoppingcart from "../Navbar/shopping-cart.svg";
 import { IoCartOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
+import { BsCheckCircle } from "react-icons/bs";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
@@ -10,6 +12,10 @@ import "./ReviewOrder.css";
 
 export const ReviewOrder = () => {
   const [shippingCost, setShippingCost] = useState(5);
+
+  const [addressIndex, setAddressIndex] = useState(0);
+
+  const [cardIndex, setCardIndex] = useState(0);
 
   const usersAddresses = useSelector((state) => state.userInfoReducer.address);
 
@@ -45,11 +51,11 @@ export const ReviewOrder = () => {
     return productsToDisplay;
   });
 
-  let salesTax = productsTotalPrice * 0.06 + productsTotalPrice;
+  let salesTax = productsTotalPrice * 0.06;
 
   let total = salesTax + productsTotalPrice + shippingCost;
 
-  let fullCardNumber = usersCards[0].cardNumber;
+  let fullCardNumber = usersCards[cardIndex].cardNumber;
   let shortenCardNumber = fullCardNumber.slice(fullCardNumber.length - 4);
 
   return (
@@ -83,17 +89,25 @@ export const ReviewOrder = () => {
               <div className="shipping-address-container">
                 <div className="shipping-address-title-container">
                   <h1 className="shipping-address-title">shipping address</h1>
-                  <button className="shipping-address-edit">Edit</button>
+                  <button
+                    className="shipping-address-edit"
+                    data-toggle="modal"
+                    data-target="#usersAddressModal"
+                  >
+                    Edit
+                  </button>
                 </div>
                 <h1 className="shipping-name">
-                  {usersAddresses[0].fName} {usersAddresses[0].lName}
+                  {usersAddresses[addressIndex].fName}{" "}
+                  {usersAddresses[addressIndex].lName}
                 </h1>
                 <h1 className="shipping-address">
-                  {usersAddresses[0].Address}
+                  {usersAddresses[addressIndex].Address}
                 </h1>
                 <h1 className="shipping-city-state-zip">
-                  {usersAddresses[0].City}, {usersAddresses[0].State}{" "}
-                  {usersAddresses[0].ZIP}
+                  {usersAddresses[addressIndex].City},{" "}
+                  {usersAddresses[addressIndex].State}{" "}
+                  {usersAddresses[addressIndex].ZIP}
                 </h1>
                 <h1 className="shipping-country">United States</h1>
               </div>
@@ -163,14 +177,24 @@ export const ReviewOrder = () => {
             <div className="payment-container">
               <div className="payment-title-container">
                 <h1 className="payment-title">payment method</h1>
-                <button className="payment-edit">Edit</button>
+                <button
+                  className="payment-edit"
+                  data-toggle="modal"
+                  data-target="#usersCardModal"
+                >
+                  Edit
+                </button>
               </div>
               <h1 className="payment-card">Credit Card</h1>
-              <h1 className="payment-card-name">{usersCards[0].name}</h1>
+              <h1 className="payment-card-name">
+                {usersCards[cardIndex].name}
+              </h1>
               <h1 className="payment-card-number">
                 ************{shortenCardNumber}
               </h1>
-              <h1 className="payment-card-expires">{usersCards[0].expires}</h1>
+              <h1 className="payment-card-expires">
+                {usersCards[cardIndex].expires}
+              </h1>
             </div>
             <div className="review-order-products">
               <div className="review-order-products-title-container">
@@ -268,6 +292,158 @@ export const ReviewOrder = () => {
                 </button>
               </div>
             </NavLink>
+          </div>
+        </div>
+      </div>
+      <div className="modal" id="usersAddressModal" tabIndex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-title users-address-modal-title-container">
+              <h1 className="users-address-modal-title">
+                Choose shipping address
+              </h1>
+              <div className="users-address-modal-title-buttons">
+                <button
+                  className="users-address-modal-title-button-close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  Close
+                </button>
+                <button
+                  className="users-address-modal-title-button-x"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span className="users-address-modal-x" aria-hidden="true">
+                    &times;
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div className="modal-body users-address-modal-body">
+              <div className="address-modal-content">
+                {usersAddresses.map((address) => {
+                  return (
+                    <div
+                      className="users-address"
+                      onClick={() =>
+                        setAddressIndex(usersAddresses.indexOf(address))
+                      }
+                    >
+                      <p className="users-address-modal-name">
+                        {address.fName} {address.lName}
+                      </p>
+                      <p className="users-address-modal-address">
+                        {address.Address}
+                      </p>
+                      <p className="users-address-modal-city-state-zip">
+                        {address.City}, {address.State} {address.ZIP}
+                      </p>
+                      <p className="users-address-modal-country">
+                        United States
+                      </p>
+                      {usersAddresses.indexOf(address) === addressIndex ? (
+                        <button className="users-address-modal-current-address">
+                          <BsCheckCircle className="users-address-modal-check" />{" "}
+                          Deliver to this address
+                        </button>
+                      ) : (
+                        <button className="users-address-modal-new-address">
+                          Deliver to this address
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="users-address-modal-sidebar">
+                <NavLink
+                  className="users-address-modal-side-navlink"
+                  to="/profile-address"
+                >
+                  <MdKeyboardArrowRight className="users-address-modal-arrow-right" />
+                  Add a new shipping address
+                </NavLink>
+                <NavLink to="/profile-address">
+                  <MdKeyboardArrowRight className="users-address-modal-arrow-right" />
+                  Edit or delete addresses
+                </NavLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal" id="usersCardModal" tabIndex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-title users-card-modal-title-container">
+              <h1 className="users-card-modal-title">Choose a card</h1>
+              <div className="users-card-modal-title-buttons">
+                <button
+                  className="users-card-modal-title-button-close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  Close
+                </button>
+                <button
+                  className="users-card-modal-title-button-x"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span className="users-card-modal-x" aria-hidden="true">
+                    &times;
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div className="modal-body users-card-modal-body">
+              <div className="card-modal-content">
+                {usersCards.map((card) => {
+                  let fullCardNumber =
+                    usersCards[usersCards.indexOf(card)].cardNumber;
+                  let shortenCardNumber = fullCardNumber.slice(
+                    fullCardNumber.length - 4
+                  );
+                  return (
+                    <div
+                      className="users-card"
+                      onClick={() => setCardIndex(usersCards.indexOf(card))}
+                    >
+                      <p className="users-card-modal-name">{card.name}</p>
+                      <p className="users-card-modal-number">
+                        ************{shortenCardNumber}
+                      </p>
+                      <p className="users-card-modal-expires">{card.expires}</p>
+                      {usersCards.indexOf(card) === cardIndex ? (
+                        <button className="users-card-modal-current-card">
+                          <BsCheckCircle className="users-card-modal-check" />{" "}
+                          Use this card
+                        </button>
+                      ) : (
+                        <button className="users-card-modal-new-card">
+                          Use this card
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="users-card-modal-sidebar">
+                <NavLink
+                  className="users-card-modal-side-navlink"
+                  to="/profile-card"
+                >
+                  <MdKeyboardArrowRight className="users-card-modal-arrow-right" />
+                  Add a new card
+                </NavLink>
+                <NavLink to="/profile-card">
+                  <MdKeyboardArrowRight className="users-card-modal-arrow-right" />
+                  Edit or delete cards
+                </NavLink>
+              </div>
+            </div>
           </div>
         </div>
       </div>
