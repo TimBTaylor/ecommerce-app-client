@@ -124,10 +124,30 @@
   background-color: #55b498;
 }
 
+.no-items {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 500px) {
+  .wishlist-content-container {
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 767px) {
+  .wishlist-product {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wishlist-product-info {
+    margin-left: 0;
+    align-items: center;
+  }
   .wishlist-buttons-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin: 0;
     padding: 0;
   }
@@ -150,7 +170,7 @@
   }
 
   .wishlist-quantity-add-container {
-    align-self: flex-start;
+    align-self: center;
     margin-top: 30px;
   }
 }

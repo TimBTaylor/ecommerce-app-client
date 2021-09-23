@@ -219,6 +219,12 @@
   margin: 0 0 15px 0;
 }
 
+@media (max-width: 500px) {
+  .cart-content-container {
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 767px) {
   .order-summary-conent {
     width: 100%;

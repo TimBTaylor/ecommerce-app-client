@@ -1,4 +1,6 @@
 const initialState = {
+  loading: false,
+  error: false,
   address: [
     {
       fName: "Tim",
@@ -47,6 +49,46 @@ const userInfoReducer = (state = initialState, action) => {
       return {
         ...state,
         currentView: action.payload,
+      };
+    case "SET_USE_LOADING_TRUE":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "SET_USER_LOADING_FALSE":
+      return {
+        ...state,
+        loading: false,
+      };
+    case "SET_WISHLIST":
+      return {
+        ...state,
+        wishlist: action.payload,
+      };
+    case "SET_CART":
+      return {
+        ...state,
+        cart: action.payload,
+      };
+    case "SET_WISHLIST_FAILURE":
+      return {
+        ...state,
+        error: action.error,
+      };
+    case "SET_CART_FAILURE":
+      return {
+        ...state,
+        error: action.error,
+      };
+    case "SET_ORDER":
+      return {
+        ...state,
+        orders: action.payload,
+      };
+    case "SET_ORDER_FAILURE":
+      return {
+        ...state,
+        error: action.error,
       };
     default:
       return state;

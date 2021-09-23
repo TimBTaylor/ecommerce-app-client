@@ -206,7 +206,7 @@ export const ReviewOrder = () => {
               {productsToDisplay.map((product) => {
                 return (
                   <>
-                    <div key={product._id}>
+                    <div key={product.id}>
                       <div className="review-order-product-container">
                         <img
                           className="review-order-product-img"

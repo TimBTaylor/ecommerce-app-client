@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
-import { AiOutlineMinus } from "react-icons/ai";
-import { AiOutlinePlus } from "react-icons/ai";
+import { CartProductCard } from "./CartProductCard";
 
 import "./Cart.css";
 
@@ -33,14 +31,18 @@ export const Cart = () => {
           currentProduct.title = product.title;
         }
         productsToDisplay.push(currentProduct);
-        productsTotalPrice += product.price;
+        if (entry.quantity > 1) {
+          productsTotalPrice += product.price * entry.quantity;
+        } else {
+          productsTotalPrice += product.price;
+        }
       }
       return currentProduct;
     });
     return productsToDisplay;
   });
 
-  let salesTax = productsTotalPrice * 0.06 + productsTotalPrice;
+  let salesTax = productsTotalPrice * 0.06;
 
   let estimatedTotal = salesTax + productsTotalPrice + shippingCost;
 
@@ -53,60 +55,13 @@ export const Cart = () => {
             <hr className="line-break" />
           </div>
           <div className="cart-content">
-            {productsToDisplay.map((product) => {
-              return (
-                <div key={product.id}>
-                  <div className="cart-product">
-                    <img
-                      className="cart-product-img"
-                      src={product.productImg}
-                      alt="product"
-                    />
-                    <div className="cart-product-info">
-                      <h1 className="cart-product-title">{product.title}</h1>
-                      <h2 className="cart-product-size">
-                        <span className="cart-product-size-title">Size: </span>{" "}
-                        {product.size}
-                      </h2>
-                      <h2 className="cart-product-availability">
-                        <span className="cart-product-availability">
-                          Availability:{" "}
-                        </span>{" "}
-                        In Stock
-                      </h2>
-                      <h2 className="cart-product-price">${product.price}</h2>
-                      <div className="cart-buttons-container">
-                        <div className="cart-product-edit-and-remove">
-                          <button className="cart-product-edit">
-                            Edit Details
-                          </button>
-                          <span className="cart-buttons-seperation">|</span>
-                          <button className="cart-product-remove">
-                            Remove
-                          </button>
-                        </div>
-                        <div className="cart-quantity-add-container">
-                          <div className="cart-quantity-container">
-                            <button className="cart-quantity-minus">
-                              <AiOutlineMinus />
-                            </button>
-                            <p className="cart-current-quantity">
-                              {product.quantity}
-                            </p>
-                            <button className="cart-quantity-minus">
-                              <AiOutlinePlus />{" "}
-                            </button>
-                          </div>
-                          <button className="cart-product-add">
-                            Add To Wishlist
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {productsToDisplay.length > 0 ? (
+              productsToDisplay.map((product) => {
+                return <CartProductCard product={product} key={product.id} />;
+              })
+            ) : (
+              <div className="no-items">No items in your cart</div>
+            )}
           </div>
         </div>
         <div className="order-summary-content">
@@ -127,7 +82,7 @@ export const Cart = () => {
             <div className="order-summary-list-total-container">
               <ul className="order-summary-list-total">
                 <li className="order-summary-list-total-item">
-                  ${productsTotalPrice}
+                  ${productsTotalPrice.toFixed(2)}
                 </li>
                 <li className="order-summary-list-total-item">
                   ${shippingCost}.00

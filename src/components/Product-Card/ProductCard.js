@@ -12,6 +12,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoCartOutline } from "react-icons/io5";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoChevronBack } from "react-icons/io5";
+import { addToCart } from "../../actions/addToCart";
+import { addToWishlist } from "../../actions/addToWishlist";
 
 export const ProductCard = (props) => {
   const [rating, setRating] = useState();
@@ -91,6 +93,9 @@ export const ProductCard = (props) => {
     settingTitle(productTitle);
     settingRating(productReviews);
   }, []);
+
+  const productId = product._id;
+  const userId = localStorage.getItem("userId");
 
   const removeProduct = async () => {
     const productId = product._id;
@@ -304,7 +309,9 @@ export const ProductCard = (props) => {
                 <div
                   className="quickshop-add-product"
                   onClick={() => {
-                    addProductToCart();
+                    dispatch(
+                      addToCart(userId, productId, productQuantity, productSize)
+                    );
                     setAddedToCart(true);
                   }}
                   data-dismiss="modal"
@@ -317,7 +324,14 @@ export const ProductCard = (props) => {
                 <div
                   className="quickshop-add-wishlist"
                   onClick={() => {
-                    addProductToWishList();
+                    dispatch(
+                      addToWishlist(
+                        userId,
+                        productId,
+                        productQuantity,
+                        productSize
+                      )
+                    );
                     setAddedToCart(false);
                   }}
                   data-dismiss="modal"
