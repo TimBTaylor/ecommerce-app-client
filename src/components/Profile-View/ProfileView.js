@@ -66,15 +66,17 @@ export const ProfileView = () => {
                   </NavLink>
                 </li>
                 <li className="profile-list-item col-md">
-                  <div className="profile-list-item-container">
-                    <IoMdClipboard className="profile-view-icons" />
-                    <div className="profile-list-item-text">
-                      <p className="list-item-title">order history</p>
-                      <p className="list-item-description">
-                        Check the status of orders or see past orders
-                      </p>
+                  <NavLink to="/orders" style={{ all: "unset" }}>
+                    <div className="profile-list-item-container">
+                      <IoMdClipboard className="profile-view-icons" />
+                      <div className="profile-list-item-text">
+                        <p className="list-item-title">order history</p>
+                        <p className="list-item-description">
+                          Check the status of orders or see past orders
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </NavLink>
                 </li>
               </div>
               <div className="row profile-list-row">

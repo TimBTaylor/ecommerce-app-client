@@ -8,7 +8,7 @@ export const addOrder = (userId, orderInformation) => async (dispatch) => {
   try {
     await axios({
       method: "post",
-      url: `https://ecommersappbytim.herokuapp.com/cart/${userId}/new-order`,
+      url: `https://ecommersappbytim.herokuapp.com/order/${userId}/new-order`,
       header: {
         "Content-Type": "application/json",
       },
@@ -17,15 +17,17 @@ export const addOrder = (userId, orderInformation) => async (dispatch) => {
         total: orderInformation.total,
         quantity: orderInformation.quantity,
         orderNumber: orderInformation.orderNumber,
+        shippingType: orderInformation.shippingType,
+        date: orderInformation.date,
+        name: orderInformation.name,
       },
     }).then((response) => {
-      console.log(response);
       dispatch({
         type: "SET_ORDER",
-        payload: response.data,
+        payload: response.data.orders,
       });
       dispatch({
-        type: "SET_USER_LOADING_TRUE",
+        type: "SET_USER_LOADING_FALSE",
       });
     });
   } catch (error) {

@@ -5,12 +5,17 @@ import { IoCartOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { BsCheckCircle } from "react-icons/bs";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { addOrder } from "../../actions/addOrder";
+import { removeAllFromCart } from "../../actions/removeAllFromCart";
 
 import "./ReviewOrder.css";
+import { removeFromCart } from "../../actions/removeFromCart";
 
 export const ReviewOrder = () => {
+  const dispatch = useDispatch();
+
   const [shippingCost, setShippingCost] = useState(5);
 
   const [addressIndex, setAddressIndex] = useState(0);
@@ -24,9 +29,27 @@ export const ReviewOrder = () => {
   const allProducts = useSelector((state) => state.productReducer.data);
   const usersCart = useSelector((state) => state.userInfoReducer.cart);
 
+  let userId = localStorage.getItem("userId");
+
   const productsToDisplay = [];
 
   let productsTotalPrice = 0;
+
+  let name =
+    usersAddresses[addressIndex].fName +
+    " " +
+    usersAddresses[addressIndex].lName;
+
+  let itemsQuantity = 0;
+
+  let orderNumber = Math.floor(Math.random() * 999999999999);
+
+  let newDate = new Date();
+
+  let curr_date = newDate.getDate();
+  let curr_month = newDate.getMonth();
+  let curr_year = newDate.getFullYear();
+  let date = curr_month + "/" + curr_date + "/" + curr_year;
 
   usersCart.map((entry) => {
     allProducts.map((product) => {
@@ -37,6 +60,12 @@ export const ReviewOrder = () => {
         currentProduct.id = product._id;
         currentProduct.quantity = product.quantity;
         currentProduct.price = product.price;
+
+        if (product.quantity > 1) {
+          itemsQuantity += product.quantity;
+        } else {
+          itemsQuantity += 1;
+        }
 
         if (product.title.length > 60) {
           currentProduct.title = product.title.substring(0, 60);
@@ -57,6 +86,16 @@ export const ReviewOrder = () => {
 
   let fullCardNumber = usersCards[cardIndex].cardNumber;
   let shortenCardNumber = fullCardNumber.slice(fullCardNumber.length - 4);
+
+  let orderInformation = {
+    products: productsToDisplay,
+    total: JSON.parse(total.toFixed(2)),
+    quantity: itemsQuantity,
+    orderNumber,
+    shippingType: shippingCost,
+    date,
+    name,
+  };
 
   return (
     <div className="review-order-content-container">
@@ -206,7 +245,7 @@ export const ReviewOrder = () => {
               {productsToDisplay.map((product) => {
                 return (
                   <>
-                    <div key={product.id}>
+                    <div key={product.productId}>
                       <div className="review-order-product-container">
                         <img
                           className="review-order-product-img"
@@ -285,7 +324,14 @@ export const ReviewOrder = () => {
                 </ul>
               </div>
             </div>
-            <NavLink to="/review-order" style={{ all: "unset" }}>
+            <NavLink
+              onClick={() => {
+                dispatch(addOrder(userId, orderInformation));
+                dispatch(removeAllFromCart(userId));
+              }}
+              to="/orders"
+              style={{ all: "unset" }}
+            >
               <div className="review-order-summary-checkout-container">
                 <button className="review-order-summary-checkout">
                   submit order
@@ -326,6 +372,7 @@ export const ReviewOrder = () => {
                 {usersAddresses.map((address) => {
                   return (
                     <div
+                      key={usersAddresses.indexOf(address)}
                       className="users-address"
                       onClick={() =>
                         setAddressIndex(usersAddresses.indexOf(address))
@@ -408,6 +455,7 @@ export const ReviewOrder = () => {
                   );
                   return (
                     <div
+                      key={usersCards.indexOf(card)}
                       className="users-card"
                       onClick={() => setCardIndex(usersCards.indexOf(card))}
                     >

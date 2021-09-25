@@ -50,7 +50,7 @@ const userInfoReducer = (state = initialState, action) => {
         ...state,
         currentView: action.payload,
       };
-    case "SET_USE_LOADING_TRUE":
+    case "SET_USER_LOADING_TRUE":
       return {
         ...state,
         loading: true,
