@@ -4,6 +4,7 @@ import { removeFromWishlist } from "../../actions/removeFromWishlist";
 import { addToCart } from "../../actions/addToCart";
 import { AiOutlineMinus } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
 
 export const WishlistProductCard = (props) => {
   const product = props.product;
@@ -20,7 +21,16 @@ export const WishlistProductCard = (props) => {
   };
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const userId = localStorage.getItem("userId");
+
+  const routeToProductview = () => {
+    dispatch({
+      type: "SET_PRODUCT_VIEW",
+      payload: product.id,
+    });
+    history.push("/product-view");
+  };
 
   return (
     <div>
@@ -29,9 +39,15 @@ export const WishlistProductCard = (props) => {
           className="wishlist-product-img"
           src={product.productImg}
           alt="product"
+          onClick={() => routeToProductview()}
         />
         <div className="wishlist-product-info">
-          <h1 className="wishlist-product-title">{product.title}</h1>
+          <h1
+            className="wishlist-product-title"
+            onClick={() => routeToProductview()}
+          >
+            {product.title}
+          </h1>
           {/* <hr className="line-break wishlist-linebreak" /> */}
           <h2 className="wishlist-product-size">
             <span className="wishlist-product-size-title">Size: </span>
@@ -49,7 +65,12 @@ export const WishlistProductCard = (props) => {
           {/* <hr className="line-break wishlist-linebreak" /> */}
           <div className="wishlist-buttons-container">
             <div className="wishlist-product-edit-and-remove">
-              <button className="wishlist-product-edit">Edit Details</button>
+              <button
+                className="wishlist-product-edit"
+                onClick={() => routeToProductview()}
+              >
+                Edit Details
+              </button>
               <span className="wishlist-button-seperation">|</span>
               <button
                 className="wishlist-product-remove"

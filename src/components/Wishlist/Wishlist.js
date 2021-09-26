@@ -46,7 +46,7 @@ export const Wishlist = () => {
               productsToDisplay.map((product) => {
                 return (
                   <>
-                    <WishlistProductCard product={product} />
+                    <WishlistProductCard key={product.id} product={product} />
                   </>
                 );
               })

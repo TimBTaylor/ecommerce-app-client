@@ -5,12 +5,14 @@ import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../actions/removeFromCart";
 import { addToWishlist } from "../../actions/addToWishlist";
 import { updateCartItem } from "../../actions/updateCartItem";
+import { useHistory } from "react-router-dom";
 
 export const CartProductCard = (props) => {
   const product = props.product;
 
   const [productQuantity, setProductQuantity] = useState(product.quantity);
   const dispatch = useDispatch();
+  const history = useHistory();
   const userId = localStorage.getItem("userId");
 
   const increaseProductQuantity = () => {
@@ -31,6 +33,13 @@ export const CartProductCard = (props) => {
     );
   };
 
+  const routeToProductview = () => {
+    dispatch({
+      type: "SET_PRODUCT_VIEW",
+      payload: product.id,
+    });
+    history.push("/product-view");
+  };
   return (
     <div key={product.id}>
       <div className="cart-product">
@@ -38,9 +47,15 @@ export const CartProductCard = (props) => {
           className="cart-product-img"
           src={product.productImg}
           alt="product"
+          onClick={() => routeToProductview()}
         />
         <div className="cart-product-info">
-          <h1 className="cart-product-title">{product.title}</h1>
+          <h1
+            className="cart-product-title"
+            onClick={() => routeToProductview()}
+          >
+            {product.title}
+          </h1>
           <h2 className="cart-product-size">
             <span className="cart-product-size-title">Size: </span>{" "}
             {product.size}
@@ -52,7 +67,12 @@ export const CartProductCard = (props) => {
           <h2 className="cart-product-price">${product.price}</h2>
           <div className="cart-buttons-container">
             <div className="cart-product-edit-and-remove">
-              <button className="cart-product-edit">Edit Details</button>
+              <button
+                className="cart-product-edit"
+                onClick={() => routeToProductview()}
+              >
+                Edit Details
+              </button>
               <span className="cart-buttons-seperation">|</span>
               <button
                 className="cart-product-remove"

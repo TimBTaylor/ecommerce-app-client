@@ -28,6 +28,10 @@
   width: 150px;
 }
 
+.cart-product-img:hover {
+  cursor: pointer;
+}
+
 .cart-product-info {
   display: flex;
   flex-direction: column;
@@ -43,6 +47,12 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin: 5px 0;
+}
+
+.cart-product-title:hover {
+  color: #4da58b;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .cart-product-size {

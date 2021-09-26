@@ -26,6 +26,10 @@
   width: 150px;
 }
 
+.wishlist-product-img:hover {
+  cursor: pointer;
+}
+
 .wishlist-product-info {
   display: flex;
   flex-direction: column;
@@ -41,6 +45,12 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin: 5px 0;
+}
+
+.wishlist-product-title:hover {
+  text-decoration: underline;
+  color: #4da58b;
+  cursor: pointer;
 }
 
 .wishlist-product-size {

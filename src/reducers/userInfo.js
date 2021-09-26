@@ -27,6 +27,8 @@ const initialState = {
   wishlist: [],
   _id: "",
   currentView: "",
+  modalProduct: "",
+  productView: "61206823d8b4510016879944",
 };
 
 const userInfoReducer = (state = initialState, action) => {
@@ -89,6 +91,16 @@ const userInfoReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.error,
+      };
+    case "SET_MODAL_PRODUCT":
+      return {
+        ...state,
+        modalProduct: action.payload,
+      };
+    case "SET_PRODUCT_VIEW":
+      return {
+        ...state,
+        productView: action.payload,
       };
     default:
       return state;
