@@ -16,7 +16,7 @@ export const Orders = () => {
           {usersOrders.length > 0 ? (
             <div className="users-orders-content-container">
               {usersOrders.map((order) => {
-                return <OrderCard order={order} key={order.id} />;
+                return <OrderCard order={order} key={order._id} />;
               })}
             </div>
           ) : (

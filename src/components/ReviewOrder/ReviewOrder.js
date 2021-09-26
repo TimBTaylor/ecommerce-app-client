@@ -68,7 +68,7 @@ export const ReviewOrder = () => {
         }
 
         if (product.title.length > 60) {
-          currentProduct.title = product.title.substring(0, 60);
+          currentProduct.title = product.title.substring(0, 60) + "...";
         } else {
           currentProduct.title = product.title;
         }

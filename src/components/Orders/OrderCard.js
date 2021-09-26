@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeOrder } from "../../actions/removeOrder";
+import { NavLink } from "react-router-dom";
 
 export const OrderCard = (props) => {
   const [deliveryEstimate, setDeliveryEstimate] = useState();
@@ -37,6 +38,7 @@ export const OrderCard = (props) => {
       const currentProduct = {};
       if (entry.id === product._id) {
         currentProduct.productImg = product.image;
+        currentProduct.id = product._id;
         if (product.title.length > 60) {
           currentProduct.title = product.title.substring(0, 60) + "...";
         } else {
@@ -103,7 +105,16 @@ export const OrderCard = (props) => {
                   <button className="order-product-review">
                     Write a product review
                   </button>
-                  <button className="order-product-view">View your item</button>
+                  <NavLink
+                    to={{
+                      pathname: "/product-view",
+                      product: { product: product.id },
+                    }}
+                  >
+                    <button className="order-product-view">
+                      View your item
+                    </button>
+                  </NavLink>
                 </div>
               </div>
             </div>

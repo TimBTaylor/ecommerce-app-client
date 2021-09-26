@@ -1,0 +1,377 @@
+.product-view-container {
+  margin: 75px 40px 100px 40px;
+}
+
+.product-view-product-info {
+  display: flex;
+  margin-bottom: 85px;
+}
+
+.product-view-image-container {
+  width: 35%;
+  height: 450px;
+}
+
+.product-view-image {
+  height: auto;
+  width: 100%;
+}
+
+.product-information-checkout-container {
+  display: flex;
+  width: 65%;
+}
+
+.product-view-information-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0 0 0 15px;
+  width: 70%;
+  height: 100%;
+}
+
+.product-view-title {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.product-view-rating {
+  color: #f3a842;
+  margin: 3px 0;
+}
+
+.product-view-brand {
+  font-size: 1rem;
+  margin: 3px 0;
+}
+
+.product-view-price {
+  font-size: 1rem;
+  margin: 3px 0;
+}
+
+.product-view-price-number {
+  font-weight: 600;
+  color: #b60000;
+}
+
+.product-view-instock {
+  color: #32741e;
+  font-weight: 600;
+  margin: 3px 0;
+}
+
+.product-view-description-title {
+  margin: 3px 0;
+}
+
+.product-view-description {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.product-view-checkout-box {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 320px;
+  justify-content: flex-start;
+  margin-left: 15px;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.checkout-price-number {
+  color: #b60000;
+  font-weight: 600;
+}
+
+.delivery-tomorrow {
+  font-weight: 600;
+}
+
+.checkout-quantity-size-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.checkout-quantity-container {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  border: 1px solid #c7c7c7;
+  padding: 5px;
+  border-radius: 5px;
+  width: 80px;
+  justify-content: space-between;
+}
+
+.checkout-quantity-minus,
+.checkout-quantity-add {
+  border: none;
+  background: none;
+  margin: 0;
+}
+
+.checkout-current-quantity {
+  margin: 0;
+}
+
+.checkout-size-container {
+  width: 120px;
+  margin: 0;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+}
+
+.checkout-size-container.invalid {
+  border: 2px solid #b60000;
+}
+
+.checkout-select {
+  border: none;
+}
+
+.checkout-wishlist-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 0 0 0;
+}
+
+.heart,
+.cart {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.checkout-wishlist,
+.checkout-cart {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  border: 1px solid #c7c7c7;
+  width: 100%;
+  height: 40px;
+  margin: 0 5px;
+  border-radius: 25px;
+  background-color: #4da58b;
+  transition: 0.3s background-color;
+}
+
+.checkout-wishlist:hover,
+.checkout-cart:hover {
+  background-color: #55b498;
+}
+
+.product-view-alike-products-container {
+  margin: 0 0 25px 0;
+}
+
+.product-view-alike-title {
+  font-size: 1.9rem;
+}
+
+.product-view-alike-products {
+  height: 100%;
+  margin-top: 20px;
+}
+
+.alike-product-container {
+  margin: 0 0 25px 0;
+}
+
+.product-view-alike-img {
+  height: 150px;
+  width: 135px;
+}
+
+.product-alike-title {
+  margin: 15px 0 0 0;
+}
+
+.product-alike-title:hover {
+  color: #4da58b;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.product-alike-price {
+  color: #b60000;
+  font-weight: 600;
+  margin: 0;
+}
+
+.product-view-review-content {
+  display: flex;
+}
+
+.review-give-your-review {
+  width: 40%;
+  height: 170px;
+  padding: 15px 0;
+  border-top: 1px solid #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+}
+
+.review-give-review {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 3px 0;
+}
+
+.review-write-review-button {
+  background: none;
+  border: 1px solid #c7c7c7;
+  padding: 5px 13px;
+  border-radius: 25px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.customer-reviews {
+  margin: 0 0 0 30px;
+  padding-top: 15px;
+  width: 60%;
+}
+
+.customer-reviews-title {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.customer-review-stars {
+  margin: 0 0 25px 0;
+  font-size: 1.8rem;
+  color: #f3a842;
+}
+
+.review-information {
+  margin: 0 0 40px 0;
+}
+
+.review-information-name {
+  margin: 0 0 5px 0;
+}
+
+.review-customer-icon {
+  font-size: 2.2rem;
+  padding-bottom: 5px;
+}
+
+.review-information-rating {
+  color: #f3a842;
+  margin: 0 0 5px 3px;
+}
+
+.review-information-verified {
+  color: #b60000;
+  margin: 0 0 15px 3px;
+}
+
+.review-information-description {
+  margin: 0 0 5px 3px;
+}
+
+.review-information-buy-again {
+  margin: 0 0 5px 3px;
+}
+
+.buy-again-answer {
+  font-weight: 600;
+}
+
+.modal.left .product-view-modal-dialog {
+  position: fixed;
+  right: 0;
+  margin: auto;
+  width: 320px;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .product-view-modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal.right .product-view-modal-body {
+  padding: 15px 15px 80px;
+}
+
+@media (max-width: 600px) {
+  .product-information-checkout-container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .product-view-information-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .product-view-checkout-box {
+    width: 100%;
+    height: 100%;
+    margin: 15px 0 0 0;
+  }
+
+  .product-view-image-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .product-view-review-content {
+    flex-direction: column;
+  }
+
+  .review-give-your-review {
+    width: 100%;
+  }
+  .customer-reviews {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .product-view-container {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 600px) {
+  .product-information-checkout-container {
+    margin: 20px 0;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .product-view-information-container {
+    width: 65%;
+  }
+
+  .product-view-checkout-box {
+    width: 35%;
+  }
+
+  .product-view-image-container {
+    align-self: center;
+    width: 50%;
+    height: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-view-product-info {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+}

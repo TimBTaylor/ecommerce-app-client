@@ -1,0 +1,446 @@
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { ImStarFull } from "react-icons/im";
+import { ImStarEmpty } from "react-icons/im";
+import { ImStarHalf } from "react-icons/im";
+import { AiOutlineMinus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
+import { IoCartOutline } from "react-icons/io5";
+import { HiOutlineHeart } from "react-icons/hi";
+import { addToCart } from "../../actions/addToCart";
+import { addToWishlist } from "../../actions/addToWishlist";
+import { NavLink } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import { IoPersonCircle } from "react-icons/io5";
+
+import "./ProductView.css";
+
+export const ProductView = (props) => {
+  const [rating, setRating] = useState();
+  const [reviewRatings, setReviewRatings] = useState([]);
+  const [productSize, setProductSize] = useState();
+  const [productQuantity, setProductQuantity] = useState(1);
+  const [sizeInvalid, setSizeInvalid] = useState(false);
+  const [addedToCart, setAddedToCart] = useState();
+
+  const productId = props.productId;
+
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("userId");
+
+  const allProducts = useSelector((state) => state.productReducer.data);
+
+  let alikeProducts = [];
+
+  let productToDisplay;
+
+  let title;
+
+  allProducts.map((product) => {
+    if (product._id === productId) {
+      productToDisplay = product;
+      if (product.title.length > 60) {
+        title = product.title.substring(0, 60) + "...";
+      } else {
+        title = product.title;
+      }
+    }
+    return productToDisplay;
+  });
+
+  allProducts.map((product) => {
+    if (
+      product.type === productToDisplay.type &&
+      alikeProducts.length < 4 &&
+      product._id !== productId
+    ) {
+      let title;
+      if (product.title.length > 60) {
+        title = product.title.substring(0, 60) + "...";
+      } else {
+        title = product.title;
+      }
+      const newProduct = {
+        productImg: product.image,
+        productId: product._id,
+        price: product.price,
+        title,
+      };
+
+      alikeProducts.push(newProduct);
+    }
+    return alikeProducts;
+  });
+
+  let mayAlsoLikeProduct = [];
+  let listOfSameGender = [];
+  allProducts.map((product) => {
+    if (product.gender === productToDisplay.gender) {
+      listOfSameGender.push(product);
+    }
+    if (mayAlsoLikeProduct.length < 4) {
+      const randomIndex = Math.floor(Math.random() * listOfSameGender.length);
+      mayAlsoLikeProduct.push(listOfSameGender[randomIndex]);
+      console.log(randomIndex);
+    }
+    return listOfSameGender;
+  });
+
+  const settingRating = () => {
+    const listofRatings = productToDisplay.reviews.map((rating) => {
+      return rating.rating;
+    });
+    const totalRating = listofRatings.reduce((a, b) => a + b, 0);
+    const overallRating = totalRating / listofRatings.length;
+    const starRating = [];
+    for (let i = 0; i <= 4; i++) {
+      const difference = overallRating - i;
+      if (difference > 0.5) {
+        starRating.push(<ImStarFull key={i} />);
+      } else if (difference === 0.5) {
+        starRating.push(<ImStarHalf key={i} />);
+      } else {
+        starRating.push(<ImStarEmpty key={i} />);
+      }
+    }
+    setRating(starRating);
+  };
+
+  const settingReviewRatings = () => {
+    if (reviewRatings.length === 0) {
+      productToDisplay.reviews.map((review) => {
+        const starRating = [];
+        for (let i = 0; i <= 4; i++) {
+          const difference = review.rating - i;
+          if (difference > 0.5) {
+            starRating.push(<ImStarFull key={i} />);
+          } else if (difference === 0.5) {
+            starRating.push(<ImStarHalf key={i} />);
+          } else {
+            starRating.push(<ImStarEmpty key={i} />);
+          }
+        }
+        reviewRatings.push(starRating);
+        return starRating;
+      });
+    }
+  };
+
+  const increaseProductQuantity = () => {
+    setProductQuantity(productQuantity + 1);
+  };
+
+  const decreaseProductQuantity = () => {
+    if (productQuantity > 1) {
+      setProductQuantity(productQuantity - 1);
+    }
+  };
+
+  const addProductToCart = () => {
+    if (productSize !== undefined && productSize !== "SIZE") {
+      dispatch(addToCart(userId, productId, productQuantity, productSize));
+      setSizeInvalid(false);
+      setAddedToCart(true);
+    } else {
+      setSizeInvalid(true);
+    }
+  };
+
+  const addProductToWishlist = () => {
+    if (productSize !== undefined && productSize !== "SIZE") {
+      dispatch(addToWishlist(userId, productId, productQuantity, productSize));
+      setSizeInvalid(false);
+      setAddedToCart(false);
+    } else {
+      setSizeInvalid(true);
+    }
+  };
+
+  useEffect(() => {
+    settingRating();
+    settingReviewRatings();
+  }, []);
+
+  return (
+    <>
+      <div className="product-view-container">
+        <div className="product-view-product-info">
+          <div className="product-view-image-container">
+            <img
+              className="product-view-image"
+              src={productToDisplay.image}
+              alt="product"
+            />
+          </div>
+          <div className="product-information-checkout-container">
+            <div className="product-view-information-container">
+              <h1 className="product-view-title">{productToDisplay.title}</h1>
+              <p className="product-view-rating">{rating}</p>
+              <p className="product-view-brand">
+                <span className="product-view-brand-title">Brand: </span>
+                {productToDisplay.brand}
+              </p>
+              <p className="product-view-price">
+                <span className="product-view-price-title">Price: </span>
+                <span className="product-view-price-number">
+                  ${productToDisplay.price}
+                </span>
+              </p>
+              <p className="product-view-instock">In Stock</p>
+              <p className="product-view-description-title">Description:</p>
+              <ul className="product-view-description">
+                {productToDisplay.description.map((description) => {
+                  return (
+                    <li
+                      className="product-view-description-item"
+                      key={productToDisplay.description.indexOf(description)}
+                    >
+                      {description}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="product-view-checkout-box">
+              <p className="checkout-price">
+                <span className="checkout-price-number">
+                  ${productToDisplay.price}
+                </span>{" "}
+                <br /> & FREE RETURNS
+              </p>
+              <p className="checkout-free-delivery">FREE DELIVERY IN U.S</p>
+              <p className="checkout-fastest-delivery">
+                Fastest Delivery:{" "}
+                <span className="delivery-tomorrow">Tomorrow</span>
+              </p>
+              <div className="checkout-quantity-size-container">
+                <div className="checkout-quantity-container">
+                  <button
+                    className="checkout-quantity-minus"
+                    onClick={() => decreaseProductQuantity()}
+                  >
+                    <AiOutlineMinus />
+                  </button>
+                  <p className="checkout-current-quantity">{productQuantity}</p>
+                  <button
+                    className="checkout-quantity-add"
+                    onClick={() => increaseProductQuantity()}
+                  >
+                    <AiOutlinePlus />{" "}
+                  </button>
+                </div>
+                <div
+                  className={
+                    sizeInvalid
+                      ? "checkout-size-container invalid"
+                      : "checkout-size-container"
+                  }
+                >
+                  <select
+                    className="form-select checkout-select"
+                    aria-label="Default select example"
+                    onChange={(e) => {
+                      setProductSize(e.target.value);
+                    }}
+                  >
+                    <option defaultValue>SIZE</option>
+                    {productToDisplay.sizes.map((size) => {
+                      return (
+                        <option value={size} key={size}>
+                          {size}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+              <div className="checkout-wishlist-cart">
+                <button
+                  className="checkout-wishlist"
+                  onClick={() => addProductToWishlist()}
+                >
+                  <HiOutlineHeart className="heart" />
+                </button>
+                <button
+                  data-toggle="modal"
+                  className="checkout-cart"
+                  onClick={() => addProductToCart()}
+                  data-target={sizeInvalid ? "" : "#productAddedToCart"}
+                >
+                  <IoCartOutline className="cart" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="product-view-alike-products-container">
+          <h1 className="product-view-alike-title">
+            Products related to this item
+          </h1>
+          <div className="product-view-alike-products">
+            <Container>
+              <Row xs={2} md={3} lg={4}>
+                {alikeProducts.map((product) => {
+                  return (
+                    <Col key={product.productId}>
+                      <div className="alike-product-container">
+                        <NavLink
+                          to={{
+                            pathname: "/product-view",
+                            product: { product: product.productId },
+                          }}
+                        >
+                          <img
+                            className="product-view-alike-img"
+                            src={product.productImg}
+                            alt="product"
+                          />
+                        </NavLink>
+                        <NavLink
+                          to={{
+                            pathname: "/product-view",
+                            product: { product: product.productId },
+                          }}
+                          style={{ all: "unset" }}
+                        >
+                          <p className="product-alike-title">{product.title}</p>
+                        </NavLink>
+                        <p className="product-alike-price">${product.price}</p>
+                      </div>
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Container>
+          </div>
+        </div>
+        <div className="product-view-review-content">
+          <div className="review-give-your-review">
+            <p className="review-give-review">Review this product</p>
+            <p className="review-share-thoughts">
+              Share your thoughts with other customers
+            </p>
+            <button className="review-write-review-button">
+              Write a customer review
+            </button>
+          </div>
+          <div className="customer-reviews">
+            <h1 className="customer-reviews-title">Customer reviews</h1>
+            <p className="customer-review-stars">{rating}</p>
+            {productToDisplay.reviews.map((review) => {
+              return (
+                <div className="review-information" key={review._id}>
+                  <p className="review-information-name">
+                    <IoPersonCircle className="review-customer-icon" />{" "}
+                    {review.name}
+                  </p>
+                  <p className="review-information-rating">
+                    {reviewRatings[productToDisplay.reviews.indexOf(review)]}
+                  </p>
+                  <p className="review-information-verified">
+                    Verified purchase
+                  </p>
+                  <p className="review-information-description">
+                    {review.description}
+                  </p>
+                  <p className="review-information-buy-again">
+                    Buy Again?{" "}
+                    <span className="buy-again-answer">{review.buyAgain}</span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div
+          className="modal left fade"
+          id="productAddedToCart"
+          tabIndex=""
+          role="dialog"
+          aria-labelledby="ModalLabel"
+          aria-hidden="true"
+        >
+          <div
+            className="modal-dialog product-view-modal-dialog"
+            role="document"
+          >
+            <div className="modal-content product-view-modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="close quickshop-close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body .product-view-modal-body">
+                <p className="product-added-modal-title">
+                  {addedToCart ? "Added to cart:" : "Added to wishlist"}
+                </p>
+                <div className="product-added-product-information">
+                  <img
+                    className="product-added-product-image"
+                    src={productToDisplay.image}
+                    alt="product"
+                  />
+                  <div className="product-added-product-details">
+                    <p className="product-added-product-title">{title}</p>
+                    <p className="product-added-product-price">
+                      ${productToDisplay.price}
+                    </p>
+                    <p className="product-added-product-size">
+                      Size: {productSize}
+                    </p>
+                    <p className="product-added-product-quantity">
+                      Qty: {productQuantity}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="product-added-keep-shopping-container"
+                  data-dismiss="modal"
+                >
+                  <p className="product-added-keep-shopping">KEEP SHOPPING</p>
+                </div>
+                <div className="product-added-view-cart-container">
+                  <p className="product-added-view-cart">
+                    {addedToCart ? "VIEW CART" : "VIEW WISHLIST"}{" "}
+                  </p>
+                  {addedToCart ? (
+                    <IoCartOutline className="product-added-cart-icon" />
+                  ) : (
+                    <HiOutlineHeart className="product-added-wishlist-icon" />
+                  )}
+                </div>
+                <hr className="line-break quickshop-linebreak" />
+                <div className="product-added-also-like-container">
+                  <p className="product-added-also-like-title">
+                    You may also like:
+                  </p>
+                  <div className="product-added-also-like-products">
+                    {mayAlsoLikeProduct.map((product) => {
+                      return (
+                        <div
+                          className="product-added-also-like-product"
+                          key={product._id}
+                        >
+                          <img
+                            className="product-added-also-like-image"
+                            src={product.image}
+                            alt="product"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

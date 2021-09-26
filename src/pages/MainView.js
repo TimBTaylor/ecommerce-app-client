@@ -12,6 +12,7 @@ import { WishlistView } from "./WishlistView";
 import { CartView } from "./CartView";
 import { ReviewOrderView } from "./ReviewOrderView";
 import { OrderView } from "./OrderView";
+import { ProductViewPage } from "./ProductViewPage";
 
 export const MainView = () => {
   return (
@@ -29,6 +30,7 @@ export const MainView = () => {
         <Route exact path="/cart" component={CartView} />
         <Route exact path="/review-order" component={ReviewOrderView} />
         <Route exact path="/orders" component={OrderView} />
+        <Route exact path="/product-view" component={ProductViewPage} />
       </Router>
     </div>
   );
