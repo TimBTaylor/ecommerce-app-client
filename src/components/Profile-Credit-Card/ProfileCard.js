@@ -1,22 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { ProfileCardCard } from "./ProfileCardCard";
+import { addCard } from "../../actions/AddCard";
 
 import "./ProfileCard.css";
 
 export const ProfileCard = () => {
   const [createCard, setCreateCard] = useState(true);
-  const [editCard, setEditCard] = useState(false);
   const usersCards = useSelector((state) => state.userInfoReducer.cardInfo);
+  const userId = localStorage.getItem("userId");
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState();
+  const [cardNumber, setCardNumber] = useState();
+  const [type, setType] = useState();
+  const [expiration, setExpiration] = useState();
+  const [missingInfo, setMissingInfo] = useState(false);
+
+  const addingCard = () => {
+    const cardInfo = {
+      name,
+      cardNumber,
+      type,
+      expiration,
+    };
+
+    if (
+      name === undefined ||
+      cardNumber === undefined ||
+      type === undefined ||
+      expiration === undefined
+    ) {
+      setMissingInfo(true);
+    } else {
+      dispatch(addCard(userId, cardInfo));
+      setCreateCard(false);
+      setMissingInfo(false);
+    }
+  };
 
   useEffect(() => {
+    setName();
+    setCardNumber();
+    setType();
+    setExpiration();
     if (usersCards.length > 0) {
       setCreateCard(false);
     }
   }, [usersCards.length]);
-
-  const showEditCard = () => {
-    setEditCard(!editCard);
-  };
 
   return (
     <>
@@ -39,6 +70,7 @@ export const ProfileCard = () => {
                       className="form-control profile-card-input"
                       id="cardName"
                       aria-describedby="cardMuted"
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <label
                       htmlFor="cardNumber"
@@ -51,6 +83,7 @@ export const ProfileCard = () => {
                       className="form-control profile-card-input"
                       id="cardNumber"
                       aria-describedby="cardNumberMute"
+                      onChange={(e) => setCardNumber(e.target.value)}
                     />
                     <small id="cardNumberMute" className="form-text text-muted">
                       Example: 0000000000000000
@@ -62,7 +95,11 @@ export const ProfileCard = () => {
                       type="text"
                       className="form-control profile-card-input"
                       id="cardType"
+                      onChange={(e) => setType(e.target.value)}
                     />
+                    <small id="cardNumberMute" className="form-text text-muted">
+                      MasterCard, Visa, American Express, Discover
+                    </small>
                     <label htmlFor="cardExpires" className="profile-card-label">
                       Expires *
                     </label>
@@ -71,6 +108,7 @@ export const ProfileCard = () => {
                       className="form-control profile-card-input"
                       id="cardExpires"
                       aria-describedby="expiresExample"
+                      onChange={(e) => setExpiration(e.target.value)}
                     />
                     <small id="expiresExample" className="form-text text-muted">
                       MM/YY
@@ -80,7 +118,7 @@ export const ProfileCard = () => {
               </div>
               <button
                 className="profile-card-form-create"
-                onClick={() => setCreateCard(false)}
+                onClick={() => addingCard()}
               >
                 Create New Card
               </button>
@@ -92,103 +130,7 @@ export const ProfileCard = () => {
                 <hr className="linebreak" />
               </div>
               {usersCards.map((card) => {
-                const randomId = Math.floor(Math.random() * 99999);
-                let editCard = false;
-                const showEditCard = () => {
-                  if (editCard) {
-                    document.getElementById(randomId).style.display = "none";
-                    editCard = false;
-                  } else {
-                    document.getElementById(randomId).style.display = "flex";
-                    editCard = true;
-                  }
-                };
-
-                return (
-                  <div className="card-content" key={usersCards.indexOf(card)}>
-                    <p className="card-name">{card.name}</p>
-                    <p className="card-number">{card.cardNumber}</p>
-                    <p className="card-type">{card.cardType}</p>
-                    <p className="card-expires">{card.expires}</p>
-                    <div className="card-button-container">
-                      <button
-                        className="card-button-edit"
-                        onClick={() => showEditCard()}
-                      >
-                        Edit
-                      </button>
-                      <button className="card-button-delete">Delete</button>
-                    </div>
-                    <div className="edit-card-content-container" id={randomId}>
-                      <div className="edit-card-title-container">
-                        <h1 className="edit-card-title">edit card</h1>
-                      </div>
-                      <form className="edit-card-form">
-                        <div className="form-group">
-                          <label
-                            htmlFor="cardName"
-                            className="card-edit-label-1"
-                          >
-                            Name On Card
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control card-edit-input"
-                            id="cardName"
-                            aria-describedby="cardMuted"
-                            defaultValue={card.name}
-                          />
-                          <label
-                            htmlFor="cardNumber"
-                            className="card-edit-label"
-                          >
-                            Card Number
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control card-edit-input"
-                            id="cardNumber"
-                            defaultValue={card.cardNumber}
-                          />
-                          <label
-                            htmlFor="cardType"
-                            className="address-edit-label"
-                          >
-                            Card Type
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control card-edit-input"
-                            id="cardType"
-                            defaultValue={card.cardType}
-                          />
-                          <label
-                            htmlFor="cardExpires"
-                            className="card-edit-label"
-                          >
-                            Expires
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control card-edit-input"
-                            id="cardExpires"
-                            defaultValue={card.expires}
-                          />
-                        </div>
-                      </form>
-                      <div className="card-edit-buttons-container">
-                        <button className="card-edit-update">Update</button>
-                        <button
-                          className="card-edit-cancel"
-                          onClick={() => showEditCard()}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                    <hr className="line-break" />
-                  </div>
-                );
+                return <ProfileCardCard card={card} key={card._id} />;
               })}
               <div className="card-content-button-container">
                 <button

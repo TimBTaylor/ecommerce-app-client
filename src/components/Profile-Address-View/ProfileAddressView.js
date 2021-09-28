@@ -1,13 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { ProfileAddressCard } from "./ProfileAddressCard";
+import { addAddress } from "../../actions/addAddress";
 
 import "./ProfileAddressView.css";
 
 export const ProfileAddressView = () => {
   const [createAddress, setCreateAddress] = useState(true);
   const usersAddress = useSelector((state) => state.userInfoReducer.address);
+  const userId = localStorage.getItem("userId");
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState();
+  const [streetAddress, setStreetAddress] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const [zipcode, setZipcode] = useState();
+  const [missingInfo, setMissingInfo] = useState(false);
+
+  const addingAddress = () => {
+    const addressInfo = {
+      name,
+      streetAddress,
+      city,
+      state,
+      zipcode,
+    };
+
+    if (
+      name === undefined ||
+      streetAddress === undefined ||
+      city === undefined ||
+      state === undefined ||
+      zipcode === undefined
+    ) {
+      setMissingInfo(true);
+    } else {
+      dispatch(addAddress(userId, addressInfo));
+      setCreateAddress(false);
+      setMissingInfo(false);
+    }
+  };
 
   useEffect(() => {
+    setName();
+    setStreetAddress();
+    setCity();
+    setState();
+    setZipcode();
+    setMissingInfo(false);
     if (usersAddress.length > 0) {
       setCreateAddress(false);
     }
@@ -37,6 +78,7 @@ export const ProfileAddressView = () => {
                       className="form-control profile-address-input"
                       id="addressName"
                       aria-describedby="addressMuted"
+                      onChange={(e) => setStreetAddress(e.target.value)}
                     />
                     <small id="addressMute" className="form-text text-muted">
                       Street Address, P.O. Box
@@ -45,23 +87,13 @@ export const ProfileAddressView = () => {
                       htmlFor="addressFName"
                       className="profile-address-label"
                     >
-                      First Name *
+                      Name *
                     </label>
                     <input
                       type="text"
                       className="form-control profile-address-input"
                       id="addressFName"
-                    />
-                    <label
-                      htmlFor="addressLName"
-                      className="profile-address-label"
-                    >
-                      Last Name *
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control profile-address-input"
-                      id="addressLName"
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <label
                       htmlFor="addressCity"
@@ -73,17 +105,7 @@ export const ProfileAddressView = () => {
                       type="text"
                       className="form-control profile-address-input"
                       id="addressCity"
-                    />
-                    <label
-                      htmlFor="addressCountry"
-                      className="profile-address-label"
-                    >
-                      Country *
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control profile-address-input"
-                      id="addressCountry"
+                      onChange={(e) => setCity(e.target.value)}
                     />
                     <label
                       htmlFor="addressState"
@@ -95,6 +117,7 @@ export const ProfileAddressView = () => {
                       type="text"
                       className="form-control profile-address-input"
                       id="addressState"
+                      onChange={(e) => setState(e.target.value)}
                     />
                     <label
                       htmlFor="addressZipcode"
@@ -106,33 +129,31 @@ export const ProfileAddressView = () => {
                       type="text"
                       className="form-control profile-address-input"
                       id="addressZipcode"
+                      onChange={(e) => setZipcode(e.target.value)}
                     />
-                    <label
-                      htmlFor="addressPhonenumber"
-                      className="profile-address-label"
-                    >
-                      Phone *
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control profile-address-input"
-                      id="addressPhonenumber"
-                      aria-describedby="addressPhoneMute"
-                    />
-                    <small
-                      id="addressPhoneMute"
-                      className="form-text text-muted"
-                    >
-                      Example: 333-333-3333
-                    </small>
                   </div>
                 </form>
               </div>
+              {missingInfo ? (
+                <div className="missing-info">
+                  Missing information in required fields *
+                </div>
+              ) : (
+                ""
+              )}
               <button
                 className="profile-address-form-create"
-                onClick={() => setCreateAddress(false)}
+                onClick={() => {
+                  addingAddress();
+                }}
               >
                 Create New Address
+              </button>
+              <button
+                className="profile-address-form-cancel"
+                onClick={() => setCreateAddress(false)}
+              >
+                Cancel
               </button>
             </div>
           ) : (
@@ -142,154 +163,8 @@ export const ProfileAddressView = () => {
                 <hr className="linebreak" />
               </div>
               {usersAddress.map((address) => {
-                const randomId = Math.floor(Math.random() * 99999);
-                let editAddressPre = false;
-                const showEditAddress = () => {
-                  if (editAddressPre) {
-                    document.getElementById(randomId).style.display = "none";
-                    editAddressPre = false;
-                  } else {
-                    document.getElementById(randomId).style.display = "flex";
-                    editAddressPre = true;
-                  }
-                };
-
                 return (
-                  <div
-                    className="address-content"
-                    key={usersAddress.indexOf(address)}
-                  >
-                    <p className="address-name">
-                      {address.fName} {address.lName}
-                    </p>
-                    <p className="address-address">{address.Address}</p>
-                    <p className="address-city-state-zip">
-                      {address.City} {address.State} {address.ZIP}
-                    </p>
-                    <p className="address-country">{address.Country}</p>
-                    <div className="address-button-container">
-                      <button
-                        className="address-button-edit"
-                        onClick={() => showEditAddress()}
-                      >
-                        Edit
-                      </button>
-                      <button className="address-button-delete">Delete</button>
-                    </div>
-                    <div
-                      className="edit-address-content-container"
-                      id={randomId}
-                    >
-                      <div className="edit-address-title-container">
-                        <h1 className="edit-address-title">edit address</h1>
-                      </div>
-                      <form className="edit-address-form">
-                        <div className="form-group">
-                          <label
-                            htmlFor="addressName"
-                            className="address-edit-label-1"
-                          >
-                            Address
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressName"
-                            aria-describedby="addressMuted"
-                            defaultValue={address.Address}
-                          />
-                          <small
-                            id="addressEditMute"
-                            className="form-text text-muted"
-                          >
-                            Street Address, P.O. Box
-                          </small>
-                          <label
-                            htmlFor="addressFName"
-                            className="address-edit-label"
-                          >
-                            First Name
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressFName"
-                            defaultValue={address.fName}
-                          />
-                          <label
-                            htmlFor="addressLName"
-                            className="address-edit-label"
-                          >
-                            Last Name
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressLName"
-                            defaultValue={address.lName}
-                          />
-                          <label
-                            htmlFor="addressCity"
-                            className="address-edit-label"
-                          >
-                            City
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressCity"
-                            defaultValue={address.City}
-                          />
-                          <label
-                            htmlFor="addressCountry"
-                            className="address-edit-label"
-                          >
-                            Country
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressCountry"
-                            defaultValue={address.Country}
-                          />
-                          <label
-                            htmlFor="addressState"
-                            className="address-edit-label"
-                          >
-                            State
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressState"
-                            defaultValue={address.State}
-                          />
-                          <label
-                            htmlFor="addressZipcode"
-                            className="address-edit-label"
-                          >
-                            ZIP Code
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control address-edit-input"
-                            id="addressZipcode"
-                            defaultValue={address.ZIP}
-                          />
-                        </div>
-                      </form>
-                      <div className="address-edit-buttons-container">
-                        <button className="address-edit-update">Update</button>
-                        <button
-                          className="address-edit-cancel"
-                          onClick={() => showEditAddress()}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                    <hr className="line-break" />
-                  </div>
+                  <ProfileAddressCard key={address._id} address={address} />
                 );
               })}
               <div className="address-content-button-container">

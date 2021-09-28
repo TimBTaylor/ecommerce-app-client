@@ -72,6 +72,18 @@
   transition: 0.3s background-color;
 }
 
+.profile-address-form-cancel {
+  background: none;
+  border: none;
+  margin-left: 55px;
+  margin-top: 30px;
+  transition: 0.3s background-color;
+}
+
+.profile-address-form-cancel:hover {
+  text-decoration: underline;
+}
+
 .profile-address-form-create:hover {
   background-color: #4da58b;
 }
@@ -203,6 +215,13 @@
   background-color: #353a40;
 }
 
+.missing-info {
+  color: #b60000;
+  font-weight: 600;
+  margin: 0 0 10px 15px;
+  text-align: center;
+}
+
 @media (max-width: 500px) {
   .profile-address-container {
     margin: 0 0 125px 0;
@@ -211,6 +230,10 @@
   .profile-address-form-create {
     margin-left: 10px;
     width: 75vw;
+  }
+
+  .profile-address-form-cancel {
+    margin-left: 10px;
   }
 
   .profile-address-form {

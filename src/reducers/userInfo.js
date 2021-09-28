@@ -102,6 +102,26 @@ const userInfoReducer = (state = initialState, action) => {
         ...state,
         productView: action.payload,
       };
+    case "SET_ADDRESS":
+      return {
+        ...state,
+        address: action.payload,
+      };
+    case "SET_ADDRESS_FAILURE":
+      return {
+        ...state,
+        error: action.error,
+      };
+    case "SET_CARD":
+      return {
+        ...state,
+        cardInfo: action.payload,
+      };
+    case "SET_CARD_FAILURE":
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return state;
   }
