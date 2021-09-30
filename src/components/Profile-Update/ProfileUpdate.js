@@ -1,12 +1,65 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfile } from "../../actions/updateProfile";
 import "./ProfileUpdate.css";
 
 export const ProfileUpdate = () => {
+  var bcrypt = require("bcryptjs");
+
   const fName = useSelector((state) => state.userInfoReducer.firstName);
   const lName = useSelector((state) => state.userInfoReducer.lastName);
   const email = useSelector((state) => state.userInfoReducer.email);
+  const password = useSelector((state) => state.userInfoReducer.password);
+  const token = useSelector((state) => state.userInfoReducer.token);
+  const [missingPassword, setMissingPassword] = useState();
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [invalidNewPassword, setInvalidNewPassword] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const userId = localStorage.getItem("userId");
+  const dispatch = useDispatch();
+
+  let firstName;
+  let lastName;
+  let userEmail;
+  let currentPassword;
+  let firstPassword;
+  let secondPassword;
+
+  const updatingProfile = () => {
+    if (firstName === undefined) {
+      firstName = fName;
+    }
+    if (lastName === undefined) {
+      lastName = lName;
+    }
+    if (userEmail === undefined) {
+      userEmail = email;
+    }
+    if (bcrypt.compareSync(currentPassword, password)) {
+      if (firstPassword.length >= 6) {
+        if (firstPassword === secondPassword) {
+          let userInfo = {
+            fName: firstName,
+            lName: lastName,
+            email: userEmail,
+            password: secondPassword,
+          };
+          console.log(userInfo);
+          dispatch(updateProfile(userId, userInfo));
+          console.log("success");
+        } else {
+          setPasswordsMatch(false);
+          console.log("faile her");
+        }
+      } else {
+        setInvalidNewPassword(true);
+        console.log("fail here");
+      }
+    } else {
+      setInvalidPassword(true);
+      console.log("failing here");
+    }
+  };
 
   return (
     <>
@@ -29,6 +82,7 @@ export const ProfileUpdate = () => {
                     className="form-control name-email-input"
                     id="fNameInput"
                     defaultValue={fName}
+                    onChange={(e) => (firstName = e.target.value)}
                   />
                   <label htmlFor="lNameInput" className="name-email-label">
                     Last Name *
@@ -38,6 +92,7 @@ export const ProfileUpdate = () => {
                     className="form-control name-email-input"
                     id="lNameInput"
                     defaultValue={lName}
+                    onChange={(e) => (lastName = e.target.value)}
                   />
                   <label htmlFor="emailInput" className="name-email-label">
                     Email *
@@ -47,18 +102,10 @@ export const ProfileUpdate = () => {
                     className="form-control name-email-input"
                     id="emailInput"
                     defaultValue={email}
-                  />
-                  <label htmlFor="confirmEmail" className="name-email-label">
-                    Confirm Email *
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control name-email-input"
-                    id="confirmEmail"
+                    onChange={(e) => (userEmail = e.target.value)}
                   />
                 </div>
               </form>
-              <button className="name-email-button">Apply</button>
             </div>
             <div className="password-update-container col-md">
               <h1 className="password-update-title">change password</h1>
@@ -74,6 +121,7 @@ export const ProfileUpdate = () => {
                     type="password"
                     className="form-control password-update-input"
                     id="currentPassword"
+                    onChange={(e) => (currentPassword = e.target.value)}
                   />
                   <label
                     htmlFor="newPassword"
@@ -85,6 +133,7 @@ export const ProfileUpdate = () => {
                     type="password"
                     className="form-control password-update-input"
                     id="newPassword"
+                    onChange={(e) => (firstPassword = e.target.value)}
                   />
                   <label
                     htmlFor="confirmNewPassword"
@@ -96,10 +145,16 @@ export const ProfileUpdate = () => {
                     type="password"
                     className="form-control password-update-input"
                     id="confirmNewPassword"
+                    onChange={(e) => (secondPassword = e.target.value)}
                   />
                 </div>
               </form>
-              <button className="password-update-button">Apply</button>
+              <button
+                className="password-update-button"
+                onClick={() => updatingProfile()}
+              >
+                Apply
+              </button>
             </div>
           </div>
         </div>

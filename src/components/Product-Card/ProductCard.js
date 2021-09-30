@@ -5,7 +5,7 @@ import "./ProductCard.css";
 import { ImStarFull } from "react-icons/im";
 import { ImStarEmpty } from "react-icons/im";
 import { ImStarHalf } from "react-icons/im";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export const ProductCard = (props) => {
   const [rating, setRating] = useState();
@@ -19,22 +19,6 @@ export const ProductCard = (props) => {
 
   const productTitle = product.title;
   const productReviews = product.reviews;
-  const productType = product.type;
-
-  const allProducts = useSelector((state) => state.productReducer.data);
-
-  const mayAlsoLike = [];
-
-  allProducts.map((products) => {
-    if (
-      products.type === productType &&
-      products.title !== productTitle &&
-      mayAlsoLike.length < 4
-    ) {
-      mayAlsoLike.push(products);
-    }
-    return mayAlsoLike;
-  });
 
   const settingRating = (reviews) => {
     const listofRatings = reviews.map((rating) => {

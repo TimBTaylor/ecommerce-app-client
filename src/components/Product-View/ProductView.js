@@ -161,10 +161,10 @@ export const ProductView = (props) => {
     }
   };
 
-  const routeToProductview = (paramProductId) => {
+  const routeToProductview = (currentDisplayedId) => {
     dispatch({
       type: "SET_PRODUCT_VIEW",
-      payload: paramProductId,
+      payload: currentDisplayedId,
     });
     history.push("/product-view");
   };
@@ -299,15 +299,21 @@ export const ProductView = (props) => {
                     <Col key={product.productId}>
                       <div
                         className="alike-product-container"
-                        onClick={() => routeToProductview(product.productId)}
+                        data-dismiss="modal"
                       >
                         <img
                           className="product-view-alike-img"
                           src={product.productImg}
                           alt="product"
+                          onClick={() => routeToProductview(product.productId)}
                         />
 
-                        <p className="product-alike-title">{product.title}</p>
+                        <p
+                          className="product-alike-title"
+                          onClick={() => routeToProductview(product.productId)}
+                        >
+                          {product.title}
+                        </p>
                         <p className="product-alike-price">${product.price}</p>
                       </div>
                     </Col>
@@ -440,11 +446,13 @@ export const ProductView = (props) => {
                         <div
                           className="product-view-added-also-like-product"
                           key={product._id}
+                          data-dismiss="modal"
                         >
                           <img
                             className="product-view-added-also-like-image"
                             src={product.image}
                             alt="product"
+                            onClick={() => routeToProductview(product._id)}
                           />
                         </div>
                       );

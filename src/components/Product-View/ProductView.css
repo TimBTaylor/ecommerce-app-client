@@ -190,6 +190,10 @@
   width: 135px;
 }
 
+.product-view-alike-img:hover {
+  cursor: pointer;
+}
+
 .product-alike-title {
   margin: 15px 0 0 0;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeCard } from "../../actions/RemoveCard";
 import { updateCard } from "../../actions/updateCard";
 
@@ -48,6 +48,7 @@ export const ProfileCardCard = (props) => {
       cardNumber,
       type,
       expiration,
+      cardId: card._id,
     };
 
     dispatch(updateCard(userId, cardInfo));

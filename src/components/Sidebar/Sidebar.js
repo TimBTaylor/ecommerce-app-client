@@ -490,9 +490,7 @@ export const Sidebar = () => {
                 )}
                 <hr className="line-break" />
               </div>
-              <div className="modal-footer mobile-modal-footer">
-                <button className="clear-all-filters">CLEAR ALL FILTERS</button>
-              </div>
+              <div className="modal-footer mobile-modal-footer"></div>
             </div>
           </div>
         </div>
