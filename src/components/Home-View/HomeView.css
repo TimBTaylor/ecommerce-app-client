@@ -27,4 +27,8 @@
   .navigation-container {
     padding-bottom: 170px;
   }
+
+  .current-view-title {
+    padding-top: 250px;
+  }
 }

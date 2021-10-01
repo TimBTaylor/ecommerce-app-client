@@ -143,6 +143,10 @@ export const Navigation = () => {
   //for seach bar but currently not working
   const submitSearchInput = (input) => {
     dispatch({
+      type: "SET_CURRENT_VIEW",
+      payload: `Results for '${searchInput}'`,
+    });
+    dispatch({
       type: "PRODUCTS_FILTERED_REQUESTED",
     });
     const filteredProductsList = productsList.filter((product) => {
@@ -219,18 +223,21 @@ export const Navigation = () => {
         <div className="search-input-container">
           <form className="search-input-form">
             <div className="search-input-form-container">
-              <BsSearch
-                className="search-input-icon"
-                onClick={() => {
-                  submitSearchInput(searchInput);
-                  setSearchActive(!searchActive);
-                }}
-              />
+              <NavLink style={{ all: "unset" }} to="/products">
+                <BsSearch
+                  className="search-input-icon"
+                  onClick={() => {
+                    submitSearchInput(searchInput);
+                    setSearchActive(!searchActive);
+                  }}
+                />
+              </NavLink>
               <input
                 type="search"
                 className="form-control search-input"
                 placeholder="What are you looking for?"
                 onChange={(e) => setSearchInput(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
               />
             </div>
           </form>
@@ -308,8 +315,14 @@ export const Navigation = () => {
                   <li className="dropdown-item nav-dropdown-item">
                     <NavLink to="/products">
                       <button
-                        className="nav-dropdown-button shadow-none "
-                        onClick={() => filterByInput("male", "all", "Men's")}
+                        type="button"
+                        data-toggle="collapse"
+                        data-target=".men-dropdown-menu"
+                        className="nav-dropdown-button shadow-none"
+                        onClick={(e) => {
+                          filterByInput("male", "all", "Men's");
+                          e.preventDefault();
+                        }}
                       >
                         All
                       </button>

@@ -52,8 +52,9 @@ export const ProductView = (props) => {
   allProducts.map((product) => {
     if (
       product.type === productToDisplay.type &&
-      alikeProducts.length < 4 &&
-      product._id !== productId
+      alikeProducts.length < 3 &&
+      product._id !== productId &&
+      product.gender === productToDisplay.gender
     ) {
       let title;
       if (product.title.length > 60) {
@@ -329,9 +330,11 @@ export const ProductView = (props) => {
             <p className="review-share-thoughts">
               Share your thoughts with other customers
             </p>
-            <button className="review-write-review-button">
-              Write a customer review
-            </button>
+            <NavLink to="/product-review" style={{ all: "unset" }}>
+              <button className="review-write-review-button">
+                Write a customer review
+              </button>
+            </NavLink>
           </div>
           <div className="customer-reviews">
             <h1 className="customer-reviews-title">Customer reviews</h1>

@@ -13,26 +13,35 @@ import { CartView } from "./CartView";
 import { ReviewOrderView } from "./ReviewOrderView";
 import { OrderView } from "./OrderView";
 import { ProductViewPage } from "./ProductViewPage";
+import { ProductReviewPage } from "./ProductReviewPage";
+import ScrollToTop from "../components/ScrollToTop";
 
 export const MainView = () => {
   return (
     <div>
       <Router>
-        <Switch>
-          <Route exact path="/" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/products" component={ProductsView} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/profile-update" component={PersonalInfoUpdate} />
-          <Route exact path="/profile-address" component={AddressView} />
-          <Route exact path="/profile-card" component={CreditCardView} />
-          <Route exact path="/wishlist" component={WishlistView} />
-          <Route exact path="/cart" component={CartView} />
-          <Route exact path="/review-order" component={ReviewOrderView} />
-          <Route exact path="/orders" component={OrderView} />
-          <Route exact path="/product-view" component={ProductViewPage} />
-        </Switch>
+        <ScrollToTop>
+          <Switch>
+            <Route exact path="/" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/products" component={ProductsView} />
+            <Route exact path="/profile" component={Profile} />
+            <Route
+              exact
+              path="/profile-update"
+              component={PersonalInfoUpdate}
+            />
+            <Route exact path="/profile-address" component={AddressView} />
+            <Route exact path="/profile-card" component={CreditCardView} />
+            <Route exact path="/wishlist" component={WishlistView} />
+            <Route exact path="/cart" component={CartView} />
+            <Route exact path="/review-order" component={ReviewOrderView} />
+            <Route exact path="/orders" component={OrderView} />
+            <Route exact path="/product-view" component={ProductViewPage} />
+            <Route exact path="/product-review" component={ProductReviewPage} />
+          </Switch>
+        </ScrollToTop>
       </Router>
     </div>
   );

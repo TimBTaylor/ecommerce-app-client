@@ -29,7 +29,8 @@ const initialState = {
   _id: "",
   currentView: "",
   modalProduct: "",
-  productView: "61206823d8b4510016879944",
+  productView: "",
+  currentProductReview: "61206823d8b4510016879944",
 };
 
 const userInfoReducer = (state = initialState, action) => {
@@ -132,6 +133,11 @@ const userInfoReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.error,
+      };
+    case "SET_CURRENT_PRODUCT_REVIEW":
+      return {
+        ...state,
+        currentProductReview: action.payload,
       };
     default:
       return state;
