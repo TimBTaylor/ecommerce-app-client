@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { CartProductCard } from "./CartProductCard";
+import { useHistory } from "react-router-dom";
 
 import "./Cart.css";
 
@@ -45,6 +45,18 @@ export const Cart = () => {
   let salesTax = productsTotalPrice * 0.06;
 
   let estimatedTotal = salesTax + productsTotalPrice + shippingCost;
+
+  const history = useHistory();
+
+  const name = localStorage.getItem("firstName");
+
+  const routeToPage = () => {
+    if (name === null) {
+      history.push("/login");
+    } else {
+      history.push("/review-order");
+    }
+  };
 
   return (
     <>
@@ -96,11 +108,14 @@ export const Cart = () => {
               </ul>
             </div>
           </div>
-          <NavLink to="/review-order" style={{ all: "unset" }}>
-            <div className="order-summary-checkout-container">
-              <button className="order-summary-checkout">checkout</button>
-            </div>
-          </NavLink>
+          <div className="order-summary-checkout-container">
+            <button
+              className="order-summary-checkout"
+              onClick={() => routeToPage()}
+            >
+              checkout
+            </button>
+          </div>
           <div className="order-summary-shipping">
             <h1 className="order-summary-shipping-title">
               Estimated Shipping Cost

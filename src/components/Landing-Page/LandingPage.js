@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import manImageOne from "./man-image-one.jpg";
 import manImageTwo from "./man-image-two.jpg";
@@ -14,9 +14,14 @@ export const LandingPage = () => {
 
   const dispatch = useDispatch();
 
-  const filterByGender = (gender) => {
+  const filterByGender = (gender, view) => {
     const productsByGender = allProducts.filter((product) => {
       return product.gender === gender;
+    });
+
+    dispatch({
+      type: "SET_CURRENT_VIEW",
+      payload: view,
     });
 
     dispatch({
@@ -33,22 +38,22 @@ export const LandingPage = () => {
           <p className="promotion-details">Up to 75% off select items</p>
         </div>
         <div className="quick-links">
-          <Link to="/products">
+          <NavLink to="/products">
             <button
-              onClick={() => filterByGender("male")}
+              onClick={() => filterByGender("male", "Men's")}
               className="shop-mens"
             >
               SHOP MEN'S
             </button>
-          </Link>
-          <Link to="/products">
+          </NavLink>
+          <NavLink to="/products">
             <button
-              onClick={() => filterByGender("female")}
+              onClick={() => filterByGender("female", "Women's")}
               className="shop-womens"
             >
               SHOP WOMEN'S
             </button>
-          </Link>
+          </NavLink>
         </div>
       </div>
       {/* <div className="wild-sale-container">
@@ -64,22 +69,22 @@ export const LandingPage = () => {
       </div>
       <div className="fall-collection-container">
         <div className="fall-collection-buttons">
-          <Link to="/products">
+          <NavLink to="/products">
             <button
-              onClick={() => filterByGender("male")}
+              onClick={() => filterByGender("male", "Men's")}
               className="fall-collection-shop-mens"
             >
               shop men's
             </button>
-          </Link>
-          <Link to="/products">
+          </NavLink>
+          <NavLink to="/products">
             <button
-              onClick={() => filterByGender("female")}
+              onClick={() => filterByGender("female", "Women's")}
               className="fall-collection-shop-womens"
             >
               shop women's
             </button>
-          </Link>
+          </NavLink>
         </div>
         <div className="man-image-container-one">
           <img className="manImageOne" alt="mens sweater" src={manImageOne} />

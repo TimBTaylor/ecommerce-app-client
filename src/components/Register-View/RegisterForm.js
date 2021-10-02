@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import shoppingcart from "./shopping-cart.svg";
 import { withRouter } from "react-router-dom";
+import { product } from "../../actions/products";
 
 import "./RegisterForm.css";
 
@@ -70,6 +71,10 @@ const RegisterForm = (props) => {
     } else {
       setFirstNameValid(false);
     }
+  };
+
+  const continueAsGuest = () => {
+    dispatch(product(props));
   };
 
   return (
@@ -180,6 +185,9 @@ const RegisterForm = (props) => {
             <h6 className="sign-in">Sign in here</h6>
           </Link>
           {/* continue as guest */}
+          <p className="guest" onClick={() => continueAsGuest()}>
+            Continue as guest
+          </p>
         </Form>
       </div>
     </div>

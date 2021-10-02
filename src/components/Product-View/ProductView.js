@@ -15,7 +15,7 @@ import { IoPersonCircle } from "react-icons/io5";
 
 import "./ProductView.css";
 
-export const ProductView = (props) => {
+export const ProductView = () => {
   // const [rating, setRating] = useState();
   // const [reviewRatings, setReviewRatings] = useState([]);
   const [productSize, setProductSize] = useState();
@@ -24,6 +24,10 @@ export const ProductView = (props) => {
   const [addedToCart, setAddedToCart] = useState();
 
   const productId = useSelector((state) => state.userInfoReducer.productView);
+
+  const cart = useSelector((state) => state.userInfoReducer.cart);
+
+  const wishlist = useSelector((state) => state.userInfoReducer.wishlist);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -144,9 +148,26 @@ export const ProductView = (props) => {
 
   const addProductToCart = () => {
     if (productSize !== undefined && productSize !== "SIZE") {
-      dispatch(addToCart(userId, productId, productQuantity, productSize));
-      setSizeInvalid(false);
-      setAddedToCart(true);
+      const guest = localStorage.getItem("guest");
+      if (guest) {
+        let currentProduct = {
+          productId,
+          quantity: productQuantity,
+          size: productSize,
+        };
+        let cartArray = cart;
+        cartArray.push(currentProduct);
+        dispatch({
+          type: "SET_CART",
+          payload: cartArray,
+        });
+        setSizeInvalid(false);
+        setAddedToCart(true);
+      } else {
+        dispatch(addToCart(userId, productId, productQuantity, productSize));
+        setSizeInvalid(false);
+        setAddedToCart(true);
+      }
     } else {
       setSizeInvalid(true);
     }
@@ -154,9 +175,28 @@ export const ProductView = (props) => {
 
   const addProductToWishlist = () => {
     if (productSize !== undefined && productSize !== "SIZE") {
-      dispatch(addToWishlist(userId, productId, productQuantity, productSize));
-      setSizeInvalid(false);
-      setAddedToCart(false);
+      const guest = localStorage.getItem("guest");
+      if (guest) {
+        let currentProduct = {
+          productId,
+          quantity: productQuantity,
+          size: productSize,
+        };
+        let wishlistArray = wishlist;
+        wishlistArray.push(currentProduct);
+        dispatch({
+          type: "SET_WISHLIST",
+          payload: wishlistArray,
+        });
+        setSizeInvalid(false);
+        setAddedToCart(false);
+      } else {
+        dispatch(
+          addToWishlist(userId, productId, productQuantity, productSize)
+        );
+        setSizeInvalid(false);
+        setAddedToCart(false);
+      }
     } else {
       setSizeInvalid(true);
     }

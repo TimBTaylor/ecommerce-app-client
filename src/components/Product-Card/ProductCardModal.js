@@ -30,6 +30,10 @@ export const ProductCardModal = (props) => {
 
   const allProducts = useSelector((state) => state.productReducer.data);
 
+  const cart = useSelector((state) => state.userInfoReducer.cart);
+
+  const wishlist = useSelector((state) => state.userInfoReducer.wishlist);
+
   const mayAlsoLike = [];
 
   allProducts.map((products) => {
@@ -84,20 +88,56 @@ export const ProductCardModal = (props) => {
   };
 
   const addProductToCart = () => {
-    if (productSize !== undefined) {
-      setNextModal(true);
-      dispatch(addToCart(userId, productId, productQuantity, productSize));
-      setAddedToCart(true);
+    if (productSize !== undefined && productSize !== "SIZE") {
+      const guest = localStorage.getItem("guest");
+      if (guest) {
+        let currentProduct = {
+          productId,
+          quantity: productQuantity,
+          size: productSize,
+        };
+        let cartArray = cart;
+        cartArray.push(currentProduct);
+        dispatch({
+          type: "SET_CART",
+          payload: cartArray,
+        });
+        setSizeInvalid(false);
+        setAddedToCart(true);
+      } else {
+        dispatch(addToCart(userId, productId, productQuantity, productSize));
+        setSizeInvalid(false);
+        setAddedToCart(true);
+      }
     } else {
       setSizeInvalid(true);
     }
   };
 
   const addProductToWishlist = () => {
-    if (productSize !== undefined) {
-      setNextModal(true);
-      dispatch(addToWishlist(userId, productId, productQuantity, productSize));
-      setAddedToCart(false);
+    if (productSize !== undefined && productSize !== "SIZE") {
+      const guest = localStorage.getItem("guest");
+      if (guest) {
+        let currentProduct = {
+          productId,
+          quantity: productQuantity,
+          size: productSize,
+        };
+        let wishlistArray = wishlist;
+        wishlistArray.push(currentProduct);
+        dispatch({
+          type: "SET_WISHLIST",
+          payload: wishlistArray,
+        });
+        setSizeInvalid(false);
+        setAddedToCart(false);
+      } else {
+        dispatch(
+          addToWishlist(userId, productId, productQuantity, productSize)
+        );
+        setSizeInvalid(false);
+        setAddedToCart(false);
+      }
     } else {
       setSizeInvalid(true);
     }

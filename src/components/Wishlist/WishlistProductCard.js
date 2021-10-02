@@ -5,10 +5,14 @@ import { addToCart } from "../../actions/addToCart";
 import { AiOutlineMinus } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const WishlistProductCard = (props) => {
   const product = props.product;
+  const productId = product.id;
   const [productQuantity, setProductQuantity] = useState(product.quantity);
+
+  const usersWishlist = useSelector((state) => state.userInfoReducer.wishlist);
 
   const increaseProductQuantity = () => {
     setProductQuantity(productQuantity + 1);
@@ -30,6 +34,22 @@ export const WishlistProductCard = (props) => {
       payload: product.id,
     });
     history.push("/product-view");
+  };
+
+  const removingFromWishlist = () => {
+    const guest = localStorage.getItem("guest");
+    if (guest) {
+      let newWishlist = usersWishlist;
+      newWishlist = newWishlist.filter((product) => {
+        return product.productId !== productId;
+      });
+      dispatch({
+        type: "SET_WISHLIST",
+        payload: newWishlist,
+      });
+    } else {
+      dispatch(removeFromWishlist(userId, product.id));
+    }
   };
 
   return (
@@ -74,7 +94,7 @@ export const WishlistProductCard = (props) => {
               <span className="wishlist-button-seperation">|</span>
               <button
                 className="wishlist-product-remove"
-                onClick={() => dispatch(removeFromWishlist(userId, product.id))}
+                onClick={() => removingFromWishlist()}
               >
                 Remove
               </button>

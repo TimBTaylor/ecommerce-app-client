@@ -38,15 +38,6 @@ export const ProductReview = () => {
   });
 
   const submitReview = () => {
-    if (name === undefined) {
-      name = fName;
-    }
-    if (starRate === undefined) {
-      setMissingRating(true);
-      console.log(true);
-    } else {
-      console.log("success");
-    }
     let productInfo = {
       name,
       rating: starRate,
@@ -55,6 +46,22 @@ export const ProductReview = () => {
       productId: currentProduct,
     };
     dispatch(addReview(productInfo));
+    if (name === undefined) {
+      name = fName;
+    }
+    if (starRate === undefined) {
+      setMissingRating(true);
+    } else {
+      console.log("success");
+      let productInfo = {
+        name,
+        rating: starRate,
+        description: message,
+        buyAgain,
+        productId: currentProduct,
+      };
+      dispatch(addReview(productInfo));
+    }
   };
 
   return (
@@ -147,13 +154,13 @@ export const ProductReview = () => {
           <h2 className="review-product-buy-again-title">
             Would you buy this item again?
           </h2>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label className="btn btn-secondary active">
               <input
                 type="radio"
                 name="options"
                 id="option1"
-                autocomplete="off"
+                autoComplete="off"
                 onClick={() => setBuyAgain(true)}
               />{" "}
               Yes
@@ -163,7 +170,7 @@ export const ProductReview = () => {
                 type="radio"
                 name="options"
                 id="option2"
-                autocomplete="off"
+                autoComplete="off"
                 onClick={() => setBuyAgain(false)}
               />{" "}
               No

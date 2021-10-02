@@ -77,7 +77,7 @@ export const ProductCard = (props) => {
   return (
     <>
       <Card className="product-card">
-        <div className="image" onClick={() => routeToProductview()}>
+        <div className="image">
           <Card.Img
             className="product-img d-block mx-auto"
             variant="top"

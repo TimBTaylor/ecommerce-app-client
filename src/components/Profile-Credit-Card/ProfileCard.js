@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ProfileCardCard } from "./ProfileCardCard";
 import { addCard } from "../../actions/AddCard";
+import { useHistory } from "react-router-dom";
 
 import "./ProfileCard.css";
 
@@ -17,25 +18,32 @@ export const ProfileCard = () => {
   const [expiration, setExpiration] = useState();
   const [missingInfo, setMissingInfo] = useState(false);
 
-  const addingCard = () => {
-    const cardInfo = {
-      name,
-      cardNumber,
-      type,
-      expiration,
-    };
+  const history = useHistory();
 
-    if (
-      name === undefined ||
-      cardNumber === undefined ||
-      type === undefined ||
-      expiration === undefined
-    ) {
-      setMissingInfo(true);
+  const addingCard = () => {
+    const guest = localStorage.getItem("guest");
+    if (guest) {
+      history.push("/login");
     } else {
-      dispatch(addCard(userId, cardInfo));
-      setCreateCard(false);
-      setMissingInfo(false);
+      const cardInfo = {
+        name,
+        cardNumber,
+        type,
+        expiration,
+      };
+
+      if (
+        name === undefined ||
+        cardNumber === undefined ||
+        type === undefined ||
+        expiration === undefined
+      ) {
+        setMissingInfo(true);
+      } else {
+        dispatch(addCard(userId, cardInfo));
+        setCreateCard(false);
+        setMissingInfo(false);
+      }
     }
   };
 
@@ -121,6 +129,12 @@ export const ProfileCard = () => {
                 onClick={() => addingCard()}
               >
                 Create New Card
+              </button>
+              <button
+                className="profile-card-form-cancel"
+                onClick={() => setCreateCard(false)}
+              >
+                Cancel
               </button>
             </div>
           ) : (

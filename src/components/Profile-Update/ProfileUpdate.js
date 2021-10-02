@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/updateProfile";
+import { useHistory } from "react-router-dom";
+
 import "./ProfileUpdate.css";
 
-export const ProfileUpdate = () => {
+export const ProfileUpdate = (props) => {
   var bcrypt = require("bcryptjs");
 
   const fName = useSelector((state) => state.userInfoReducer.firstName);
@@ -18,6 +20,8 @@ export const ProfileUpdate = () => {
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   let firstName;
   let lastName;
   let userEmail;
@@ -26,38 +30,43 @@ export const ProfileUpdate = () => {
   let secondPassword;
 
   const updatingProfile = () => {
-    if (firstName === undefined) {
-      firstName = fName;
-    }
-    if (lastName === undefined) {
-      lastName = lName;
-    }
-    if (userEmail === undefined) {
-      userEmail = email;
-    }
-    if (bcrypt.compareSync(currentPassword, password)) {
-      if (firstPassword.length >= 6) {
-        if (firstPassword === secondPassword) {
-          let userInfo = {
-            fName: firstName,
-            lName: lastName,
-            email: userEmail,
-            password: secondPassword,
-          };
-          console.log(userInfo);
-          dispatch(updateProfile(userId, userInfo));
-          console.log("success");
+    const guest = localStorage.getItem("guest");
+    if (guest) {
+      history.push("/login");
+    } else {
+      if (firstName === undefined) {
+        firstName = fName;
+      }
+      if (lastName === undefined) {
+        lastName = lName;
+      }
+      if (userEmail === undefined) {
+        userEmail = email;
+      }
+      if (bcrypt.compareSync(currentPassword, password)) {
+        if (firstPassword.length >= 6) {
+          if (firstPassword === secondPassword) {
+            let userInfo = {
+              fName: firstName,
+              lName: lastName,
+              email: userEmail,
+              password: secondPassword,
+            };
+            console.log(userInfo);
+            dispatch(updateProfile(userId, userInfo, props));
+            console.log("success");
+          } else {
+            setPasswordsMatch(false);
+            console.log("faile her");
+          }
         } else {
-          setPasswordsMatch(false);
-          console.log("faile her");
+          setInvalidNewPassword(true);
+          console.log("fail here");
         }
       } else {
-        setInvalidNewPassword(true);
-        console.log("fail here");
+        setInvalidPassword(true);
+        console.log("failing here");
       }
-    } else {
-      setInvalidPassword(true);
-      console.log("failing here");
     }
   };
 

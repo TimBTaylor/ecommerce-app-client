@@ -6,9 +6,14 @@ import { removeFromCart } from "../../actions/removeFromCart";
 import { addToWishlist } from "../../actions/addToWishlist";
 import { updateCartItem } from "../../actions/updateCartItem";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const CartProductCard = (props) => {
   const product = props.product;
+
+  const productId = product.id;
+
+  const usersCart = useSelector((state) => state.userInfoReducer.cart);
 
   const [productQuantity, setProductQuantity] = useState(product.quantity);
   const dispatch = useDispatch();
@@ -40,6 +45,23 @@ export const CartProductCard = (props) => {
     });
     history.push("/product-view");
   };
+
+  const removingFromCart = () => {
+    const guest = localStorage.getItem("guest");
+    if (guest) {
+      let newCart = usersCart;
+      newCart = newCart.filter((product) => {
+        return product.productId !== productId;
+      });
+      dispatch({
+        type: "SET_CART",
+        payload: newCart,
+      });
+    } else {
+      dispatch(removeFromCart(userId, product.id));
+    }
+  };
+
   return (
     <div key={product.id}>
       <div className="cart-product">
@@ -76,7 +98,7 @@ export const CartProductCard = (props) => {
               <span className="cart-buttons-seperation">|</span>
               <button
                 className="cart-product-remove"
-                onClick={() => dispatch(removeFromCart(userId, product.id))}
+                onClick={() => removingFromCart()}
               >
                 Remove
               </button>

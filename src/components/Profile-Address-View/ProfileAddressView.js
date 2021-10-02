@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ProfileAddressCard } from "./ProfileAddressCard";
 import { addAddress } from "../../actions/addAddress";
+import { useHistory } from "react-router-dom";
 
 import "./ProfileAddressView.css";
 
@@ -18,27 +19,34 @@ export const ProfileAddressView = () => {
   const [zipcode, setZipcode] = useState();
   const [missingInfo, setMissingInfo] = useState(false);
 
-  const addingAddress = () => {
-    const addressInfo = {
-      name,
-      streetAddress,
-      city,
-      state,
-      zipcode,
-    };
+  const history = useHistory();
 
-    if (
-      name === undefined ||
-      streetAddress === undefined ||
-      city === undefined ||
-      state === undefined ||
-      zipcode === undefined
-    ) {
-      setMissingInfo(true);
+  const addingAddress = () => {
+    const guest = localStorage.getItem("guest");
+    if (guest) {
+      history.push("/login");
     } else {
-      dispatch(addAddress(userId, addressInfo));
-      setCreateAddress(false);
-      setMissingInfo(false);
+      const addressInfo = {
+        name,
+        streetAddress,
+        city,
+        state,
+        zipcode,
+      };
+
+      if (
+        name === undefined ||
+        streetAddress === undefined ||
+        city === undefined ||
+        state === undefined ||
+        zipcode === undefined
+      ) {
+        setMissingInfo(true);
+      } else {
+        dispatch(addAddress(userId, addressInfo));
+        setCreateAddress(false);
+        setMissingInfo(false);
+      }
     }
   };
 

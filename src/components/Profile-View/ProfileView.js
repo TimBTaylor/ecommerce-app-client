@@ -11,6 +11,7 @@ import "./ProfileView.css";
 export const ProfileView = () => {
   const usersFullName =
     localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+  const name = localStorage.getItem("firstName");
 
   return (
     <>
@@ -19,7 +20,8 @@ export const ProfileView = () => {
           <div className="profile-view-title">
             <h1 className="profile-title-text">
               <span className="my-account">my account</span>{" "}
-              <span className="divider">|</span> welcome, {usersFullName}
+              <span className="divider">|</span> welcome
+              {name === null ? "" : `, ${usersFullName}`}
             </h1>
           </div>
           <hr className="line-break" />
@@ -96,6 +98,10 @@ export const ProfileView = () => {
                 <li className="col-md"></li>
               </div>
             </ul>
+          </div>
+          <div className="delete-logout">
+            <button className="delete-account">Delete Account</button>
+            <button className="logout-account">Logout</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const product = () => async (dispatch) => {
+export const product = (guest, props) => async (dispatch) => {
+  localStorage.setItem("guest", guest);
+  const localGuest = localStorage.getItem("guest");
   const getBrands = (productsOfTheBrands) => {
     const allBrands = [];
     productsOfTheBrands.map((product) => {
@@ -117,6 +119,9 @@ export const product = () => async (dispatch) => {
       });
       getBrands(productsWithSizes);
     });
+    if (localGuest) {
+      props.history.push("/home");
+    }
   } catch (error) {
     console.error(error);
     dispatch({

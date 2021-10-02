@@ -25,8 +25,12 @@ const LoginForm = (props) => {
     };
 
     dispatch(login(userInfo, props)).then(() => {
-      dispatch(product());
+      dispatch(product(false, props));
     });
+  };
+
+  const continueAsGuest = () => {
+    dispatch(product(true, props));
   };
 
   return (
@@ -68,6 +72,9 @@ const LoginForm = (props) => {
           <Link className="register" to={"/"}>
             Register here
           </Link>
+          <p className="guest" onClick={() => continueAsGuest()}>
+            Continue as guest
+          </p>
         </Form>
       </div>
     </div>

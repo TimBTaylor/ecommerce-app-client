@@ -41,6 +41,17 @@
   color: #0e7ded;
 }
 
-.register:hover {
+.register:hover,
+.guest:hover {
   color: #ed620e;
+  cursor: pointer;
+}
+
+.guest {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #0e7ded;
+  margin: 10px 0 0 0;
+  text-decoration: underline;
+  width: 100px;
 }
