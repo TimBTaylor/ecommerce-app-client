@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ecommerce-app-client/static/css/main.99e91b83.chunk.css",
-    "main.js": "/ecommerce-app-client/static/js/main.346b547f.chunk.js",
-    "main.js.map": "/ecommerce-app-client/static/js/main.346b547f.chunk.js.map",
+    "main.css": "/ecommerce-app-client/static/css/main.8cbd609f.chunk.css",
+    "main.js": "/ecommerce-app-client/static/js/main.cf893f17.chunk.js",
+    "main.js.map": "/ecommerce-app-client/static/js/main.cf893f17.chunk.js.map",
     "runtime-main.js": "/ecommerce-app-client/static/js/runtime-main.6c5e05b2.js",
     "runtime-main.js.map": "/ecommerce-app-client/static/js/runtime-main.6c5e05b2.js.map",
     "static/css/2.9082872e.chunk.css": "/ecommerce-app-client/static/css/2.9082872e.chunk.css",
-    "static/js/2.ae85d63a.chunk.js": "/ecommerce-app-client/static/js/2.ae85d63a.chunk.js",
-    "static/js/2.ae85d63a.chunk.js.map": "/ecommerce-app-client/static/js/2.ae85d63a.chunk.js.map",
+    "static/js/2.986276d1.chunk.js": "/ecommerce-app-client/static/js/2.986276d1.chunk.js",
+    "static/js/2.986276d1.chunk.js.map": "/ecommerce-app-client/static/js/2.986276d1.chunk.js.map",
     "index.html": "/ecommerce-app-client/index.html",
     "static/css/2.9082872e.chunk.css.map": "/ecommerce-app-client/static/css/2.9082872e.chunk.css.map",
-    "static/css/main.99e91b83.chunk.css.map": "/ecommerce-app-client/static/css/main.99e91b83.chunk.css.map",
-    "static/js/2.ae85d63a.chunk.js.LICENSE.txt": "/ecommerce-app-client/static/js/2.ae85d63a.chunk.js.LICENSE.txt",
+    "static/css/main.8cbd609f.chunk.css.map": "/ecommerce-app-client/static/css/main.8cbd609f.chunk.css.map",
+    "static/js/2.986276d1.chunk.js.LICENSE.txt": "/ecommerce-app-client/static/js/2.986276d1.chunk.js.LICENSE.txt",
     "static/media/filter.527894b4.svg": "/ecommerce-app-client/static/media/filter.527894b4.svg",
     "static/media/github.9b42f599.svg": "/ecommerce-app-client/static/media/github.9b42f599.svg",
     "static/media/linkedin.6ecd8759.svg": "/ecommerce-app-client/static/media/linkedin.6ecd8759.svg",
@@ -28,8 +28,8 @@
   "entrypoints": [
     "static/js/runtime-main.6c5e05b2.js",
     "static/css/2.9082872e.chunk.css",
-    "static/js/2.ae85d63a.chunk.js",
-    "static/css/main.99e91b83.chunk.css",
-    "static/js/main.346b547f.chunk.js"
+    "static/js/2.986276d1.chunk.js",
+    "static/css/main.8cbd609f.chunk.css",
+    "static/js/main.cf893f17.chunk.js"
   ]
 }
