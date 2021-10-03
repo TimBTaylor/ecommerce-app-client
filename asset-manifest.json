@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/ecommerce-app-client/static/css/main.99e91b83.chunk.css",
+    "main.js": "/ecommerce-app-client/static/js/main.346b547f.chunk.js",
+    "main.js.map": "/ecommerce-app-client/static/js/main.346b547f.chunk.js.map",
+    "runtime-main.js": "/ecommerce-app-client/static/js/runtime-main.6c5e05b2.js",
+    "runtime-main.js.map": "/ecommerce-app-client/static/js/runtime-main.6c5e05b2.js.map",
+    "static/css/2.9082872e.chunk.css": "/ecommerce-app-client/static/css/2.9082872e.chunk.css",
+    "static/js/2.ae85d63a.chunk.js": "/ecommerce-app-client/static/js/2.ae85d63a.chunk.js",
+    "static/js/2.ae85d63a.chunk.js.map": "/ecommerce-app-client/static/js/2.ae85d63a.chunk.js.map",
+    "index.html": "/ecommerce-app-client/index.html",
+    "static/css/2.9082872e.chunk.css.map": "/ecommerce-app-client/static/css/2.9082872e.chunk.css.map",
+    "static/css/main.99e91b83.chunk.css.map": "/ecommerce-app-client/static/css/main.99e91b83.chunk.css.map",
+    "static/js/2.ae85d63a.chunk.js.LICENSE.txt": "/ecommerce-app-client/static/js/2.ae85d63a.chunk.js.LICENSE.txt",
+    "static/media/filter.527894b4.svg": "/ecommerce-app-client/static/media/filter.527894b4.svg",
+    "static/media/github.9b42f599.svg": "/ecommerce-app-client/static/media/github.9b42f599.svg",
+    "static/media/linkedin.6ecd8759.svg": "/ecommerce-app-client/static/media/linkedin.6ecd8759.svg",
+    "static/media/man-image-one.64507c7e.jpg": "/ecommerce-app-client/static/media/man-image-one.64507c7e.jpg",
+    "static/media/man-image-two.bf4514db.jpg": "/ecommerce-app-client/static/media/man-image-two.bf4514db.jpg",
+    "static/media/past-trends.35ec076b.jpeg": "/ecommerce-app-client/static/media/past-trends.35ec076b.jpeg",
+    "static/media/pin.013b8ba8.svg": "/ecommerce-app-client/static/media/pin.013b8ba8.svg",
+    "static/media/portfolio.166cdae3.svg": "/ecommerce-app-client/static/media/portfolio.166cdae3.svg",
+    "static/media/shopping-cart.5ddfffee.svg": "/ecommerce-app-client/static/media/shopping-cart.5ddfffee.svg",
+    "static/media/shopping-cart.d85c7173.svg": "/ecommerce-app-client/static/media/shopping-cart.d85c7173.svg",
+    "static/media/women-image-one.9ce1a463.jpg": "/ecommerce-app-client/static/media/women-image-one.9ce1a463.jpg",
+    "static/media/women-image-two.2e4e0dfc.jpg": "/ecommerce-app-client/static/media/women-image-two.2e4e0dfc.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c5e05b2.js",
+    "static/css/2.9082872e.chunk.css",
+    "static/js/2.ae85d63a.chunk.js",
+    "static/css/main.99e91b83.chunk.css",
+    "static/js/main.346b547f.chunk.js"
+  ]
+}
