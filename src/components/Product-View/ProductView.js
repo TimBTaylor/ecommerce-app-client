@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ImStarFull } from "react-icons/im";
 import { ImStarEmpty } from "react-icons/im";
@@ -16,8 +16,6 @@ import { IoPersonCircle } from "react-icons/io5";
 import "./ProductView.css";
 
 export const ProductView = () => {
-  // const [rating, setRating] = useState();
-  // const [reviewRatings, setReviewRatings] = useState([]);
   const [productSize, setProductSize] = useState();
   const [productQuantity, setProductQuantity] = useState(1);
   const [sizeInvalid, setSizeInvalid] = useState(false);

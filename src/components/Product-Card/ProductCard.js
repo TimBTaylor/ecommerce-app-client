@@ -52,7 +52,7 @@ export const ProductCard = (props) => {
   useEffect(() => {
     settingTitle(productTitle);
     settingRating(productReviews);
-  }, []);
+  }, [productReviews, productTitle]);
 
   const productId = product._id;
 

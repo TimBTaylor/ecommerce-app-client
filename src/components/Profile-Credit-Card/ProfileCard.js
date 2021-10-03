@@ -124,6 +124,11 @@ export const ProfileCard = () => {
                   </div>
                 </form>
               </div>
+              {missingInfo ? (
+                <p className="card-missing-info">Missing information</p>
+              ) : (
+                ""
+              )}
               <button
                 className="profile-card-form-create"
                 onClick={() => addingCard()}

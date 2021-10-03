@@ -11,7 +11,6 @@ import { addOrder } from "../../actions/addOrder";
 import { removeAllFromCart } from "../../actions/removeAllFromCart";
 
 import "./ReviewOrder.css";
-import { removeFromCart } from "../../actions/removeFromCart";
 
 export const ReviewOrder = () => {
   const dispatch = useDispatch();
@@ -35,10 +34,7 @@ export const ReviewOrder = () => {
 
   let productsTotalPrice = 0;
 
-  let name =
-    usersAddresses[addressIndex].fName +
-    " " +
-    usersAddresses[addressIndex].lName;
+  let name = usersAddresses[addressIndex].name;
 
   let itemsQuantity = 0;
 
@@ -137,16 +133,15 @@ export const ReviewOrder = () => {
                   </button>
                 </div>
                 <h1 className="shipping-name">
-                  {usersAddresses[addressIndex].fName}{" "}
-                  {usersAddresses[addressIndex].lName}
+                  {usersAddresses[addressIndex].name}
                 </h1>
                 <h1 className="shipping-address">
-                  {usersAddresses[addressIndex].Address}
+                  {usersAddresses[addressIndex].streetAddress}
                 </h1>
                 <h1 className="shipping-city-state-zip">
-                  {usersAddresses[addressIndex].City},{" "}
-                  {usersAddresses[addressIndex].State}{" "}
-                  {usersAddresses[addressIndex].ZIP}
+                  {usersAddresses[addressIndex].city},{" "}
+                  {usersAddresses[addressIndex].state}{" "}
+                  {usersAddresses[addressIndex].zipcode}
                 </h1>
                 <h1 className="shipping-country">United States</h1>
               </div>

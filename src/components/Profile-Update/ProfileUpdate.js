@@ -17,7 +17,6 @@ const ProfileUpdate = (props) => {
   const orders = useSelector((state) => state.userInfoReducer.orders);
   const wishlist = useSelector((state) => state.userInfoReducer.wishlist);
   const cart = useSelector((state) => state.userInfoReducer.cart);
-  const [missingPassword, setMissingPassword] = useState();
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [invalidNewPassword, setInvalidNewPassword] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);

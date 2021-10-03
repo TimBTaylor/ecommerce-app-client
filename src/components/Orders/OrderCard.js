@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeOrder } from "../../actions/removeOrder";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const OrderCard = (props) => {
   const [deliveryEstimate, setDeliveryEstimate] = useState();
   const order = props.order;
+  const history = useHistory();
 
   const userId = localStorage.getItem("userId");
 
@@ -51,6 +52,22 @@ export const OrderCard = (props) => {
     return productsToDisplay;
   });
 
+  const routeToProductview = (id) => {
+    dispatch({
+      type: "SET_PRODUCT_VIEW",
+      payload: id,
+    });
+    history.push("/product-view");
+  };
+
+  const routeToProductReview = (id) => {
+    dispatch({
+      type: "SET_CURRENT_PRODUCT_REVIEW",
+      payload: id,
+    });
+    history.push("/product-review");
+  };
+
   return (
     <div className="order-container">
       <div className="order-header">
@@ -65,7 +82,7 @@ export const OrderCard = (props) => {
             <p className="order-total">
               Total
               <br />
-              <span className="order-header-bold">{order.total}</span>
+              <span className="order-header-bold">${order.total}</span>
             </p>
           </div>
           <div className="order-ship-to-container">
@@ -102,19 +119,18 @@ export const OrderCard = (props) => {
               <div>
                 <h1 className="order-product-title">{product.title}</h1>
                 <div className="order-product-buttons">
-                  <button className="order-product-review">
+                  <button
+                    className="order-product-review"
+                    onClick={() => routeToProductReview(product.id)}
+                  >
                     Write a product review
                   </button>
-                  <NavLink
-                    to={{
-                      pathname: "/product-view",
-                      product: { product: product.id },
-                    }}
+                  <button
+                    className="order-product-view"
+                    onClick={() => routeToProductview(product.id)}
                   >
-                    <button className="order-product-view">
-                      View your item
-                    </button>
-                  </NavLink>
+                    View your item
+                  </button>
                 </div>
               </div>
             </div>

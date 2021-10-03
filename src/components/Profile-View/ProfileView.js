@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { FiMapPin } from "react-icons/fi";
 import { BsCreditCard } from "react-icons/bs";
@@ -14,7 +14,7 @@ import "./ProfileView.css";
 export const ProfileView = () => {
   const usersFullName =
     localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
-  const guest = localStorage.getItem("guest");
+  const guest = useSelector((state) => state.userInfoReducer.guest);
   const userEmail = useSelector((state) => state.userInfoReducer.email);
   const userId = useSelector((state) => state.userInfoReducer._id);
   const dispatch = useDispatch();

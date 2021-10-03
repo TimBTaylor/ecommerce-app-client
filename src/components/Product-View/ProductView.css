@@ -292,7 +292,7 @@
   position: fixed;
   right: 0;
   margin: auto;
-  width: 100%;
+  width: 320px;
   height: 100%;
   -webkit-transform: translate3d(0%, 0, 0);
   -ms-transform: translate3d(0%, 0, 0);
@@ -467,6 +467,9 @@
   }
   .customer-reviews {
     margin-left: 0;
+  }
+  .modal.left .product-view-modal-dialog {
+    width: 100%;
   }
 }
 

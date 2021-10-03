@@ -16,10 +16,8 @@ export const ProductCardModal = (props) => {
   const [productSize, setProductSize] = useState();
   const [addedToCart, setAddedToCart] = useState();
   const [sizeInvalid, setSizeInvalid] = useState(false);
-  const [nextModal, setNextModal] = useState(true);
   const [modalView, setModalView] = useState(true);
   const product = props.product;
-  // const cart = useSelector((state) => state.userInfoReducer.cart);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -27,6 +25,8 @@ export const ProductCardModal = (props) => {
   const productTitle = product.title;
   const sizes = product.sizes;
   const productType = product.type;
+
+  const guest = useSelector((state) => state.userInfoReducer.guest);
 
   const allProducts = useSelector((state) => state.productReducer.data);
 
@@ -62,7 +62,7 @@ export const ProductCardModal = (props) => {
       settingTitle(productTitle);
     }
     setModalView(true);
-  }, []);
+  }, [product.sizes, productTitle]);
 
   const productId = product._id;
   const userId = localStorage.getItem("userId");
@@ -89,7 +89,6 @@ export const ProductCardModal = (props) => {
 
   const addProductToCart = () => {
     if (productSize !== undefined && productSize !== "SIZE") {
-      const guest = localStorage.getItem("guest");
       if (guest) {
         let currentProduct = {
           productId,
@@ -198,7 +197,9 @@ export const ProductCardModal = (props) => {
                             setProductSize(e.target.value);
                           }}
                         >
-                          <option defaultValue>SIZE</option>
+                          <option disabled selected>
+                            SIZE
+                          </option>
                           {sizes.map((size) => {
                             return (
                               <option value={size} key={size}>
@@ -230,8 +231,8 @@ export const ProductCardModal = (props) => {
                       onClick={() => {
                         addProductToCart();
                       }}
-                      data-dismiss={nextModal ? "modal" : ""}
-                      data-target={nextModal ? "#productAddedModal" : ""}
+                      data-dismiss="modal"
+                      data-target="#productAddedModal"
                       data-toggle="modal"
                     >
                       <p className="quickshop-add-to-cart">ADD TO CART</p>
@@ -242,8 +243,8 @@ export const ProductCardModal = (props) => {
                       onClick={() => {
                         addProductToWishlist();
                       }}
-                      data-target={nextModal ? "#productAddedModal" : ""}
-                      data-dismiss={nextModal ? "modal" : ""}
+                      data-target="#productAddedModal"
+                      data-dismiss="modal"
                       data-toggle="modal"
                     >
                       <p className="quickshop-add-to-wishlist">
@@ -330,12 +331,12 @@ export const ProductCardModal = (props) => {
                       </div>
                       <div
                         className="product-added-view-cart-container"
+                        data-dismiss="modal"
                         onClick={() =>
                           addedToCart
                             ? history.push("/cart")
                             : history.push("/wishlist")
                         }
-                        data-dismiss="modal"
                       >
                         <p className="product-added-view-cart">
                           {addedToCart ? "VIEW CART" : "VIEW WISHLIST"}{" "}

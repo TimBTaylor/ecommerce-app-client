@@ -64,6 +64,12 @@
   margin-left: 6vw;
 }
 
+.card-missing-info {
+  font-weight: 600;
+  color: #b60000;
+  margin-left: 60px;
+}
+
 .profile-card-form-create {
   background: none;
   width: 50vw;
