@@ -248,7 +248,7 @@ export const Navigation = () => {
       </div>
       <nav className="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <Link className="navbar-brand" to="/home">
-          Timazon <img src={shoppingcart} alt="shopping cart" />{" "}
+          T's <img src={shoppingcart} alt="shopping cart" />{" "}
         </Link>
         {name === null ? (
           ""

@@ -81,7 +81,7 @@ const RegisterForm = (props) => {
   return (
     <div>
       <div className="logo">
-        <h1 className="timazon">Timazon</h1>
+        <h1 className="timazon">T's</h1>
         <img className="cart" src={shoppingcart} alt="shopping cart" />
       </div>
       <div className="form-container">

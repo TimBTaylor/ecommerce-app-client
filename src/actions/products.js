@@ -119,6 +119,10 @@ export const product = (guest, props) => async (dispatch) => {
     });
     if (guest) {
       props.history.push("/home");
+      dispatch({
+        type: "SET_USER_INFO",
+        payload: null,
+      });
     }
   } catch (error) {
     console.error(error);
