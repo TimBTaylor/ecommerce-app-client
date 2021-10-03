@@ -1,22 +1,6 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 
-export const addReview = (productInfo) => async (dispatch) => {
-  // const allProducts = useSelector((state) => state.productReducer.data);
-
-  //the issue is using useSelector so firuger it out
-
-  let newProductList;
-
-  let productIndex;
-
-  // allProducts.map((product) => {
-  //   if (product._id === productInfo.productId) {
-  //     productIndex = allProducts.indexOf(product);
-  //   }
-  //   return product;
-  // });
-
+export const addReview = (productInfo, newProductList) => async (dispatch) => {
   try {
     await axios({
       method: "post",
@@ -27,15 +11,13 @@ export const addReview = (productInfo) => async (dispatch) => {
         rating: productInfo.rating,
         description: productInfo.description,
         buyAgain: productInfo.buyAgain,
-        productId: "61206823d8b4510016879944",
+        productId: productInfo.productId,
       },
-    }).then((response) => {
-      console.log(response);
-      // newProductList = allProducts.splice(productIndex, 1, response.data);
-      // dispatch({
-      //   type: "PRODUCTS_SUCCESS",
-      //   payload: newProductList,
-      // });
+    }).then(() => {
+      dispatch({
+        type: "PRODUCTS_SUCCESS",
+        payload: newProductList,
+      });
     });
   } catch (error) {
     dispatch({

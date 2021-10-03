@@ -89,6 +89,32 @@
   background-color: #4da58b;
 }
 
+.delete-modal-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #b60000;
+  margin-bottom: 30px;
+}
+
+.delete-modal-body {
+  text-align: center;
+}
+
+.delete-modal-button {
+  text-align: center;
+  background: none;
+  border: 1px solid #b60000;
+  padding: 5px 15px;
+  color: #b60000;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.delete-modal-button:hover {
+  background-color: #b60000;
+  color: #fff;
+}
+
 @media (max-width: 500px) {
   .profile-view-container {
     margin: 0;
@@ -116,6 +142,21 @@
 @media (max-width: 767px) {
   .profile-list-item {
     margin: 10px 50px 10px 10px;
+  }
+
+  .delete-logout {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .logout-account {
+    width: 60%;
+    margin-bottom: 50px;
+  }
+
+  .delete-account {
+    margin: 0;
+    width: 40%;
   }
 }
 

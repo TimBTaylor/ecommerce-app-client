@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { FiMapPin } from "react-icons/fi";
 import { BsCreditCard } from "react-icons/bs";
 import { IoMdClipboard } from "react-icons/io";
 import { BiHeart } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { removeUser } from "../../actions/removeUser";
 
 import "./ProfileView.css";
 
 export const ProfileView = () => {
   const usersFullName =
     localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
-  const name = localStorage.getItem("firstName");
+  const guest = localStorage.getItem("guest");
+  const userEmail = useSelector((state) => state.userInfoReducer.email);
+  const userId = useSelector((state) => state.userInfoReducer._id);
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const logout = () => {
+    localStorage.clear();
+    history.push("/login");
+  };
+
+  const deleteAccount = () => {
+    dispatch(removeUser(userId)).then(() => history.push("/login"));
+  };
 
   return (
     <>
@@ -21,7 +38,7 @@ export const ProfileView = () => {
             <h1 className="profile-title-text">
               <span className="my-account">my account</span>{" "}
               <span className="divider">|</span> welcome
-              {name === null ? "" : `, ${usersFullName}`}
+              {guest ? "" : `, ${usersFullName}`}
             </h1>
           </div>
           <hr className="line-break" />
@@ -100,8 +117,62 @@ export const ProfileView = () => {
             </ul>
           </div>
           <div className="delete-logout">
-            <button className="delete-account">Delete Account</button>
-            <button className="logout-account">Logout</button>
+            {userEmail ? (
+              <>
+                <button
+                  className="delete-account"
+                  data-toggle="modal"
+                  data-target="#deleteModal"
+                >
+                  Delete Account
+                </button>
+                <button className="logout-account" onClick={() => logout()}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button
+                className={guest ? "logout-account" : "d-none"}
+                onClick={() => history.push("/login")}
+              >
+                Login
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="deleteModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body delete-modal-body">
+              <h1 className="delete-modal-title">
+                Click the button below to confirm
+              </h1>
+              <button
+                className="delete-modal-button"
+                onClick={() => deleteAccount()}
+                data-dismiss="modal"
+              >
+                Delete Account
+              </button>
+            </div>
           </div>
         </div>
       </div>

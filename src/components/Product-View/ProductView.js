@@ -210,9 +210,16 @@ export const ProductView = () => {
     history.push("/product-view");
   };
 
+  const settingProductRevie = () => {
+    dispatch({
+      type: "SET_CURRENT_PRODUCT_REVIEW",
+      payload: productId,
+    });
+  };
+
   return (
     <>
-      <div className="product-view-container">
+      <div className="product-view-container" key={productId}>
         <div className="product-view-product-info">
           <div className="product-view-image-container">
             <img
@@ -371,7 +378,10 @@ export const ProductView = () => {
               Share your thoughts with other customers
             </p>
             <NavLink to="/product-review" style={{ all: "unset" }}>
-              <button className="review-write-review-button">
+              <button
+                className="review-write-review-button"
+                onClick={() => settingProductRevie()}
+              >
                 Write a customer review
               </button>
             </NavLink>

@@ -15,7 +15,7 @@ const initialState = {
   currentView: "",
   modalProduct: "",
   productView: "",
-  currentProductReview: "61206823d8b4510016879944",
+  currentProductReview: "",
 };
 
 const userInfoReducer = (state = initialState, action) => {

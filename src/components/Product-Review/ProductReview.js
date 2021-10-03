@@ -9,8 +9,9 @@ import { addReview } from "../../actions/addReview";
 export const ProductReview = () => {
   const [starRate, setStarRate] = useState();
   const [message, setMessage] = useState();
-  const [buyAgain, setBuyAgain] = useState(true);
+  const [buyAgain, setBuyAgain] = useState("Yes");
   const [missingRating, setMissingRating] = useState(false);
+  const [reviewSubmitted, setReviewSubmittied] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -38,6 +39,20 @@ export const ProductReview = () => {
   });
 
   const submitReview = () => {
+    let productIndex;
+    let newProductList;
+
+    allProducts.map((product) => {
+      if (product._id === currentProduct) {
+        productIndex = allProducts.indexOf(product);
+      }
+      return product;
+    });
+
+    if (name === undefined) {
+      name = fName;
+    }
+
     let productInfo = {
       name,
       rating: starRate,
@@ -45,23 +60,16 @@ export const ProductReview = () => {
       buyAgain,
       productId: currentProduct,
     };
-    dispatch(addReview(productInfo));
-    if (name === undefined) {
-      name = fName;
-    }
+
+    allProducts[productIndex].reviews.push(productInfo);
+    newProductList = allProducts;
     if (starRate === undefined) {
       setMissingRating(true);
     } else {
       console.log("success");
-      let productInfo = {
-        name,
-        rating: starRate,
-        description: message,
-        buyAgain,
-        productId: currentProduct,
-      };
-      dispatch(addReview(productInfo));
+      dispatch(addReview(productInfo, newProductList));
     }
+    setReviewSubmittied(true);
   };
 
   return (
@@ -161,7 +169,7 @@ export const ProductReview = () => {
                 name="options"
                 id="option1"
                 autoComplete="off"
-                onClick={() => setBuyAgain(true)}
+                onClick={() => setBuyAgain("Yes")}
               />{" "}
               Yes
             </label>
@@ -171,7 +179,7 @@ export const ProductReview = () => {
                 name="options"
                 id="option2"
                 autoComplete="off"
-                onClick={() => setBuyAgain(false)}
+                onClick={() => setBuyAgain("No")}
               />{" "}
               No
             </label>
@@ -208,6 +216,13 @@ export const ProductReview = () => {
           >
             Submit
           </button>
+          {reviewSubmitted ? (
+            <h2 className="review-submitted">
+              Thank you for submitting your review
+            </h2>
+          ) : (
+            ""
+          )}
           {missingRating ? (
             <p className="missing-rating">Missing information</p>
           ) : (
