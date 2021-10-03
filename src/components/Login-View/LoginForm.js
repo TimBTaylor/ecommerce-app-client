@@ -25,12 +25,14 @@ const LoginForm = (props) => {
     };
 
     dispatch(login(userInfo, props)).then(() => {
-      dispatch(product(false, props));
+      const userGuest = false;
+      dispatch(product(userGuest, props));
     });
   };
 
   const continueAsGuest = () => {
-    dispatch(product(true, props));
+    const userGuest = true;
+    dispatch(product(userGuest, props));
   };
 
   return (

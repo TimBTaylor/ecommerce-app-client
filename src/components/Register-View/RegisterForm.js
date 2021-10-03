@@ -74,7 +74,8 @@ const RegisterForm = (props) => {
   };
 
   const continueAsGuest = () => {
-    dispatch(product(props));
+    const userGuest = true;
+    dispatch(product(userGuest, props));
   };
 
   return (

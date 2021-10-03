@@ -24,6 +24,10 @@ export const ProfileView = () => {
   const logout = () => {
     localStorage.clear();
     history.push("/login");
+    dispatch({
+      type: "SET_GUEST",
+      payload: true,
+    });
   };
 
   const deleteAccount = () => {

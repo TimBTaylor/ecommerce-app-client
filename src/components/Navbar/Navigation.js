@@ -320,8 +320,6 @@ export const Navigation = () => {
                     <NavLink to="/products">
                       <button
                         type="button"
-                        data-toggle="collapse"
-                        data-target=".men-dropdown-menu"
                         className="nav-dropdown-button shadow-none"
                         onClick={(e) => {
                           filterByInput("male", "all", "Men's");

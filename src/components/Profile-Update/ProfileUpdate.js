@@ -4,15 +4,19 @@ import { updateProfile } from "../../actions/updateProfile";
 import { useHistory } from "react-router-dom";
 
 import "./ProfileUpdate.css";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
-export const ProfileUpdate = (props) => {
+const ProfileUpdate = (props) => {
   var bcrypt = require("bcryptjs");
 
   const fName = useSelector((state) => state.userInfoReducer.firstName);
   const lName = useSelector((state) => state.userInfoReducer.lastName);
   const email = useSelector((state) => state.userInfoReducer.email);
   const password = useSelector((state) => state.userInfoReducer.password);
-  const token = useSelector((state) => state.userInfoReducer.token);
+  const cardInfo = useSelector((state) => state.userInfoReducer.cardInfo);
+  const orders = useSelector((state) => state.userInfoReducer.orders);
+  const wishlist = useSelector((state) => state.userInfoReducer.wishlist);
+  const cart = useSelector((state) => state.userInfoReducer.cart);
   const [missingPassword, setMissingPassword] = useState();
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [invalidNewPassword, setInvalidNewPassword] = useState(false);
@@ -25,12 +29,12 @@ export const ProfileUpdate = (props) => {
   let firstName;
   let lastName;
   let userEmail;
-  let currentPassword;
-  let firstPassword;
+  let currentPassword = "";
+  let firstPassword = "";
   let secondPassword;
+  const guest = useSelector((state) => state.userInfoReducer.guest);
 
   const updatingProfile = () => {
-    const guest = localStorage.getItem("guest");
     if (guest) {
       history.push("/login");
     } else {
@@ -51,21 +55,26 @@ export const ProfileUpdate = (props) => {
               lName: lastName,
               email: userEmail,
               password: secondPassword,
+              orders,
+              cardInfo,
+              wishlist,
+              cart,
             };
-            console.log(userInfo);
             dispatch(updateProfile(userId, userInfo, props));
-            console.log("success");
           } else {
             setPasswordsMatch(false);
-            console.log("faile her");
+            setInvalidPassword(false);
+            setInvalidNewPassword(false);
           }
         } else {
           setInvalidNewPassword(true);
-          console.log("fail here");
+          setInvalidPassword(false);
+          setPasswordsMatch(true);
         }
       } else {
         setInvalidPassword(true);
-        console.log("failing here");
+        setInvalidNewPassword(false);
+        setPasswordsMatch(true);
       }
     }
   };
@@ -132,11 +141,19 @@ export const ProfileUpdate = (props) => {
                     id="currentPassword"
                     onChange={(e) => (currentPassword = e.target.value)}
                   />
+                  {invalidPassword ? (
+                    <p className="invalid-password">Incorrect password</p>
+                  ) : (
+                    ""
+                  )}
                   <label
                     htmlFor="newPassword"
                     className="password-update-label"
                   >
-                    New Password *
+                    New Password *{" "}
+                    <span className="password-rules">
+                      (Passord must be atleast 6 characters)
+                    </span>
                   </label>
                   <input
                     type="password"
@@ -144,6 +161,11 @@ export const ProfileUpdate = (props) => {
                     id="newPassword"
                     onChange={(e) => (firstPassword = e.target.value)}
                   />
+                  {invalidNewPassword ? (
+                    <p className="password-update-invalid">Invalid password</p>
+                  ) : (
+                    ""
+                  )}
                   <label
                     htmlFor="confirmNewPassword"
                     className="password-update-label"
@@ -156,6 +178,13 @@ export const ProfileUpdate = (props) => {
                     id="confirmNewPassword"
                     onChange={(e) => (secondPassword = e.target.value)}
                   />
+                  {passwordsMatch ? (
+                    ""
+                  ) : (
+                    <p className="password-update-invalid">
+                      Passwords must match
+                    </p>
+                  )}
                 </div>
               </form>
               <button
@@ -171,3 +200,5 @@ export const ProfileUpdate = (props) => {
     </>
   );
 };
+
+export default withRouter(ProfileUpdate);

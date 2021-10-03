@@ -16,6 +16,7 @@ const initialState = {
   modalProduct: "",
   productView: "",
   currentProductReview: "",
+  guest: true,
 };
 
 const userInfoReducer = (state = initialState, action) => {
@@ -123,6 +124,11 @@ const userInfoReducer = (state = initialState, action) => {
       return {
         ...state,
         currentProductReview: action.payload,
+      };
+    case "SET_GUEST":
+      return {
+        ...state,
+        guest: action.payload,
       };
     default:
       return state;

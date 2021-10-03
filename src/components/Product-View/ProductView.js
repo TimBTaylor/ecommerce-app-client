@@ -210,7 +210,7 @@ export const ProductView = () => {
     history.push("/product-view");
   };
 
-  const settingProductRevie = () => {
+  const settingProductReview = () => {
     dispatch({
       type: "SET_CURRENT_PRODUCT_REVIEW",
       payload: productId,
@@ -380,7 +380,7 @@ export const ProductView = () => {
             <NavLink to="/product-review" style={{ all: "unset" }}>
               <button
                 className="review-write-review-button"
-                onClick={() => settingProductRevie()}
+                onClick={() => settingProductReview()}
               >
                 Write a customer review
               </button>

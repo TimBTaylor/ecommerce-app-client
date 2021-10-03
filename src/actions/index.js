@@ -28,6 +28,10 @@ export const login = (userInfo, props) => async (dispatch) => {
         });
       } else {
         dispatch({
+          type: "SET_GUEST",
+          payload: false,
+        });
+        dispatch({
           type: "SET_USER_INFO",
           payload: response.data.user,
         });

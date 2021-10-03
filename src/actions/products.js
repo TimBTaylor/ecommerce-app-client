@@ -1,8 +1,6 @@
 import axios from "axios";
 
 export const product = (guest, props) => async (dispatch) => {
-  localStorage.setItem("guest", guest);
-  const localGuest = localStorage.getItem("guest");
   const getBrands = (productsOfTheBrands) => {
     const allBrands = [];
     productsOfTheBrands.map((product) => {
@@ -119,7 +117,7 @@ export const product = (guest, props) => async (dispatch) => {
       });
       getBrands(productsWithSizes);
     });
-    if (localGuest) {
+    if (guest) {
       props.history.push("/home");
     }
   } catch (error) {

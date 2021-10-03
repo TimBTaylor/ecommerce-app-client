@@ -228,19 +228,10 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-.men-dropdown:hover .men-dropdown-menu {
-  display: block;
-}
-
-.women-dropdown:hover .women-dropdown-menu {
-  display: block;
-}
-
 .men-dropdown-menu,
 .women-dropdown-menu {
   position: absolute;
   width: 400px;
-  left: -160px;
 }
 
 .nav-dropdown-list {

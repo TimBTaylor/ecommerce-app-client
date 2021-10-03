@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigation } from "../components/Navbar/Navigation";
-import { ProfileUpdate } from "../components/Profile-Update/ProfileUpdate";
+import ProfileUpdate from "../components/Profile-Update/ProfileUpdate";
 
 export const PersonalInfoUpdate = () => {
   return (
