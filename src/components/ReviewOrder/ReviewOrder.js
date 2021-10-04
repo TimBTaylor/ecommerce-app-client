@@ -32,9 +32,12 @@ export const ReviewOrder = () => {
 
   const productsToDisplay = [];
 
-  let productsTotalPrice = 0;
+  let name;
 
-  let name = usersAddresses[addressIndex].name;
+  let productsTotalPrice = 0;
+  if (usersAddresses.length > 0) {
+    name = usersAddresses[addressIndex].name;
+  }
 
   let itemsQuantity = 0;
 

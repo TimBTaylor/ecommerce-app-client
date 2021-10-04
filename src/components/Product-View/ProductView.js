@@ -27,6 +27,8 @@ export const ProductView = () => {
 
   const wishlist = useSelector((state) => state.userInfoReducer.wishlist);
 
+  const guest = useSelector((state) => state.userInfoReducer.guest);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const userId = localStorage.getItem("userId");
@@ -91,7 +93,11 @@ export const ProductView = () => {
 
   while (mayAlsoLikeProduct.length <= 3) {
     const randomIndex = Math.floor(Math.random() * listOfSameGender.length);
-    mayAlsoLikeProduct.push(listOfSameGender[randomIndex]);
+    if (mayAlsoLikeProduct.includes(listOfSameGender[randomIndex])) {
+      return null;
+    } else {
+      mayAlsoLikeProduct.push(listOfSameGender[randomIndex]);
+    }
   }
 
   //setting product rating
@@ -146,7 +152,6 @@ export const ProductView = () => {
 
   const addProductToCart = () => {
     if (productSize !== undefined && productSize !== "SIZE") {
-      const guest = localStorage.getItem("guest");
       if (guest) {
         let currentProduct = {
           productId,
@@ -173,7 +178,6 @@ export const ProductView = () => {
 
   const addProductToWishlist = () => {
     if (productSize !== undefined && productSize !== "SIZE") {
-      const guest = localStorage.getItem("guest");
       if (guest) {
         let currentProduct = {
           productId,
