@@ -10,6 +10,7 @@ export const Cart = () => {
   const allProducts = useSelector((state) => state.productReducer.data);
 
   const usersCart = useSelector((state) => state.userInfoReducer.cart);
+  const guest = useSelector((state) => state.userInfoReducer.guest);
 
   const productsToDisplay = [];
 
@@ -48,10 +49,8 @@ export const Cart = () => {
 
   const history = useHistory();
 
-  const name = localStorage.getItem("firstName");
-
   const routeToPage = () => {
-    if (name === null) {
+    if (guest === null) {
       history.push("/login");
     } else {
       history.push("/review-order");

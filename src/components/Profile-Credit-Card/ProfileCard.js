@@ -148,9 +148,11 @@ export const ProfileCard = () => {
                 <h1 className="card-content-title">card information</h1>
                 <hr className="linebreak" />
               </div>
-              {usersCards.map((card) => {
-                return <ProfileCardCard card={card} key={card._id} />;
-              })}
+              {usersCards.length > 0
+                ? usersCards.map((card) => {
+                    return <ProfileCardCard card={card} key={card._id} />;
+                  })
+                : ""}
               <div className="card-content-button-container">
                 <button
                   className="card-content-add-card-button"

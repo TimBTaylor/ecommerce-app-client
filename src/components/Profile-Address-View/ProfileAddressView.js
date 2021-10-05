@@ -170,11 +170,13 @@ export const ProfileAddressView = () => {
                 <h1 className="address-content-title">addresses</h1>
                 <hr className="linebreak" />
               </div>
-              {usersAddress.map((address) => {
-                return (
-                  <ProfileAddressCard key={address._id} address={address} />
-                );
-              })}
+              {usersAddress.length > 0
+                ? usersAddress.map((address) => {
+                    return (
+                      <ProfileAddressCard key={address._id} address={address} />
+                    );
+                  })
+                : ""}
               <div className="address-content-button-container">
                 <button
                   className="address-content-add-address-button"

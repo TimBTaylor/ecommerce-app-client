@@ -32,9 +32,12 @@ export const ReviewOrder = () => {
 
   const productsToDisplay = [];
 
-  let productsTotalPrice = 0;
+  let name;
 
-  let name = usersAddresses[addressIndex].name;
+  let productsTotalPrice = 0;
+  if (usersAddresses.length > 0) {
+    name = usersAddresses[addressIndex].name;
+  }
 
   let itemsQuantity = 0;
 
@@ -98,7 +101,7 @@ export const ReviewOrder = () => {
       <div className="container">
         <nav className="navbar fixed-top navbar-expand-md navbar-light bg-light review-order-nav">
           <Link className="navbar-brand" to="/home">
-            Timazon <img src={shoppingcart} alt="shopping cart" />{" "}
+            T's <img src={shoppingcart} alt="shopping cart" />{" "}
           </Link>
           <div className="navbar-items-container ml-auto">
             <ul className="navbar-nav-list">

@@ -187,6 +187,7 @@ export const ProductCardModal = (props) => {
                     <div className="quickshop-price-size-container">
                       <div className="quickshop-size-container">
                         <select
+                          defaultValue="Size"
                           className={
                             sizeInvalid
                               ? "form-select quickshop-sizes invalid"
@@ -197,9 +198,6 @@ export const ProductCardModal = (props) => {
                             setProductSize(e.target.value);
                           }}
                         >
-                          <option disabled selected>
-                            SIZE
-                          </option>
                           {sizes.map((size) => {
                             return (
                               <option value={size} key={size}>

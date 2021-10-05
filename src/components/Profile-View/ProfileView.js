@@ -12,10 +12,10 @@ import { removeUser } from "../../actions/removeUser";
 import "./ProfileView.css";
 
 export const ProfileView = () => {
-  const usersFullName =
-    localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+  const firstName = useSelector((state) => state.userInfoReducer.firstName);
+  const lastName = useSelector((state) => state.userInfoReducer.lastName);
+  const usersFullName = firstName + "" + lastName;
   const guest = useSelector((state) => state.userInfoReducer.guest);
-  const userEmail = useSelector((state) => state.userInfoReducer.email);
   const userId = useSelector((state) => state.userInfoReducer._id);
   const dispatch = useDispatch();
 
@@ -121,7 +121,14 @@ export const ProfileView = () => {
             </ul>
           </div>
           <div className="delete-logout">
-            {userEmail ? (
+            {guest ? (
+              <button
+                className={guest ? "logout-account" : "d-none"}
+                onClick={() => history.push("/login")}
+              >
+                Login
+              </button>
+            ) : (
               <>
                 <button
                   className="delete-account"
@@ -134,13 +141,6 @@ export const ProfileView = () => {
                   Logout
                 </button>
               </>
-            ) : (
-              <button
-                className={guest ? "logout-account" : "d-none"}
-                onClick={() => history.push("/login")}
-              >
-                Login
-              </button>
             )}
           </div>
         </div>
