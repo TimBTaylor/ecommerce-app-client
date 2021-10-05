@@ -50,7 +50,7 @@ export const Cart = () => {
   const history = useHistory();
 
   const routeToPage = () => {
-    if (guest === true) {
+    if (guest === null) {
       history.push("/login");
     } else {
       history.push("/review-order");

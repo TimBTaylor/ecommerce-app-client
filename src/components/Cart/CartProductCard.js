@@ -15,6 +15,8 @@ export const CartProductCard = (props) => {
 
   const usersCart = useSelector((state) => state.userInfoReducer.cart);
 
+  const guest = useSelector((state) => state.userInfoReducer.guest);
+
   const [productQuantity, setProductQuantity] = useState(product.quantity);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -47,7 +49,6 @@ export const CartProductCard = (props) => {
   };
 
   const removingFromCart = () => {
-    const guest = localStorage.getItem("guest");
     if (guest) {
       let newCart = usersCart;
       newCart = newCart.filter((product) => {

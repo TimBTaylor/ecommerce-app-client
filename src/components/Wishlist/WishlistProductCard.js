@@ -14,6 +14,8 @@ export const WishlistProductCard = (props) => {
 
   const usersWishlist = useSelector((state) => state.userInfoReducer.wishlist);
 
+  const guest = useSelector((state) => state.userInfoReducer.guest);
+
   const increaseProductQuantity = () => {
     setProductQuantity(productQuantity + 1);
   };
@@ -37,7 +39,6 @@ export const WishlistProductCard = (props) => {
   };
 
   const removingFromWishlist = () => {
-    const guest = localStorage.getItem("guest");
     if (guest) {
       let newWishlist = usersWishlist;
       newWishlist = newWishlist.filter((product) => {

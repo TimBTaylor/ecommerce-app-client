@@ -155,6 +155,11 @@
     margin-left: 0;
     align-items: center;
   }
+
+  .wishlist-product-title {
+    text-align: center;
+  }
+
   .wishlist-buttons-container {
     flex-direction: column;
     align-items: center;
@@ -163,7 +168,7 @@
   }
 
   .wishlist-product-edit-and-remove {
-    margin-left: 0;
+    margin-right: 0;
   }
 
   .wishlist-quantity-add-container {
@@ -182,5 +187,6 @@
   .wishlist-quantity-add-container {
     align-self: center;
     margin-top: 30px;
+    margin-left: 25px;
   }
 }

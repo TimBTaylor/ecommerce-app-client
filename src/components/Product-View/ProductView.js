@@ -205,11 +205,11 @@ export const ProductView = () => {
   };
 
   const routeToProductview = (currentDisplayedId) => {
+    console.log(productToDisplay.title);
     dispatch({
       type: "SET_PRODUCT_VIEW",
       payload: currentDisplayedId,
     });
-    history.push("/product-view");
   };
 
   const settingProductReview = () => {
@@ -295,13 +295,13 @@ export const ProductView = () => {
                   }
                 >
                   <select
+                    defaultValue="size"
                     className="form-select checkout-select"
                     aria-label="Default select example"
                     onChange={(e) => {
                       setProductSize(e.target.value);
                     }}
                   >
-                    <option defaultValue>SIZE</option>
                     {productToDisplay.sizes.map((size) => {
                       return (
                         <option value={size} key={size}>

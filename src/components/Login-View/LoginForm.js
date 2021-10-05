@@ -19,8 +19,9 @@ const LoginForm = (props) => {
   const dispatch = useDispatch();
 
   const LogIn = () => {
+    let lowercaseEmail = email.toLowerCase();
     const userInfo = {
-      email,
+      email: lowercaseEmail,
       password,
     };
 

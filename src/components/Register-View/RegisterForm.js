@@ -30,10 +30,11 @@ const RegisterForm = (props) => {
     setEmailValid(true);
     setPasswordValid(true);
     setMatch(true);
+    let lowercaseEmail = email.toLowerCase();
     const userInfo = {
       firstName,
       lastName,
-      email,
+      email: lowercaseEmail,
       password,
     };
     const emailRegex = /\S+@\S+\.\S+/;
