@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import shoppingcart from "../Navbar/shopping-cart.svg";
 import { IoCartOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
@@ -14,6 +14,7 @@ import "./ReviewOrder.css";
 
 export const ReviewOrder = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [shippingCost, setShippingCost] = useState(5);
 
@@ -83,8 +84,13 @@ export const ReviewOrder = () => {
 
   let total = salesTax + productsTotalPrice + shippingCost;
 
-  let fullCardNumber = usersCards[cardIndex].cardNumber;
-  let shortenCardNumber = fullCardNumber.slice(fullCardNumber.length - 4);
+  let fullCardNumber;
+  let shortenCardNumber;
+
+  if (usersCards.length > 0) {
+    fullCardNumber = usersCards[cardIndex].cardNumber;
+    shortenCardNumber = fullCardNumber.slice(fullCardNumber.length - 4);
+  }
 
   let orderInformation = {
     products: productsToDisplay,
@@ -135,18 +141,24 @@ export const ReviewOrder = () => {
                     Edit
                   </button>
                 </div>
-                <h1 className="shipping-name">
-                  {usersAddresses[addressIndex].name}
-                </h1>
-                <h1 className="shipping-address">
-                  {usersAddresses[addressIndex].streetAddress}
-                </h1>
-                <h1 className="shipping-city-state-zip">
-                  {usersAddresses[addressIndex].city},{" "}
-                  {usersAddresses[addressIndex].state}{" "}
-                  {usersAddresses[addressIndex].zipcode}
-                </h1>
-                <h1 className="shipping-country">United States</h1>
+                {usersAddresses.length > 0 ? (
+                  <>
+                    <h1 className="shipping-name">
+                      {usersAddresses[addressIndex].name}
+                    </h1>
+                    <h1 className="shipping-address">
+                      {usersAddresses[addressIndex].streetAddress}
+                    </h1>
+                    <h1 className="shipping-city-state-zip">
+                      {usersAddresses[addressIndex].city},{" "}
+                      {usersAddresses[addressIndex].state}{" "}
+                      {usersAddresses[addressIndex].zipcode}
+                    </h1>
+                    <h1 className="shipping-country">United States</h1>
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="shipping-method-container">
                 <div className="shipping-method-title-container">
@@ -222,16 +234,22 @@ export const ReviewOrder = () => {
                   Edit
                 </button>
               </div>
-              <h1 className="payment-card">Credit Card</h1>
-              <h1 className="payment-card-name">
-                {usersCards[cardIndex].name}
-              </h1>
-              <h1 className="payment-card-number">
-                ************{shortenCardNumber}
-              </h1>
-              <h1 className="payment-card-expires">
-                {usersCards[cardIndex].expires}
-              </h1>
+              {usersCards.length > 0 ? (
+                <>
+                  <h1 className="payment-card">Credit Card</h1>
+                  <h1 className="payment-card-name">
+                    {usersCards[cardIndex].name}
+                  </h1>
+                  <h1 className="payment-card-expires">
+                    {usersCards[cardIndex].expiration}
+                  </h1>
+                  <h1 className="payment-card-number">
+                    ************{shortenCardNumber}
+                  </h1>
+                </>
+              ) : (
+                ""
+              )}
             </div>
             <div className="review-order-products">
               <div className="review-order-products-title-container">
@@ -376,14 +394,12 @@ export const ReviewOrder = () => {
                         setAddressIndex(usersAddresses.indexOf(address))
                       }
                     >
-                      <p className="users-address-modal-name">
-                        {address.fName} {address.lName}
-                      </p>
+                      <p className="users-address-modal-name">{address.name}</p>
                       <p className="users-address-modal-address">
-                        {address.Address}
+                        {address.streetAddress}
                       </p>
                       <p className="users-address-modal-city-state-zip">
-                        {address.City}, {address.State} {address.ZIP}
+                        {address.city}, {address.state} {address.zipcode}
                       </p>
                       <p className="users-address-modal-country">
                         United States
@@ -402,18 +418,23 @@ export const ReviewOrder = () => {
                   );
                 })}
               </div>
-              <div className="users-address-modal-sidebar">
-                <NavLink
+              <div className="users-address-modal-sidebar" data-dismiss="modal">
+                <button
                   className="users-address-modal-side-navlink"
-                  to="/profile-address"
+                  onClick={() => history.push("/profile-address")}
+                  data-dismiss="modal"
                 >
                   <MdKeyboardArrowRight className="users-address-modal-arrow-right" />
                   Add a new shipping address
-                </NavLink>
-                <NavLink to="/profile-address">
+                </button>
+                <button
+                  className="users-address-modal-side-navlink"
+                  onClick={() => history.push("/profile-address")}
+                  data-dismiss="modal"
+                >
                   <MdKeyboardArrowRight className="users-address-modal-arrow-right" />
                   Edit or delete addresses
-                </NavLink>
+                </button>
               </div>
             </div>
           </div>
@@ -458,10 +479,12 @@ export const ReviewOrder = () => {
                       onClick={() => setCardIndex(usersCards.indexOf(card))}
                     >
                       <p className="users-card-modal-name">{card.name}</p>
+                      <p className="users-card-modal-expires">
+                        {card.expiration}
+                      </p>
                       <p className="users-card-modal-number">
                         ************{shortenCardNumber}
                       </p>
-                      <p className="users-card-modal-expires">{card.expires}</p>
                       {usersCards.indexOf(card) === cardIndex ? (
                         <button className="users-card-modal-current-card">
                           <BsCheckCircle className="users-card-modal-check" />{" "}
@@ -477,17 +500,22 @@ export const ReviewOrder = () => {
                 })}
               </div>
               <div className="users-card-modal-sidebar">
-                <NavLink
+                <button
+                  onClick={() => history.push("/profile-card")}
                   className="users-card-modal-side-navlink"
-                  to="/profile-card"
+                  data-dismiss="modal"
                 >
                   <MdKeyboardArrowRight className="users-card-modal-arrow-right" />
                   Add a new card
-                </NavLink>
-                <NavLink to="/profile-card">
+                </button>
+                <button
+                  className="users-card-modal-side-navlink"
+                  onClick={() => history.push("/profile-card")}
+                  data-dismiss="modal"
+                >
                   <MdKeyboardArrowRight className="users-card-modal-arrow-right" />
                   Edit or delete cards
-                </NavLink>
+                </button>
               </div>
             </div>
           </div>

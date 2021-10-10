@@ -16,7 +16,7 @@ import { IoPersonCircle } from "react-icons/io5";
 import "./ProductView.css";
 
 export const ProductView = () => {
-  const [productSize, setProductSize] = useState();
+  const [productSize, setProductSize] = useState("Extra Small");
   const [productQuantity, setProductQuantity] = useState(1);
   const [sizeInvalid, setSizeInvalid] = useState(false);
   const [addedToCart, setAddedToCart] = useState();
@@ -205,7 +205,6 @@ export const ProductView = () => {
   };
 
   const routeToProductview = (currentDisplayedId) => {
-    console.log(productToDisplay.title);
     dispatch({
       type: "SET_PRODUCT_VIEW",
       payload: currentDisplayedId,

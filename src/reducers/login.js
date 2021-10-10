@@ -16,6 +16,11 @@ const loginReducer = (state = initialState, action) => {
         loading: true,
         error: null,
       };
+    case "LOGIN_GUEST_REQUEST_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+      };
     case "LOGIN_SUCCESS":
       return {
         ...state,

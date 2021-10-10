@@ -351,6 +351,14 @@
 .users-address-modal-side-navlink,
 .users-card-modal-side-navlink {
   margin-bottom: 8px;
+  background: none;
+  border: none;
+  color: blue;
+}
+
+.users-address-modal-side-navlink:hover,
+.users-card-modal-side-navlink:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 500px) {

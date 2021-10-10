@@ -61,6 +61,7 @@ export const ProductCardModal = (props) => {
     if (product.sizes !== undefined) {
       settingTitle(productTitle);
     }
+    setProductSize();
     setModalView(true);
   }, [product.sizes, productTitle]);
 
@@ -229,9 +230,9 @@ export const ProductCardModal = (props) => {
                       onClick={() => {
                         addProductToCart();
                       }}
-                      data-dismiss="modal"
+                      data-dismiss={productSize === undefined ? "" : "modal"}
                       data-target="#productAddedModal"
-                      data-toggle="modal"
+                      data-toggle={productSize === undefined ? "" : "modal"}
                     >
                       <p className="quickshop-add-to-cart">ADD TO CART</p>
                       <IoCartOutline className="quickshop-cart-icon" />
@@ -242,8 +243,8 @@ export const ProductCardModal = (props) => {
                         addProductToWishlist();
                       }}
                       data-target="#productAddedModal"
-                      data-dismiss="modal"
-                      data-toggle="modal"
+                      data-dismiss={productSize === undefined ? "" : "modal"}
+                      data-toggle={productSize === undefined ? "" : "modal"}
                     >
                       <p className="quickshop-add-to-wishlist">
                         ADD TO WISH LIST

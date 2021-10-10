@@ -32,8 +32,15 @@ const LoginForm = (props) => {
   };
 
   const continueAsGuest = () => {
+    dispatch({
+      type: "LOGIN_REQUEST",
+    });
     const userGuest = true;
-    dispatch(product(userGuest, props));
+    dispatch(product(userGuest, props)).then(() =>
+      dispatch({
+        type: "LOGIN_GUEST_REQUEST_SUCCESS",
+      })
+    );
   };
 
   return (
