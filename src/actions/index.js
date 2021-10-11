@@ -41,8 +41,8 @@ export const login = (userInfo, props) => async (dispatch) => {
         });
         localStorage.setItem("firstName", response.data.user.firstName);
         localStorage.setItem("lastName", response.data.user.lastName);
+        localStorage.setItem("password", response.data.user.password);
         localStorage.setItem("email", response.data.user.email);
-        localStorage.setItem("cart", response.data.user.cart);
         localStorage.setItem("userId", response.data.user._id);
         localStorage.setItem("token", response.data.token);
         dispatch({

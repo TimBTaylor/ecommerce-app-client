@@ -118,10 +118,12 @@ export const product = (guest, props) => async (dispatch) => {
       getBrands(productsWithSizes);
     });
     if (guest) {
+      dispatch({
+        type: "LOGIN_GUEST_REQUEST_SUCCESS",
+      });
       props.history.push("/home");
     }
   } catch (error) {
-    console.error(error);
     dispatch({
       type: "PRODUCTS_FAILURE",
       error,

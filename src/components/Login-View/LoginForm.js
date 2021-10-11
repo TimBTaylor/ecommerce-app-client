@@ -25,7 +25,7 @@ const LoginForm = (props) => {
       password,
     };
 
-    dispatch(login(userInfo, props)).then(() => {
+    dispatch(login(userInfo, props, true)).then(() => {
       const userGuest = false;
       dispatch(product(userGuest, props));
     });
@@ -36,11 +36,7 @@ const LoginForm = (props) => {
       type: "LOGIN_REQUEST",
     });
     const userGuest = true;
-    dispatch(product(userGuest, props)).then(() =>
-      dispatch({
-        type: "LOGIN_GUEST_REQUEST_SUCCESS",
-      })
-    );
+    dispatch(product(userGuest, props));
   };
 
   return (
