@@ -2,17 +2,21 @@ import "./App.css";
 import { MainView } from "./pages/MainView";
 import { Footer } from "./components/Footer/Footer";
 import { Provider } from "react-redux";
-import store from "./store";
+import { PersistGate } from "redux-persist/integration/react";
+
+import { store, persistor } from "./store";
 
 function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <div className="page-container">
-          <div className="content-wrap">
-            <MainView />
+        <PersistGate loading={null} persistor={persistor}>
+          <div className="page-container">
+            <div className="content-wrap">
+              <MainView />
+            </div>
           </div>
-        </div>
+        </PersistGate>
       </Provider>
       <Footer />
     </div>
