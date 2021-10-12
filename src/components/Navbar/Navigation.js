@@ -108,6 +108,34 @@ export const Navigation = () => {
       } catch (error) {
         console.error(error);
       }
+    } else if (typeOfInput === "onSale") {
+      byGenderProducts.map((product) => {
+        if (product.salePrice > 0) {
+          filteredProducts.push(product);
+        }
+        return filteredProducts;
+      });
+
+      try {
+        dispatch({
+          type: "SET_CURRENT_VIEW",
+          payload: view,
+        });
+        dispatch({
+          type: "PRODUCTS_FILTERED",
+          payload: filteredProducts,
+        });
+        dispatch({
+          type: "PRODUCTS_FILTERED_UNTOUCHED",
+          payload: filteredProducts,
+        });
+        dispatch({
+          type: "PRODUCTS_FILTERED_SUCCESS",
+        });
+        getBrands(filteredProducts);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       //fitlers the gendered products by the type
       byGenderProducts.map((product) => {
@@ -205,6 +233,40 @@ export const Navigation = () => {
     }
   };
 
+  const viewOnSale = () => {
+    dispatch({
+      type: "PRODUCTS_FILTERED_REQUESTED",
+    });
+    const allOnSale = [];
+    productsList.map((product) => {
+      if (product.salePrice > 0) {
+        allOnSale.push(product);
+      }
+      return allOnSale;
+    });
+
+    try {
+      dispatch({
+        type: "SET_CURRENT_VIEW",
+        payload: "On Sale",
+      });
+      dispatch({
+        type: "PRODUCTS_FILTERED",
+        payload: allOnSale,
+      });
+      dispatch({
+        type: "PRODUCTS_FILTERED_UNTOUCHED",
+        payload: allOnSale,
+      });
+      dispatch({
+        type: "PRODUCTS_FILTERED_SUCCESS",
+      });
+      getBrands(allOnSale);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div
@@ -294,9 +356,14 @@ export const Navigation = () => {
             </Link>
           </li>
           <li className="intro-list-item">
-            <Link to="/products">
-              <button className="category-item btn shadow-none">ON SALE</button>
-            </Link>
+            <NavLink to="/products">
+              <button
+                className="category-item btn shadow-none"
+                onClick={() => viewOnSale()}
+              >
+                ON SALE
+              </button>
+            </NavLink>
           </li>
           <li className="intro-list-item" onClick={(e) => e.preventDefault}>
             <div className="dropdown men-dropdown">
@@ -321,9 +388,8 @@ export const Navigation = () => {
                       <button
                         type="button"
                         className="nav-dropdown-button shadow-none"
-                        onClick={(e) => {
+                        onClick={() => {
                           filterByInput("male", "all", "Men's");
-                          e.preventDefault();
                         }}
                       >
                         All
@@ -411,7 +477,16 @@ export const Navigation = () => {
                     </NavLink>
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
-                    <button className="nav-dropdown-button">On sale</button>
+                    <NavLink to="/products">
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("male", "onSale", "Men's On Sale")
+                        }
+                      >
+                        On Sale
+                      </button>
+                    </NavLink>
                   </li>
                 </ul>
               </div>
@@ -529,7 +604,14 @@ export const Navigation = () => {
                   </li>
                   <li className="dropdown-item nav-dropdown-item">
                     <NavLink to="/products">
-                      <button className="nav-dropdown-button">On sale</button>
+                      <button
+                        className="nav-dropdown-button"
+                        onClick={() =>
+                          filterByInput("female", "onSale", "Women's On Sale")
+                        }
+                      >
+                        On Sale
+                      </button>
                     </NavLink>
                   </li>
                 </ul>

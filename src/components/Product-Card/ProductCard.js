@@ -108,7 +108,18 @@ export const ProductCard = (props) => {
             {title}
           </Card.Title>
           <Card.Text className="card-text-rating">{rating}</Card.Text>
-          <Card.Text className="card-text-price">${product.price}</Card.Text>
+          {product.salePrice > 0 ? (
+            <>
+              <Card.Text className="card-text-price-prev">
+                ${product.price}
+              </Card.Text>
+              <Card.Text className="card-text-price-on-sale">
+                ${product.salePrice}
+              </Card.Text>
+            </>
+          ) : (
+            <Card.Text className="card-text-price">${product.price}</Card.Text>
+          )}
         </Card.Body>
       </Card>
     </>

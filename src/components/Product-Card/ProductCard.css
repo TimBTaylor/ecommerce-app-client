@@ -62,6 +62,16 @@
   color: #f3a842;
 }
 
+.card-text-price-prev {
+  text-decoration: line-through;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.card-text-price-on-sale {
+  color: #b60000;
+}
+
 .quickview-container {
   z-index: 100;
 }
