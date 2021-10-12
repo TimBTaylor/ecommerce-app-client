@@ -74,10 +74,16 @@ export const ProductCard = (props) => {
     width: "150px",
   };
 
+  const cardImgRoute = () => {
+    if (window.innerWidth <= 500) {
+      routeToProductview();
+    }
+  };
+
   return (
     <>
       <Card className="product-card">
-        <div className="image">
+        <div className="image" onClick={() => cardImgRoute()}>
           <Card.Img
             className="product-img d-block mx-auto"
             variant="top"
