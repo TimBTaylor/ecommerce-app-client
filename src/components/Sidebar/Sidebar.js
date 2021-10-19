@@ -39,6 +39,7 @@ export const Sidebar = () => {
     setPriceView(!priceView);
   };
 
+  //filters by brand
   const filteredByBrand = (event, brand) => {
     const element = document.getElementById(event.target.id);
 
@@ -148,6 +149,7 @@ export const Sidebar = () => {
     }
   };
 
+  // filters by price
   const filteredByPrice = (event, priceLow, priceHigh) => {
     setPriceChecked(true);
     setLowPrice(priceLow);

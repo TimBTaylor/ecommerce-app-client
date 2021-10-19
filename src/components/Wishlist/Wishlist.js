@@ -11,6 +11,7 @@ export const Wishlist = () => {
 
   const productsToDisplay = [];
 
+  //gets items in users wishlist from all products
   usersWishlist.map((entry) => {
     allProduct.map((product) => {
       const currentProduct = {};

@@ -14,6 +14,7 @@ export const LandingPage = () => {
 
   const dispatch = useDispatch();
 
+  //filters all products by their gender
   const filterByGender = (gender, view) => {
     const productsByGender = allProducts.filter((product) => {
       return product.gender === gender;

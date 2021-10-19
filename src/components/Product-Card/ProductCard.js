@@ -12,14 +12,13 @@ export const ProductCard = (props) => {
   const [title, setTitle] = useState("");
   const product = props.product;
 
-  // const cart = useSelector((state) => state.userInfoReducer.cart);
-
   const dispatch = useDispatch();
   const history = useHistory();
 
   const productTitle = product.title;
   const productReviews = product.reviews;
 
+  // sets rating of current product
   const settingRating = (reviews) => {
     const listofRatings = reviews.map((rating) => {
       return rating.rating;
@@ -40,6 +39,7 @@ export const ProductCard = (props) => {
     setRating(starRating);
   };
 
+  // sets the title of current product
   const settingTitle = (title) => {
     if (title.length > 60) {
       const newTitle = title.substring(0, 60);
@@ -74,6 +74,7 @@ export const ProductCard = (props) => {
     width: "150px",
   };
 
+  // on smaller screens images a clickable to route to product view page
   const cardImgRoute = () => {
     if (window.innerWidth <= 500) {
       routeToProductview();

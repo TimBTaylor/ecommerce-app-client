@@ -36,6 +36,7 @@ export const ProductCardModal = (props) => {
 
   const mayAlsoLike = [];
 
+  //sets mayAlsoLike list in modal
   allProducts.map((products) => {
     if (
       products.type === productType &&

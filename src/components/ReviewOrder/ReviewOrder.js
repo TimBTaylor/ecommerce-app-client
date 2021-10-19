@@ -51,6 +51,7 @@ export const ReviewOrder = () => {
   let curr_year = newDate.getFullYear();
   let date = curr_month + "/" + curr_date + "/" + curr_year;
 
+  //gets current items in users cart from all products
   usersCart.map((entry) => {
     allProducts.map((product) => {
       const currentProduct = {};
@@ -87,6 +88,7 @@ export const ReviewOrder = () => {
   let fullCardNumber;
   let shortenCardNumber;
 
+  // shortens users card length
   if (usersCards.length > 0) {
     fullCardNumber = usersCards[cardIndex].cardNumber;
     shortenCardNumber = fullCardNumber.slice(fullCardNumber.length - 4);

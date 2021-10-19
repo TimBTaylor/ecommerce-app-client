@@ -34,6 +34,7 @@ export const OrderCard = (props) => {
 
   const productsToDisplay = [];
 
+  //gets products in current order to display
   orderProducts.map((entry) => {
     allProducts.map((product) => {
       const currentProduct = {};
@@ -52,6 +53,7 @@ export const OrderCard = (props) => {
     return productsToDisplay;
   });
 
+  // routes user to product view page
   const routeToProductview = (id) => {
     dispatch({
       type: "SET_PRODUCT_VIEW",
@@ -60,6 +62,7 @@ export const OrderCard = (props) => {
     history.push("/product-view");
   };
 
+  // routes user to product review
   const routeToProductReview = (id) => {
     dispatch({
       type: "SET_CURRENT_PRODUCT_REVIEW",

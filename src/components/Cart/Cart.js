@@ -16,6 +16,7 @@ export const Cart = () => {
 
   let productsTotalPrice = 0;
 
+  // retrieving items in users cart and pulling them from all items
   usersCart.map((entry) => {
     allProducts.map((product) => {
       const currentProduct = {};
@@ -49,6 +50,7 @@ export const Cart = () => {
 
   const history = useHistory();
 
+  // routes to login if user is guest, otherwise routes to review order page
   const routeToPage = () => {
     if (guest === true) {
       history.push("/login");

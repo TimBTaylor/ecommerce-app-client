@@ -24,6 +24,7 @@ const RegisterForm = (props) => {
 
   const emailTaken = useSelector((state) => state.registerReducer.emailTaken);
 
+  // registering user
   const registerUser = () => {
     setFirstNameValid(true);
     setLastNameValid(true);

@@ -28,6 +28,7 @@ export const ProductReview = () => {
 
   let name;
 
+  // sets title and current product
   allProducts.map((product) => {
     if (product._id === currentProduct) {
       productToDisplay = product;
