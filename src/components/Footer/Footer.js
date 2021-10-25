@@ -49,7 +49,7 @@ export const Footer = () => {
               </div>
               <div className="media">
                 <a
-                  href="https://timbtaylor.github.io/personal-portfolio/"
+                  href="https://www.timbtaylor.com/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -57,7 +57,7 @@ export const Footer = () => {
                 </a>
                 <a
                   className="social-media"
-                  href="https://timbtaylor.github.io/personal-portfolio/"
+                  href="https://www.timbtaylor.com/"
                   target="_blank"
                   rel="noreferrer"
                 >
